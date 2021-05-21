@@ -2413,6 +2413,66 @@ const Program = () => {
         )
       })
     }
+    //-yeni kapak çizimleri-------
+
+    function YeniKapak() {
+      /* const [colorMap, displacementMap, normalMap, roughnessMap, aoMap] = useTexture([
+        'WoodQuarteredChiffon001_COL_3K_1.jpg',
+        'PavingStones092_1K_Displacement.jpg',
+        'n1kapak.png',
+        'PavingStones092_1K_Roughness.jpg',
+        'PavingStones092_1K_AmbientOcclusion.jpg',
+      ])
+*/
+      //normalMap ler------------
+      const [sol_ust_kose, sol_duz, sol_alt_kose, ust_duz, orta, alt_duz, sag_ust_kose, sag_duz, sag_alt_kose] = useTexture([
+        'sol_ust_kose.png',
+        'sol_duz.png',
+        'sol_alt_kose.png',
+        'ust_duz.png',
+        'orta.png',
+        'alt_duz.png',
+        'sag_ust_kose.png',
+        'sag_duz.png',
+        'sag_alt_kose.png',
+      ])
+
+      // console.log('normalMap=', normalMap)
+      const a = mobilya.kapak
+      return a.map((item, index) => {
+        const x0 = item.x0 / u
+        const y0 = item.y0 / u
+        const z0 = item.z0 / u
+        const x = item.x / u
+        const y = item.y / u
+        const z = item.z / u
+        const x1 = x0 - x / 2 + 0.1 / 2
+        const y1 = y0 + y / 2 - 0.1 / 2
+        const y2 = y0
+        const y3 = y0 - y / 2 + 0.1 / 2
+        return (
+          <mesh key={index}>
+            {/* <mesh key={index} visible userData={{ test: 'hello' }} rotation={[0, 0, 0]} position={[x0, y0, z0]} castShadow>
+              <planeBufferGeometry attach='geometry' args={[x, y]} />
+              <meshStandardMaterial attach='material' color='green' transparent roughness={0.1} metalness={0.1} normalMap={normalMap} />
+            </mesh>*/}
+            <mesh visible userData={{ test: 'hello' }} rotation={[0, 0, 0]} position={[x1, y1, z0]} castShadow>
+              <planeBufferGeometry attach='geometry' args={[0.1, 0.1]} />
+              <meshStandardMaterial attach='material' color='green' transparent roughness={0.1} metalness={0.1} normalMap={sol_ust_kose} />
+            </mesh>
+            <mesh visible userData={{ test: 'hello' }} rotation={[0, 0, 0]} position={[x1, y2, z0]} castShadow>
+              <planeBufferGeometry attach='geometry' args={[0.1, y - 0.2]} />
+              <meshStandardMaterial attach='material' color='green' transparent roughness={0.1} metalness={0.1} normalMap={sol_duz} />
+            </mesh>
+            <mesh visible userData={{ test: 'hello' }} rotation={[0, 0, 0]} position={[x1, y3, z0]} castShadow>
+              <planeBufferGeometry attach='geometry' args={[0.1, 0.1]} />
+              <meshStandardMaterial attach='material' color='green' transparent roughness={0.1} metalness={0.1} normalMap={sol_alt_kose} />
+            </mesh>
+          </mesh>
+        )
+      })
+    }
+    //--------------------------------------------
 
     function CekmeceKapak1() {
       const a = mobilya.cekmece_kapak
@@ -2606,6 +2666,7 @@ const Program = () => {
 
             {mobilya.arkalik.dahil && <Arkaliks1 />}
             {/* <Kapaks1 /> */}
+            <YeniKapak />
             <CekmeceKapak1 />
             <KayitEkleDikey1 />
             <KayitEkleYatay1 />
