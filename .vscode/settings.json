@@ -1,0 +1,8 @@
+{
+    "editor.wordWrap": "on",
+    "workbench.preferredLightColorTheme": "Visual Studio Light",
+    "workbench.fontAliasing": "auto",
+    "workbench.preferredDarkColorTheme": "Default Light+",
+    "workbench.preferredHighContrastColorTheme": "Visual Studio Light",
+    "editor.fontSize": 14
+}
