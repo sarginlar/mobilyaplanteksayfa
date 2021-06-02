@@ -12,6 +12,9 @@
 //@Baza
 //@Alt  //@AltTip  //@AltAyarlar
 //@Bolges
+//@dikme_sil
+//@kapak_sil
+//@profilkapak
 //@ScreenDikme  //@DikmeUpdate  //@RafUpdate  //@BolgesUpdate //@kapak
 //@ScreenCabinet
 //@Nest
@@ -71,6 +74,7 @@ import Coordinat from "./components/Coordinat";
 import Kapak from "./components/Kapak";
 import KapakSil from "./components/KapakSil";
 import DikmeSil from "./components/DikmeSil";
+import DikmeEkle from "./components/DikmeEkle";
 import KapakProfil from "./components/KapakProfil";
 import CekmeceKapak from "./components/CekmeceKapak";
 import CekmeceKasa from "./components/CekmeceKasa";
@@ -1260,6 +1264,11 @@ const Program = () => {
   const kapak = () => {
     const sonuc = Kapak(mobilya, secilenBolge, secilen);
     setmobilya({ ...mobilya, ...sonuc });
+    setSecilen({
+      bolge: false,
+      kapak: false,
+      kapak_profil: false,
+    });
     return <div>{/*<button>kapak</button>*/}</div>;
   };
 
@@ -1268,6 +1277,11 @@ const Program = () => {
   const kapak_sil = () => {
     const sonuc = KapakSil(mobilya, secilenKapak, secilenKapakModel);
     setmobilya({ ...mobilya, ...sonuc });
+    setSecilen({
+      bolge: false,
+      kapak: false,
+      kapak_profil: false,
+    });
     return <div>{/*<button>kapak</button>*/}</div>;
   };
 
@@ -1276,6 +1290,13 @@ const Program = () => {
   const dikme_sil = () => {
     const sonuc = DikmeSil(mobilya, secilenDikme, secilen);
     setmobilya({ ...mobilya, ...sonuc });
+    setSecilenBolge(0);
+    setSecilen({
+      bolge: false,
+      kapak: false,
+      kapak_profil: false,
+    });
+
     return <div>{/*<button>kapak</button>*/}</div>;
   };
 
@@ -1285,6 +1306,11 @@ const Program = () => {
   const profilKapak = () => {
     const sonuc = KapakProfil(mobilya, secilenBolge, secilen);
     setmobilya({ ...mobilya, ...sonuc });
+    setSecilen({
+      bolge: false,
+      kapak: false,
+      kapak_profil: false,
+    });
     return <div>{/*<button>kapak_profil</button>*/}</div>;
   };
 
@@ -2419,8 +2445,10 @@ const Program = () => {
         </button>
         <hr />
         <h4>ScreenDikme</h4>
+        {/** //@dikme_ekle */}
         <button
           onClick={() => {
+            /*
             const a = m.bolge[secilenBolge];
             const a1 = {
               dahil: true,
@@ -2442,7 +2470,7 @@ const Program = () => {
             };
             m.bolge[secilenBolge] = a1;
             m.bolge[m.bolge.length] = a2;
-            /*  dikme: [{ dahil: true, tip: 3, name: 'Dikme', material_id: 18, x0: 0, y0: 0, z0: 0, x: 18, y: 1628, z: 600, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 }],*/
+            // dikme: [{ dahil: true, tip: 3, name: 'Dikme', material_id: 18, x0: 0, y0: 0, z0: 0, x: 18, y: 1628, z: 600, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 }],
             let dikme_sayısı = m.dikme.length;
             m.dikme[m.dikme.length] = {
               dahil: true,
@@ -2462,7 +2490,11 @@ const Program = () => {
               yg0: 0,
               yg1: 0,
             };
+*/
+            m = DikmeEkle(mobilya, secilenBolge, secilen);
 
+            console.log("seçilenBölge=", secilenBolge);
+            console.log("seçilen=", secilen);
             setmobilya({ ...mobilya, ...m });
           }}
         >
@@ -2517,26 +2549,31 @@ const Program = () => {
         >
           Raf ekle
         </button>
-        <input
-          type="number"
-          className="girinti"
-          placeholder={mobilya.bolge[secilenBolge].x}
-          id="name"
-          name="name"
-          onChange={(e) => {
-            bolge_x = Number(e.target.value);
-          }}
-        />
-        <input
-          type="number"
-          className="girinti"
-          placeholder={mobilya.bolge[secilenBolge].y}
-          id="name"
-          name="name"
-          onChange={(e) => {
-            bolge_y = Number(e.target.value);
-          }}
-        />
+        {secilen.bolge && (
+          <input
+            type="number"
+            className="girinti"
+            placeholder={mobilya.bolge[secilenBolge].x}
+            id="name"
+            name="name"
+            onChange={(e) => {
+              bolge_x = Number(e.target.value);
+            }}
+          />
+        )}
+
+        {secilen.bolge && (
+          <input
+            type="number"
+            className="girinti"
+            placeholder={mobilya.bolge[secilenBolge].y}
+            id="name"
+            name="name"
+            onChange={(e) => {
+              bolge_y = Number(e.target.value);
+            }}
+          />
+        )}
         <button onClick={kapak}>kapak ekle</button>
         <button onClick={kapak_sil}>kapak sil</button>
         <button onClick={profilKapak}>profil kapak ekle</button>
@@ -2680,6 +2717,7 @@ const Program = () => {
                       kapak_profil: false,
                     });
                     console.log("--seçilen_bölge=", secilenBolge);
+
                     console.warn("onPress ***");
                   }}
                 />
