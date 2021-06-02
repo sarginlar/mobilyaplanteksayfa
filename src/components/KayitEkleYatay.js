@@ -1,12 +1,13 @@
 const KayitEkleYatay = (mobilya, secilenBolge) => {
-  console.log('KayıtEkle Yatay çalıştı')
-  console.log('mobilya==', mobilya, 'secilenBolge=', secilenBolge)
+  console.log("KayıtEkle Yatay çalıştı");
+  console.log("mobilya==", mobilya, "secilenBolge=", secilenBolge);
 
   mobilya.kayit_ekle_yatay[mobilya.kayit_ekle_yatay.length] = {
     dahil: true,
     bolge: secilenBolge,
+    model: 2, //yatay kayıt
     tip: 3,
-    name: 'DikeyKayıt',
+    name: "DikeyKayıt",
     material_id: 18,
     x0: mobilya.bolge[secilenBolge].cx,
     y0: mobilya.bolge[secilenBolge].cy,
@@ -20,8 +21,8 @@ const KayitEkleYatay = (mobilya, secilenBolge) => {
     zg1: 0,
     yg0: 0,
     yg1: 0,
-  }
-  return mobilya
-}
+  };
+  return mobilya;
+};
 
-export default KayitEkleYatay
+export default KayitEkleYatay;
