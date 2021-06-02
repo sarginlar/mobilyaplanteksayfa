@@ -14,6 +14,7 @@
 //@Bolges
 //@dikme_sil
 //@kapak_sil
+//@raf_ekle
 //@profilkapak
 //@ScreenDikme  //@DikmeUpdate  //@RafUpdate  //@BolgesUpdate //@kapak
 //@ScreenCabinet
@@ -75,11 +76,14 @@ import Kapak from "./components/Kapak";
 import KapakSil from "./components/KapakSil";
 import DikmeSil from "./components/DikmeSil";
 import DikmeEkle from "./components/DikmeEkle";
+import RafEkle from "./components/RafEkle";
+import RafSil from "./components/RafSil";
 import KapakProfil from "./components/KapakProfil";
 import CekmeceKapak from "./components/CekmeceKapak";
 import CekmeceKasa from "./components/CekmeceKasa";
 import KayitEkleDikey from "./components/KayitEkleDikey";
 import KayitEkleYatay from "./components/KayitEkleYatay";
+import KayitSil from "./components/KayitSil";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 const initialState_menu = {
   main: false,
@@ -153,6 +157,8 @@ const Program = () => {
   const [secilenRaf, setSecilenRaf] = useState(0);
   const [secilenDikme, setSecilenDikme] = useState(0);
   const [secilenKapak, setSecilenKapak] = useState(0);
+  const [secilenKayit, setSecilenKayit] = useState(0);
+  const [secilenKayitModel, setSecilenKayitModel] = useState(0);
   const [secilenKapakModel, setSecilenKapakModel] = useState(0);
   const [secilenCekmeceKapak, setSecilenCekmeceKapak] = useState(0);
   const [secilenCekmeceKasa, setSecilenCekmeceKasa] = useState(0);
@@ -1289,6 +1295,35 @@ const Program = () => {
   //@dikme_sil----------------------------------------------
   const dikme_sil = () => {
     const sonuc = DikmeSil(mobilya, secilenDikme, secilen);
+    setmobilya({ ...mobilya, ...sonuc });
+    setSecilenBolge(0);
+    setSecilen({
+      bolge: false,
+      kapak: false,
+      kapak_profil: false,
+    });
+
+    return <div>{/*<button>kapak</button>*/}</div>;
+  };
+
+  //@raf_sil----------------------------------------------
+  const raf_sil = () => {
+    const sonuc = RafSil(mobilya, secilenRaf, secilen);
+    setmobilya({ ...mobilya, ...sonuc });
+    setSecilenBolge(0);
+    setSecilen({
+      bolge: false,
+      kapak: false,
+      kapak_profil: false,
+    });
+
+    return <div>{/*<button>kapak</button>*/}</div>;
+  };
+
+  //-----------------------------------------------------
+  //@kayit_sil----------------------------------------------
+  const kayit_sil = () => {
+    const sonuc = KayitSil(mobilya, secilenKayit, secilenKayitModel);
     setmobilya({ ...mobilya, ...sonuc });
     setSecilenBolge(0);
     setSecilen({
@@ -2445,54 +2480,10 @@ const Program = () => {
         </button>
         <hr />
         <h4>ScreenDikme</h4>
-        {/** //@dikme_ekle */}
+        {/** //@dikme_ekle **************************/}
         <button
           onClick={() => {
-            /*
-            const a = m.bolge[secilenBolge];
-            const a1 = {
-              dahil: true,
-              tip: 3,
-              name: "Bolge",
-              cx: a.cx - (a.x + 18) / 4,
-              cy: a.cy,
-              x: (a.x - 18) / 2,
-              y: a.y,
-            };
-            const a2 = {
-              dahil: true,
-              tip: 3,
-              name: "Bolge",
-              cx: a.cx + (a.x + 18) / 4,
-              cy: a.cy,
-              x: (a.x - 18) / 2,
-              y: a.y,
-            };
-            m.bolge[secilenBolge] = a1;
-            m.bolge[m.bolge.length] = a2;
-            // dikme: [{ dahil: true, tip: 3, name: 'Dikme', material_id: 18, x0: 0, y0: 0, z0: 0, x: 18, y: 1628, z: 600, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 }],
-            let dikme_sayısı = m.dikme.length;
-            m.dikme[m.dikme.length] = {
-              dahil: true,
-              tip: 3,
-              name: "Dikme",
-              material_id: 18,
-              x0: a.cx,
-              y0: a.cy,
-              z0: 0,
-              x: 18,
-              y: a.y,
-              z: 600,
-              xg0: 0,
-              xg1: 0,
-              zg0: 0,
-              zg1: 0,
-              yg0: 0,
-              yg1: 0,
-            };
-*/
             m = DikmeEkle(mobilya, secilenBolge, secilen);
-
             console.log("seçilenBölge=", secilenBolge);
             console.log("seçilen=", secilen);
             setmobilya({ ...mobilya, ...m });
@@ -2500,50 +2491,12 @@ const Program = () => {
         >
           dikme ekle
         </button>
+        {/** //@raf_ekle ***************************/}
         <button
           onClick={() => {
-            const a = m.bolge[secilenBolge];
-            const a1 = {
-              dahil: true,
-              tip: 3,
-              name: "Bolge",
-              cx: a.cx,
-              cy: a.cy - (a.y + 18) / 4,
-              x: a.x,
-              y: (a.y - 18) / 2,
-            };
-            const a2 = {
-              dahil: true,
-              tip: 3,
-              name: "Bolge",
-              cx: a.cx,
-              cy: a.cy + (a.y + 18) / 4,
-              x: a.x,
-              y: (a.y - 18) / 2,
-            };
-            m.bolge[secilenBolge] = a1;
-            m.bolge[m.bolge.length] = a2;
-
-            let raf_sayisi = m.raf.length;
-            m.raf[m.raf.length] = {
-              dahil: true,
-              tip: 3,
-              name: "raf",
-              material_id: 18,
-              x0: a.cx,
-              y0: a.cy,
-              z0: 0,
-              x: a.x,
-              y: 18,
-              z: 600,
-              xg0: 0,
-              xg1: 0,
-              zg0: 0,
-              zg1: 0,
-              yg0: 0,
-              yg1: 0,
-            };
-
+            m = RafEkle(mobilya, secilenBolge, secilen);
+            console.log("seçilenBölge=", secilenBolge);
+            console.log("seçilen=", secilen);
             setmobilya({ ...mobilya, ...m });
           }}
         >
@@ -2575,13 +2528,16 @@ const Program = () => {
           />
         )}
         <button onClick={kapak}>kapak ekle</button>
-        <button onClick={kapak_sil}>kapak sil</button>
         <button onClick={profilKapak}>profil kapak ekle</button>
+        <button onClick={kapak_sil}>kapak sil</button>
+
         <button onClick={cekmece_kapak}>cekmece_kapak_ekle</button>
         <button onClick={cekmece_kasa}>cekmece_kasa_ekle</button>
         <button onClick={kayit_ekle_dikey}>kayit_ekle_dikey</button>
         <button onClick={kayit_ekle_yatay}>kayit_ekle_yatay</button>
+        <button onClick={kayit_sil}>kayit sil</button>
         <button onClick={dikme_sil}>dikme sil</button>
+        <button onClick={raf_sil}>raf sil</button>
 
         <BolgeEnAyarla />
         <button>yukseklik</button>
@@ -2849,7 +2805,13 @@ const Program = () => {
                   strokeWidth="5"
                   fillOpacity="0.5"
                   onClick={() => {
-                    setSecilenDikme(index);
+                    setSecilenKayit(index);
+                    setSecilenKayitModel(item.model);
+                    setSecilen({
+                      bolge: false,
+                      kapak: true,
+                      kapak_profil: false,
+                    });
                     console.log(
                       "seçilen_kayit_ekle_dikey=",
                       mobilya.kayit_ekle_dikey[index]
@@ -2877,7 +2839,13 @@ const Program = () => {
                   strokeWidth="5"
                   fillOpacity="0.5"
                   onClick={() => {
-                    setSecilenKapak(index);
+                    setSecilenKayit(index);
+                    setSecilenKayitModel(item.model);
+                    setSecilen({
+                      bolge: false,
+                      kapak: true,
+                      kapak_profil: false,
+                    });
                     console.log(
                       "seçilen_kayit_ekle_yatay=",
                       mobilya.kayit_ekle_yatay[index]
