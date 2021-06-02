@@ -1,4 +1,4 @@
-const RafSil = (mobilya, secilenRaf) => {
+const YatayBolmeSil = (mobilya, secilenYatayBolme) => {
   const bolge = [
     { x1: 0, y1: 0, x2: 0, y2: 0, x3: 0, y3: 0, x4: 0, y4: 0, x: 0, y: 0 },
   ];
@@ -7,22 +7,38 @@ const RafSil = (mobilya, secilenRaf) => {
   let komsu_ust_bolge_id = -1;
   let komsu_alt_bolge_id = -1;
 
-  console.log("RafSil çalıştı");
-  //Rafın silip silinemeyeceği kontrol edilecek
-  //raf silindikten sonra bölgeler raf silinmesine göre ayarlanacak
+  console.log("YatayBolmeSil çalıştı");
+  //yatay_bolmeın silip silinemeyeceği kontrol edilecek
+  //yatay_bolme silindikten sonra bölgeler yatay_bolme silinmesine göre ayarlanacak
   //bu bölgeler içindeki kapak çekmece kapağı ve kasa gibi unsurlar düzenlenecek
-  //raf a komşu olan bölgelerin tespiti. komşu ola bölgeleri tespit etmek için rafın köşe noktaları ile eşit olan bölgeler bulunacak, bu durumda 2 bölge olabilir.
+  //yatay_bolme a komşu olan bölgelerin tespiti. komşu ola bölgeleri tespit etmek için yatay_bolmeın köşe noktaları ile eşit olan bölgeler bulunacak, bu durumda 2 bölge olabilir.
 
-  //1...seçilen rafın dört köşe noktasının bulunması.
-  const raf = {
-    x1: mobilya.raf[secilenRaf].x0 - mobilya.raf[secilenRaf].x / 2,
-    y1: mobilya.raf[secilenRaf].y0 + mobilya.raf[secilenRaf].y / 2,
-    x2: mobilya.raf[secilenRaf].x0 + mobilya.raf[secilenRaf].x / 2,
-    y2: mobilya.raf[secilenRaf].y0 + mobilya.raf[secilenRaf].y / 2,
-    x3: mobilya.raf[secilenRaf].x0 - mobilya.raf[secilenRaf].x / 2,
-    y3: mobilya.raf[secilenRaf].y0 - mobilya.raf[secilenRaf].y / 2,
-    x4: mobilya.raf[secilenRaf].x0 + mobilya.raf[secilenRaf].x / 2,
-    y4: mobilya.raf[secilenRaf].y0 - mobilya.raf[secilenRaf].y / 2,
+  //1...seçilen yatay_bolmeın dört köşe noktasının bulunması.
+  const yatay_bolme = {
+    x1:
+      mobilya.yatay_bolme[secilenYatayBolme].x0 -
+      mobilya.yatay_bolme[secilenYatayBolme].x / 2,
+    y1:
+      mobilya.yatay_bolme[secilenYatayBolme].y0 +
+      mobilya.yatay_bolme[secilenYatayBolme].y / 2,
+    x2:
+      mobilya.yatay_bolme[secilenYatayBolme].x0 +
+      mobilya.yatay_bolme[secilenYatayBolme].x / 2,
+    y2:
+      mobilya.yatay_bolme[secilenYatayBolme].y0 +
+      mobilya.yatay_bolme[secilenYatayBolme].y / 2,
+    x3:
+      mobilya.yatay_bolme[secilenYatayBolme].x0 -
+      mobilya.yatay_bolme[secilenYatayBolme].x / 2,
+    y3:
+      mobilya.yatay_bolme[secilenYatayBolme].y0 -
+      mobilya.yatay_bolme[secilenYatayBolme].y / 2,
+    x4:
+      mobilya.yatay_bolme[secilenYatayBolme].x0 +
+      mobilya.yatay_bolme[secilenYatayBolme].x / 2,
+    y4:
+      mobilya.yatay_bolme[secilenYatayBolme].y0 -
+      mobilya.yatay_bolme[secilenYatayBolme].y / 2,
   };
   //2..bölgelerin köşe noktalarının bulunması
   for (let index = 0; index < mobilya.bolge.length; index++) {
@@ -40,25 +56,25 @@ const RafSil = (mobilya, secilenRaf) => {
     };
   }
 
-  //3..rafın sağ ve sol ust noktalarına komşu olan bölgeleri tespit ediyoruz.
+  //3..yatay_bolmeın sağ ve sol ust noktalarına komşu olan bölgeleri tespit ediyoruz.
   for (let index = 0; index < mobilya.bolge.length; index++) {
     if (
-      //rafa komsu ust bolge
-      raf.x1 === bolge[index].x3 &&
-      raf.y1 === bolge[index].y3 &&
-      raf.x2 === bolge[index].x4 &&
-      raf.y2 === bolge[index].y4
+      //yatay_bolmea komsu ust bolge
+      yatay_bolme.x1 === bolge[index].x3 &&
+      yatay_bolme.y1 === bolge[index].y3 &&
+      yatay_bolme.x2 === bolge[index].x4 &&
+      yatay_bolme.y2 === bolge[index].y4
     ) {
       console.log("komsu üst bölge bulundu", index);
       komsu_ust_bolge = true;
       komsu_ust_bolge_id = index;
     }
     if (
-      //raf komsu alt bolge
-      raf.x3 === bolge[index].x1 &&
-      raf.y3 === bolge[index].y1 &&
-      raf.x4 === bolge[index].x2 &&
-      raf.y4 === bolge[index].y2
+      //yatay_bolme komsu alt bolge
+      yatay_bolme.x3 === bolge[index].x1 &&
+      yatay_bolme.y3 === bolge[index].y1 &&
+      yatay_bolme.x4 === bolge[index].x2 &&
+      yatay_bolme.y4 === bolge[index].y2
     ) {
       console.log("komsu alt bölge bulundu", index);
       komsu_alt_bolge = true;
@@ -67,11 +83,11 @@ const RafSil = (mobilya, secilenRaf) => {
   }
 
   //--yardımcı alt programlar
-  const RafSilme = () => {
+  const YatayBolmeSilme = () => {
     mobilya.bolge[komsu_ust_bolge_id].dahil = false;
     mobilya.bolge[komsu_alt_bolge_id].dahil = false;
     //-----------------------------
-    mobilya.raf[secilenRaf].dahil = false;
+    mobilya.yatay_bolme[secilenYatayBolme].dahil = false;
     //-----------------------------
     //silinen
     for (let index = 0; index < mobilya.kapak.length; index++) {
@@ -96,15 +112,17 @@ const RafSil = (mobilya, secilenRaf) => {
     console.log("newList_bolge=", newList);
     //-----------------------------
 
-    //seçilen rafı sil
-    const newList_raf = mobilya.raf.filter((item) => item.dahil);
-    mobilya.raf = newList_raf;
-    console.log("newList_dikme=", newList_raf);
+    //seçilen yatay_bolmeyi sil
+    const newList_yatay_bolme = mobilya.yatay_bolme.filter(
+      (item) => item.dahil
+    );
+    mobilya.yatay_bolme = newList_yatay_bolme;
+    console.log("newList_dikme=", newList_yatay_bolme);
 
     return mobilya;
   };
 
-  //-raf silindikten sonra bölgeler birleştiriliyor.
+  //-yatay_bolme silindikten sonra bölgeler birleştiriliyor.
   const BolgeBirlestirme = () => {
     // birleşik bir bölge önceden hesaplanacak sonra diğer bölgeler silincek
     const yeniBolge = {
@@ -123,7 +141,7 @@ const RafSil = (mobilya, secilenRaf) => {
       y:
         mobilya.bolge[komsu_ust_bolge_id].y +
         mobilya.bolge[komsu_alt_bolge_id].y +
-        mobilya.raf[secilenRaf].y,
+        mobilya.yatay_bolme[secilenYatayBolme].y,
     };
     console.log("bölge birleştirmeye uğradı");
 
@@ -139,16 +157,16 @@ const RafSil = (mobilya, secilenRaf) => {
     console.log("işlem yapılabilir");
 
     BolgeBirlestirme();
-    RafSilme();
+    YatayBolmeSilme();
     komsu_ust_bolge = false;
     komsu_alt_bolge = false;
   } else {
     console.log("işlem yapılamaz");
   }
 
-  //console.log("seçilen mobilya.raf=", mobilya.raf[secilenRaf]);
+  //console.log("seçilen mobilya.yatay_bolme=", mobilya.yatay_bolme[secilenYatayBolme]);
 
   return mobilya;
 };
 
-export default RafSil;
+export default YatayBolmeSil;

@@ -1,5 +1,5 @@
-const RafEkle = (mobilya, secilenBolge, secilen) => {
-  console.log("RafEkle çalıştı");
+const YatayBolmeEkle = (mobilya, secilenBolge, secilen) => {
+  console.log("YatayBolmeEkle çalıştı");
   console.log("mobilya==", mobilya, "secilenBolge=", secilenBolge);
   //---------------------------------
   if (secilen.bolge) {
@@ -27,10 +27,10 @@ const RafEkle = (mobilya, secilenBolge, secilen) => {
     mobilya.bolge[secilenBolge] = a1;
     mobilya.bolge[mobilya.bolge.length] = a2;
 
-    mobilya.raf[mobilya.raf.length] = {
+    mobilya.yatay_bolme[mobilya.yatay_bolme.length] = {
       dahil: true,
       tip: 3,
-      name: "raf",
+      name: "yatay_bolme",
       material_id: 18,
       x0: a.cx,
       y0: a.cy,
@@ -51,4 +51,4 @@ const RafEkle = (mobilya, secilenBolge, secilen) => {
   return mobilya;
 };
 
-export default RafEkle;
+export default YatayBolmeEkle;

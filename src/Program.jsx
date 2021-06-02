@@ -14,9 +14,9 @@
 //@Bolges
 //@dikme_sil
 //@kapak_sil
-//@raf_ekle
+//@yatay_bolme_ekle
 //@profilkapak
-//@ScreenDikme  //@DikmeUpdate  //@RafUpdate  //@BolgesUpdate //@kapak
+//@ScreenDikme  //@DikmeUpdate  //@YatayBolmeUpdate  //@BolgesUpdate //@kapak
 //@ScreenCabinet
 //@Nest
 //@Nesting
@@ -69,15 +69,15 @@ import {
   zoomOnViewerCenter,
   fitToViewer,
 } from "react-svg-pan-zoom";
-import RafAyarla from "./components/RafAyarla";
+import YatayBolmeAyarla from "./components/YatayBolmeAyarla";
 import DikmeAyarla from "./components/DikmeAyarla";
 import Coordinat from "./components/Coordinat";
 import Kapak from "./components/Kapak";
 import KapakSil from "./components/KapakSil";
 import DikmeSil from "./components/DikmeSil";
 import DikmeEkle from "./components/DikmeEkle";
-import RafEkle from "./components/RafEkle";
-import RafSil from "./components/RafSil";
+import YatayBolmeEkle from "./components/YatayBolmeEkle";
+import YatayBolmeSil from "./components/YatayBolmeSil";
 import KapakProfil from "./components/KapakProfil";
 import CekmeceKapak from "./components/CekmeceKapak";
 import CekmeceKasa from "./components/CekmeceKasa";
@@ -154,7 +154,7 @@ const Program = () => {
   const [ustId, setustId] = useState("1");
   const [altId, setaltId] = useState("1");
   const [secilenBolge, setSecilenBolge] = useState(0);
-  const [secilenRaf, setSecilenRaf] = useState(0);
+  const [secilenYatayBolme, setSecilenYatayBolme] = useState(0);
   const [secilenDikme, setSecilenDikme] = useState(0);
   const [secilenKapak, setSecilenKapak] = useState(0);
   const [secilenKayit, setSecilenKayit] = useState(0);
@@ -205,9 +205,9 @@ const Program = () => {
     sol_pervaz: { dahil: false, tip: 3, name: 'Sol Pervaz', material_id: 18, x0: 0, y0: 0, z0: 0, x: 100, y: 500, z: 18, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 },
     sag_pervaz: { dahil: false, tip: 3, name: 'Sag Pervaz', material_id: 18, x0: 0, y0: 0, z0: 0, x: 100, y: 1000, z: 18, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 },
     dikme: [{ dahil: true, tip: 3, name: 'Dikme', material_id: 18, x0: 0, y0: 0, z0: 0, x: 18, y: 1628, z: 600, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 }],
-    raf: [
-      { dahil: true, tip: 3, name: 'Raf', material_id: 18, x0: -495, y0: 0, z0: 0, x: 973, y: 18, z: 600, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 },
-      { dahil: true, tip: 3, name: 'Raf', material_id: 18, x0: 495, y0: 0, z0: 0, x: 973, y: 18, z: 600, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 },
+    yatay_bolme: [
+      { dahil: true, tip: 3, name: 'YatayBolme', material_id: 18, x0: -495, y0: 0, z0: 0, x: 973, y: 18, z: 600, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 },
+      { dahil: true, tip: 3, name: 'YatayBolme', material_id: 18, x0: 495, y0: 0, z0: 0, x: 973, y: 18, z: 600, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 },
     ],
     arkalik: [{ dahil: true, tip: 3, name: 'Arkalık', material_id: 18, x0: 0, y0: 0, z0: 0, x: 1000, y: 1000, z: 18, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 }],
     bolge: [],
@@ -548,7 +548,7 @@ const Program = () => {
         yg1: 0,
       },
       dikme: [],
-      raf: [],
+      yatay_bolme: [],
       arkalik: [
         {
           dahil: true,
@@ -1240,8 +1240,8 @@ const Program = () => {
     return mobilya.dikme;
   };
   //---------------------------------------------
-  //@RafUpdate-----------------------------------------------------------
-  const RafUpdate = () => {
+  //@YatayBolmeUpdate-----------------------------------------------------------
+  const YatayBolmeUpdate = () => {
     const kalan_en = mobilya.X - mobilya.sol_yan.x - mobilya.sag_yan.x;
     const kalan_X = olculer.X - mobilya.sol_yan.x - mobilya.sag_yan.x;
 
@@ -1252,18 +1252,18 @@ const Program = () => {
     const OranX = kalan_en / kalan_X;
     const OranY = kalan_boy / kalan_Y;
     const OranZ = mobilya.Z / olculer.Z;
-    for (let index = 0; index < mobilya.raf.length; index++) {
-      mobilya.raf[index].dahil = true;
-      mobilya.raf[index].tip = 3;
-      mobilya.raf[index].name = "raf";
-      mobilya.raf[index].x0 = mobilya.raf[index].x0 * OranX;
-      mobilya.raf[index].y0 = mobilya.raf[index].y0 * OranY;
-      mobilya.raf[index].z0 = mobilya.raf[index].z0 * OranZ;
-      mobilya.raf[index].x = mobilya.raf[index].x * OranX;
-      mobilya.raf[index].y = mobilya.raf[index].y * OranY;
-      mobilya.raf[index].z = mobilya.raf[index].z * OranZ;
+    for (let index = 0; index < mobilya.yatay_bolme.length; index++) {
+      mobilya.yatay_bolme[index].dahil = true;
+      mobilya.yatay_bolme[index].tip = 3;
+      mobilya.yatay_bolme[index].name = "yatay_bolme";
+      mobilya.yatay_bolme[index].x0 = mobilya.yatay_bolme[index].x0 * OranX;
+      mobilya.yatay_bolme[index].y0 = mobilya.yatay_bolme[index].y0 * OranY;
+      mobilya.yatay_bolme[index].z0 = mobilya.yatay_bolme[index].z0 * OranZ;
+      mobilya.yatay_bolme[index].x = mobilya.yatay_bolme[index].x * OranX;
+      mobilya.yatay_bolme[index].y = mobilya.yatay_bolme[index].y * OranY;
+      mobilya.yatay_bolme[index].z = mobilya.yatay_bolme[index].z * OranZ;
     }
-    return mobilya.raf;
+    return mobilya.yatay_bolme;
   };
   //------------------------------------------------------
   //@kapak----------------------------------------------
@@ -1306,9 +1306,9 @@ const Program = () => {
     return <div>{/*<button>kapak</button>*/}</div>;
   };
 
-  //@raf_sil----------------------------------------------
-  const raf_sil = () => {
-    const sonuc = RafSil(mobilya, secilenRaf, secilen);
+  //@yatay_bolme_sil----------------------------------------------
+  const yatay_bolme_sil = () => {
+    const sonuc = YatayBolmeSil(mobilya, secilenYatayBolme, secilen);
     setmobilya({ ...mobilya, ...sonuc });
     setSecilenBolge(0);
     setSecilen({
@@ -2398,20 +2398,20 @@ const Program = () => {
               const Bolge = BolgesUpdate();
               // console.log('Bolge=', Bolge)
               const Dikme = DikmeUpdate(m);
-              const Raf = RafUpdate(m);
+              const YatayBolme = YatayBolmeUpdate(m);
               m.bolge = Bolge;
               m.dikme = Dikme;
-              m.raf = Raf;
+              m.yatay_bolme = YatayBolme;
               setmobilya({ ...mobilya, ...m });
             } else {
               console.log("elseya uğradı");
               const Bolge = BolgesUpdate();
               // console.log('Bolge=', Bolge)
               const Dikme = DikmeUpdate();
-              const Raf = RafUpdate();
+              const YatayBolme = YatayBolmeUpdate();
               m.bolge = Bolge;
               m.dikme = Dikme;
-              m.raf = Raf;
+              m.yatay_bolme = YatayBolme;
               setmobilya({ ...mobilya, ...m });
               const dene = {
                 X: m.X,
@@ -2491,16 +2491,16 @@ const Program = () => {
         >
           dikme ekle
         </button>
-        {/** //@raf_ekle ***************************/}
+        {/** //@yatay_bolme_ekle ***************************/}
         <button
           onClick={() => {
-            m = RafEkle(mobilya, secilenBolge, secilen);
+            m = YatayBolmeEkle(mobilya, secilenBolge, secilen);
             console.log("seçilenBölge=", secilenBolge);
             console.log("seçilen=", secilen);
             setmobilya({ ...mobilya, ...m });
           }}
         >
-          Raf ekle
+          yatay_bolme ekle
         </button>
         {secilen.bolge && (
           <input
@@ -2537,7 +2537,7 @@ const Program = () => {
         <button onClick={kayit_ekle_yatay}>kayit_ekle_yatay</button>
         <button onClick={kayit_sil}>kayit sil</button>
         <button onClick={dikme_sil}>dikme sil</button>
-        <button onClick={raf_sil}>raf sil</button>
+        <button onClick={yatay_bolme_sil}>yatay_bolme_sil</button>
 
         <BolgeEnAyarla />
         <button>yukseklik</button>
@@ -2702,7 +2702,7 @@ const Program = () => {
                 />
               );
             })}
-            {mobilya.raf.map((item, index) => {
+            {mobilya.yatay_bolme.map((item, index) => {
               return (
                 <Rect
                   className="on"
@@ -2717,8 +2717,11 @@ const Program = () => {
                   strokeWidth="5"
                   fillOpacity="0.5"
                   onClick={() => {
-                    setSecilenRaf(index);
-                    console.log("seçilen_raf=", mobilya.raf[index]);
+                    setSecilenYatayBolme(index);
+                    console.log(
+                      "seçilen_yatay_bolme=",
+                      mobilya.yatay_bolme[index]
+                    );
 
                     console.warn("onPress ***");
                   }}
@@ -3016,8 +3019,8 @@ const Program = () => {
       <div>
         <button
           onClick={() => {
-            const islem = "alt_raf";
-            const sonuc = RafAyarla(
+            const islem = "alt_yatay_bolme";
+            const sonuc = YatayBolmeAyarla(
               mobilya,
               bolge_x,
               bolge_y,
@@ -3029,12 +3032,12 @@ const Program = () => {
             bolge_x = -1;
           }}
         >
-          alt_raf
+          alt_yatay_bolme
         </button>
         <button
           onClick={() => {
-            const islem = "ust_raf";
-            const sonuc = RafAyarla(
+            const islem = "ust_yatay_bolme";
+            const sonuc = YatayBolmeAyarla(
               mobilya,
               bolge_x,
               bolge_y,
@@ -3046,7 +3049,7 @@ const Program = () => {
             bolge_x = -1;
           }}
         >
-          ust_raf
+          ust_yatay_bolme
         </button>
 
         <button
@@ -3919,8 +3922,8 @@ const Program = () => {
       });
     }
 
-    function Rafs1() {
-      const a = mobilya.raf;
+    function YatayBolmes1() {
+      const a = mobilya.yatay_bolme;
 
       return a.map((item, index) => {
         return (
@@ -4124,7 +4127,7 @@ const Program = () => {
             <KayitEkleYatay1 />
             <CekmeceKasa1 />
             <Dikmes1 />
-            <Rafs1 />
+            <YatayBolmes1 />
             {mobilya.sol_pervaz.dahil && <SolPervaz1 />}
             {mobilya.sag_pervaz.dahil && <SagPervaz1 />}
           </Suspense>
@@ -4185,13 +4188,13 @@ const Program = () => {
         en: a.sag_pervaz.x,
       });
     }
-    if (a.raf.length > 0) {
-      for (let index = 0; index < a.raf.length; index++) {
+    if (a.yatay_bolme.length > 0) {
+      for (let index = 0; index < a.yatay_bolme.length; index++) {
         b.push({
-          name: a.raf[index].name,
-          boy: a.raf[index].x,
-          kalinlik: a.raf[index].y,
-          en: a.raf[index].z,
+          name: a.yatay_bolme[index].name,
+          boy: a.yatay_bolme[index].x,
+          kalinlik: a.yatay_bolme[index].y,
+          en: a.yatay_bolme[index].z,
         });
       }
     }
