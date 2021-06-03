@@ -3,7 +3,7 @@ const YatayBolmeEkle = (mobilya, secilenBolge, secilen) => {
   console.log("mobilya==", mobilya, "secilenBolge=", secilenBolge);
   //---------------------------------
   if (secilen.bolge) {
-    //bölge seçilmemiş ise dikme eklenmez
+    //bölge seçilmemiş ise dikey_bolme eklenmez
 
     const a = mobilya.bolge[secilenBolge];
     const a1 = {

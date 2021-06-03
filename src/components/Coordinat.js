@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-//let yeniMobilya = { X0: 0, Y0: 0, Z0: 0, bolge: [], yatay_bolme: [], dikme: [] }
+//let yeniMobilya = { X0: 0, Y0: 0, Z0: 0, bolge: [], yatay_bolme: [], dikey_bolme: [] }
 const Coordinat = (dene) => {
   // yeni koordinata dönüştürülecek
   const mobilya = dene;
@@ -25,12 +25,12 @@ const Coordinat = (dene) => {
     yeniMobilya.yatay_bolme[i].x = mobilya.yatay_bolme[i].x;
     yeniMobilya.yatay_bolme[i].y = mobilya.yatay_bolme[i].y;
   }
-  for (let i = 0; i < mobilya.dikme.length; i++) {
+  for (let i = 0; i < mobilya.dikey_bolme.length; i++) {
     console.log("yeniMobilya.bolge[i].cx=", yeniMobilya.bolge[i].cx);
-    yeniMobilya.dikme[i].x0 = mobilya.dikme[i].x0 + yeniMobilya.X0;
-    yeniMobilya.dikme[i].y0 = mobilya.dikme[i].y0 + yeniMobilya.Y0;
-    yeniMobilya.dikme[i].x = mobilya.dikme[i].x;
-    yeniMobilya.dikme[i].y = mobilya.dikme[i].y;
+    yeniMobilya.dikey_bolme[i].x0 = mobilya.dikey_bolme[i].x0 + yeniMobilya.X0;
+    yeniMobilya.dikey_bolme[i].y0 = mobilya.dikey_bolme[i].y0 + yeniMobilya.Y0;
+    yeniMobilya.dikey_bolme[i].x = mobilya.dikey_bolme[i].x;
+    yeniMobilya.dikey_bolme[i].y = mobilya.dikey_bolme[i].y;
   }
 
   return yeniMobilya;

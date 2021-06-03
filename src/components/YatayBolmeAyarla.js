@@ -4,7 +4,9 @@ const bolge = [
 const yatay_bolme = [
   { x1: 0, y1: 0, x2: 0, y2: 0, x3: 0, y3: 0, x4: 0, y4: 0 },
 ];
-const dikme = [{ x1: 0, y1: 0, x2: 0, y2: 0, x3: 0, y3: 0, x4: 0, y4: 0 }];
+const dikey_bolme = [
+  { x1: 0, y1: 0, x2: 0, y2: 0, x3: 0, y3: 0, x4: 0, y4: 0 },
+];
 
 const YatayBolmeAyarla = (mobilya, bolge_x, bolge_y, secilenBolge, islem) => {
   console.log("islem=", islem);
@@ -15,8 +17,8 @@ const YatayBolmeAyarla = (mobilya, bolge_x, bolge_y, secilenBolge, islem) => {
   let secilenUstRaf = "yok";
   let komsu_ust_bolge = [];
   let komsu_alt_bolge = [];
-  let komsuUstDikme = [];
-  let komsuAltDikme = [];
+  let komsuUstDikeyBolme = [];
+  let komsuAltDikeyBolme = [];
   //bolgenin dört köşe noktasını buluyoruz.
   if (mobilya.bolge.length > 0) {
     for (let index = 0; index < mobilya.bolge.length; index++) {
@@ -49,17 +51,17 @@ const YatayBolmeAyarla = (mobilya, bolge_x, bolge_y, secilenBolge, islem) => {
       };
     }
   }
-  if (mobilya.dikme.length > 0) {
-    for (let index = 0; index < mobilya.dikme.length; index++) {
-      dikme[index] = {
-        x1: mobilya.dikme[index].x0 - mobilya.dikme[index].x / 2,
-        y1: mobilya.dikme[index].y0 + mobilya.dikme[index].y / 2,
-        x2: mobilya.dikme[index].x0 + mobilya.dikme[index].x / 2,
-        y2: mobilya.dikme[index].y0 + mobilya.dikme[index].y / 2,
-        x3: mobilya.dikme[index].x0 - mobilya.dikme[index].x / 2,
-        y3: mobilya.dikme[index].y0 - mobilya.dikme[index].y / 2,
-        x4: mobilya.dikme[index].x0 + mobilya.dikme[index].x / 2,
-        y4: mobilya.dikme[index].y0 - mobilya.dikme[index].y / 2,
+  if (mobilya.dikey_bolme.length > 0) {
+    for (let index = 0; index < mobilya.dikey_bolme.length; index++) {
+      dikey_bolme[index] = {
+        x1: mobilya.dikey_bolme[index].x0 - mobilya.dikey_bolme[index].x / 2,
+        y1: mobilya.dikey_bolme[index].y0 + mobilya.dikey_bolme[index].y / 2,
+        x2: mobilya.dikey_bolme[index].x0 + mobilya.dikey_bolme[index].x / 2,
+        y2: mobilya.dikey_bolme[index].y0 + mobilya.dikey_bolme[index].y / 2,
+        x3: mobilya.dikey_bolme[index].x0 - mobilya.dikey_bolme[index].x / 2,
+        y3: mobilya.dikey_bolme[index].y0 - mobilya.dikey_bolme[index].y / 2,
+        x4: mobilya.dikey_bolme[index].x0 + mobilya.dikey_bolme[index].x / 2,
+        y4: mobilya.dikey_bolme[index].y0 - mobilya.dikey_bolme[index].y / 2,
       };
     }
   }
@@ -67,7 +69,7 @@ const YatayBolmeAyarla = (mobilya, bolge_x, bolge_y, secilenBolge, islem) => {
   //önce bölge seçilecek
   //bölgenin değdiği yatay_bolme bulunacak
   // bölgenin değdiği yatay_bolme için cx ve xo merkez noktaları eşit olacak
-  //bu rafa komşu olan(değen) tüm bölgeler ve dikmeler seçilecek
+  //bu rafa komşu olan(değen) tüm bölgeler ve dikey_bolmeler seçilecek
   // rafın haraketine göre bölge ve yatay_bolme ayarları yapılacak
   //seçilen bölge ** secilenBolge
   //seçilen yatay_bolme iki adet ise ???
@@ -134,27 +136,27 @@ const YatayBolmeAyarla = (mobilya, bolge_x, bolge_y, secilenBolge, islem) => {
         );
       }
     }
-    // seçilen rafa komsu olan dikmeler seçilecek
+    // seçilen rafa komsu olan dikey_bolmeler seçilecek
     let artir = 0;
     let artir1 = 0;
-    for (let index = 0; index < mobilya.dikme.length; index++) {
+    for (let index = 0; index < mobilya.dikey_bolme.length; index++) {
       if (
-        dikme[index].x3 >= yatay_bolme[secilenAltRaf_index].x1 &&
-        dikme[index].x4 <= yatay_bolme[secilenAltRaf_index].x2 &&
-        dikme[index].y3 === yatay_bolme[secilenAltRaf_index].y1
+        dikey_bolme[index].x3 >= yatay_bolme[secilenAltRaf_index].x1 &&
+        dikey_bolme[index].x4 <= yatay_bolme[secilenAltRaf_index].x2 &&
+        dikey_bolme[index].y3 === yatay_bolme[secilenAltRaf_index].y1
       ) {
-        komsuUstDikme.push(index);
+        komsuUstDikeyBolme.push(index);
         artir = artir + 1;
-        console.log("alt rafa komşu olan üst_dikme=", komsuUstDikme);
+        console.log("alt rafa komşu olan üst_dikey_bolme=", komsuUstDikeyBolme);
       }
       if (
-        dikme[index].x1 >= yatay_bolme[secilenAltRaf_index].x3 &&
-        dikme[index].x2 <= yatay_bolme[secilenAltRaf_index].x4 &&
-        dikme[index].y1 === yatay_bolme[secilenAltRaf_index].y3
+        dikey_bolme[index].x1 >= yatay_bolme[secilenAltRaf_index].x3 &&
+        dikey_bolme[index].x2 <= yatay_bolme[secilenAltRaf_index].x4 &&
+        dikey_bolme[index].y1 === yatay_bolme[secilenAltRaf_index].y3
       ) {
-        komsuAltDikme.push(index);
+        komsuAltDikeyBolme.push(index);
         artir1 = artir1 + 1;
-        console.log("alt rafa komşu olan alt_dikme=", komsuAltDikme);
+        console.log("alt rafa komşu olan alt_dikey_bolme=", komsuAltDikeyBolme);
       }
     }
     console.log("alt rafa komsu_ust_bolge.length=", komsu_ust_bolge.length);
@@ -186,21 +188,21 @@ const YatayBolmeAyarla = (mobilya, bolge_x, bolge_y, secilenBolge, islem) => {
     }
     console.log("komsu_alt_bolge.length=", komsu_alt_bolge.length);
 
-    //komşu altdikmenin ayarlanması
+    //komşu altdikey_bolmenin ayarlanması
     if (secilenAltRaf === "yok") {
       console.log("***alt yatay_bolme yok");
     } else {
-      for (let index = 0; index < komsuAltDikme.length; index++) {
-        mobilya.dikme[komsuAltDikme[index]].y0 =
-          mobilya.dikme[komsuAltDikme[index]].y0 + sonuc / 2;
-        mobilya.dikme[komsuAltDikme[index]].y =
-          mobilya.dikme[komsuAltDikme[index]].y + sonuc;
+      for (let index = 0; index < komsuAltDikeyBolme.length; index++) {
+        mobilya.dikey_bolme[komsuAltDikeyBolme[index]].y0 =
+          mobilya.dikey_bolme[komsuAltDikeyBolme[index]].y0 + sonuc / 2;
+        mobilya.dikey_bolme[komsuAltDikeyBolme[index]].y =
+          mobilya.dikey_bolme[komsuAltDikeyBolme[index]].y + sonuc;
       }
-      for (let index = 0; index < komsuUstDikme.length; index++) {
-        mobilya.dikme[komsuUstDikme[index]].y0 =
-          mobilya.dikme[komsuUstDikme[index]].y0 + sonuc / 2;
-        mobilya.dikme[komsuUstDikme[index]].y =
-          mobilya.dikme[komsuUstDikme[index]].y - sonuc;
+      for (let index = 0; index < komsuUstDikeyBolme.length; index++) {
+        mobilya.dikey_bolme[komsuUstDikeyBolme[index]].y0 =
+          mobilya.dikey_bolme[komsuUstDikeyBolme[index]].y0 + sonuc / 2;
+        mobilya.dikey_bolme[komsuUstDikeyBolme[index]].y =
+          mobilya.dikey_bolme[komsuUstDikeyBolme[index]].y - sonuc;
       }
       //rafın ayarlanması
       mobilya.yatay_bolme[secilenAltRaf_index].y0 =
@@ -233,27 +235,27 @@ const YatayBolmeAyarla = (mobilya, bolge_x, bolge_y, secilenBolge, islem) => {
         console.log("üst_raf komşu olan bölge_alt_bolge=", komsu_alt_bolge);
       }
     }
-    // seçilen rafa komsu olan dikmeler seçilecek
+    // seçilen rafa komsu olan dikey_bolmeler seçilecek
     let artir = 0;
     let artir1 = 0;
-    for (let index = 0; index < mobilya.dikme.length; index++) {
+    for (let index = 0; index < mobilya.dikey_bolme.length; index++) {
       if (
-        dikme[index].x3 >= yatay_bolme[secilenUstRaf_index].x1 &&
-        dikme[index].x4 <= yatay_bolme[secilenUstRaf_index].x2 &&
-        dikme[index].y3 === yatay_bolme[secilenUstRaf_index].y1
+        dikey_bolme[index].x3 >= yatay_bolme[secilenUstRaf_index].x1 &&
+        dikey_bolme[index].x4 <= yatay_bolme[secilenUstRaf_index].x2 &&
+        dikey_bolme[index].y3 === yatay_bolme[secilenUstRaf_index].y1
       ) {
-        komsuUstDikme.push(index);
+        komsuUstDikeyBolme.push(index);
         artir = artir + 1;
-        console.log("komşu olan üst_dikme=", komsuUstDikme);
+        console.log("komşu olan üst_dikey_bolme=", komsuUstDikeyBolme);
       }
       if (
-        dikme[index].x1 >= yatay_bolme[secilenUstRaf_index].x3 &&
-        dikme[index].x2 <= yatay_bolme[secilenUstRaf_index].x4 &&
-        dikme[index].y1 === yatay_bolme[secilenUstRaf_index].y3
+        dikey_bolme[index].x1 >= yatay_bolme[secilenUstRaf_index].x3 &&
+        dikey_bolme[index].x2 <= yatay_bolme[secilenUstRaf_index].x4 &&
+        dikey_bolme[index].y1 === yatay_bolme[secilenUstRaf_index].y3
       ) {
-        komsuAltDikme.push(index);
+        komsuAltDikeyBolme.push(index);
         artir1 = artir1 + 1;
-        console.log("komşu olan alt_dikme=", komsuAltDikme);
+        console.log("komşu olan alt_dikey_bolme=", komsuAltDikeyBolme);
       }
     }
 
@@ -286,21 +288,21 @@ const YatayBolmeAyarla = (mobilya, bolge_x, bolge_y, secilenBolge, islem) => {
     }
     console.log("komsu_alt_bolge.length=", komsu_alt_bolge.length);
 
-    //komşu altdikmenin ayarlanması
+    //komşu altdikey_bolmenin ayarlanması
     if (secilenUstRaf === "yok") {
       console.log("***Üst yatay_bolme yok");
     } else {
-      for (let index = 0; index < komsuUstDikme.length; index++) {
-        mobilya.dikme[komsuUstDikme[index]].y0 =
-          mobilya.dikme[komsuUstDikme[index]].y0 - sonuc / 2;
-        mobilya.dikme[komsuUstDikme[index]].y =
-          mobilya.dikme[komsuUstDikme[index]].y + sonuc;
+      for (let index = 0; index < komsuUstDikeyBolme.length; index++) {
+        mobilya.dikey_bolme[komsuUstDikeyBolme[index]].y0 =
+          mobilya.dikey_bolme[komsuUstDikeyBolme[index]].y0 - sonuc / 2;
+        mobilya.dikey_bolme[komsuUstDikeyBolme[index]].y =
+          mobilya.dikey_bolme[komsuUstDikeyBolme[index]].y + sonuc;
       }
-      for (let index = 0; index < komsuAltDikme.length; index++) {
-        mobilya.dikme[komsuAltDikme[index]].y0 =
-          mobilya.dikme[komsuAltDikme[index]].y0 - sonuc / 2;
-        mobilya.dikme[komsuAltDikme[index]].y =
-          mobilya.dikme[komsuAltDikme[index]].y - sonuc;
+      for (let index = 0; index < komsuAltDikeyBolme.length; index++) {
+        mobilya.dikey_bolme[komsuAltDikeyBolme[index]].y0 =
+          mobilya.dikey_bolme[komsuAltDikeyBolme[index]].y0 - sonuc / 2;
+        mobilya.dikey_bolme[komsuAltDikeyBolme[index]].y =
+          mobilya.dikey_bolme[komsuAltDikeyBolme[index]].y - sonuc;
       }
       //rafın ayarlanması
       mobilya.yatay_bolme[secilenUstRaf_index].y0 =

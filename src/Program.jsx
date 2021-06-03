@@ -12,11 +12,11 @@
 //@Baza
 //@Alt  //@AltTip  //@AltAyarlar
 //@Bolges
-//@dikme_sil
+//@dikey_bolme_sil
 //@kapak_sil
 //@yatay_bolme_ekle
 //@profilkapak
-//@ScreenDikme  //@DikmeUpdate  //@YatayBolmeUpdate  //@BolgesUpdate //@kapak
+//@ScreenDikeyBolme  //@dikey_bolmeUpdate  //@YatayBolmeUpdate  //@BolgesUpdate //@kapak
 //@ScreenCabinet
 //@Nest
 //@Nesting
@@ -70,12 +70,12 @@ import {
   fitToViewer,
 } from "react-svg-pan-zoom";
 import YatayBolmeAyarla from "./components/YatayBolmeAyarla";
-import DikmeAyarla from "./components/DikmeAyarla";
+import DikeyBolmeAyarla from "./components/DikeyBolmeAyarla";
 import Coordinat from "./components/Coordinat";
 import Kapak from "./components/Kapak";
 import KapakSil from "./components/KapakSil";
-import DikmeSil from "./components/DikmeSil";
-import DikmeEkle from "./components/DikmeEkle";
+import DikeyBolmeSil from "./components/DikeyBolmeSil";
+import DikeyBolmeEkle from "./components/DikeyBolmeEkle";
 import YatayBolmeEkle from "./components/YatayBolmeEkle";
 import YatayBolmeSil from "./components/YatayBolmeSil";
 import KapakProfil from "./components/KapakProfil";
@@ -90,7 +90,7 @@ const initialState_menu = {
   Login: false,
   SignUp: false,
   ScreenCabinet: false,
-  ScreenDikme: false,
+  ScreenDikeyBolme: false,
   Nesting: false,
   Price: false,
   Materials: false,
@@ -155,7 +155,7 @@ const Program = () => {
   const [altId, setaltId] = useState("1");
   const [secilenBolge, setSecilenBolge] = useState(0);
   const [secilenYatayBolme, setSecilenYatayBolme] = useState(0);
-  const [secilenDikme, setSecilenDikme] = useState(0);
+  const [secilenDikeyBolme, setsecilenDikeyBolme] = useState(0);
   const [secilenKapak, setSecilenKapak] = useState(0);
   const [secilenKayit, setSecilenKayit] = useState(0);
   const [secilenKayitModel, setSecilenKayitModel] = useState(0);
@@ -204,7 +204,7 @@ const Program = () => {
     kapak: [{ dahil: true, tip: 3, name: 'Kapak', material_id: 18, x0: 0, y0: 0, z0: 0, x: 1000, y: 100, z: 18, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 }],
     sol_pervaz: { dahil: false, tip: 3, name: 'Sol Pervaz', material_id: 18, x0: 0, y0: 0, z0: 0, x: 100, y: 500, z: 18, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 },
     sag_pervaz: { dahil: false, tip: 3, name: 'Sag Pervaz', material_id: 18, x0: 0, y0: 0, z0: 0, x: 100, y: 1000, z: 18, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 },
-    dikme: [{ dahil: true, tip: 3, name: 'Dikme', material_id: 18, x0: 0, y0: 0, z0: 0, x: 18, y: 1628, z: 600, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 }],
+    dikey_bolme: [{ dahil: true, tip: 3, name: 'DikeyBolme', material_id: 18, x0: 0, y0: 0, z0: 0, x: 18, y: 1628, z: 600, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 }],
     yatay_bolme: [
       { dahil: true, tip: 3, name: 'YatayBolme', material_id: 18, x0: -495, y0: 0, z0: 0, x: 973, y: 18, z: 600, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 },
       { dahil: true, tip: 3, name: 'YatayBolme', material_id: 18, x0: 495, y0: 0, z0: 0, x: 973, y: 18, z: 600, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 },
@@ -216,7 +216,7 @@ const Program = () => {
       { tip: 2, name: 'Alt', material_id: 1, u1: 1, u2: 1, x0: 0, y0: -1041, z0: 0, x: 1964, y: 18, z: 600 }, //alt
       { tip: 2, name: 'Üst', material_id: 1, u1: 1, u2: 1, x0: 0, y0: 1041, z0: 0, x: 1964, y: 18, z: 600 }, //üst
       { tip: 1, name: 'Sağ Yan', material_id: 1, u1: 0, u2: 0, x0: 991, y0: 0, z0: 0, x: 18, y: 2100, z: 600 }, //sag_yan
-      { tip: 1, name: 'Dikme', material_id: 1, u1: 0, u2: 0, x0: 0, y0: 0, z0: 0, x: 18, y: 2064, z: 600 }, //Dikme
+      { tip: 1, name: 'DikeyBolme', material_id: 1, u1: 0, u2: 0, x0: 0, y0: 0, z0: 0, x: 18, y: 2064, z: 600 }, //DikeyBolme
       { tip: 3, name: 'kapak', material_id: 1, u1: 0, u2: 0, x0: 0, y0: 0, z0: 291, x: 1000, y: 2064, z: 18 }, //Kapak
     ],
   }
@@ -547,7 +547,7 @@ const Program = () => {
         yg0: 0,
         yg1: 0,
       },
-      dikme: [],
+      dikey_bolme: [],
       yatay_bolme: [],
       arkalik: [
         {
@@ -625,7 +625,7 @@ const Program = () => {
         }, //sag_yan
         {
           tip: 1,
-          name: "Dikme",
+          name: "DikeyBolme",
           material_id: 1,
           u1: 0,
           u2: 0,
@@ -635,7 +635,7 @@ const Program = () => {
           x: 18,
           y: 2064,
           z: 600,
-        }, //Dikme
+        }, //DikeyBolme
         {
           tip: 3,
           name: "kapak",
@@ -671,7 +671,7 @@ const Program = () => {
               Login: false,
               SignUp: false,
               ScreenCabinet: false,
-              ScreenDikme: false,
+              ScreenDikeyBolme: false,
               Nesting: false,
               Price: false,
               Materials: false,
@@ -691,7 +691,7 @@ const Program = () => {
               Login: true,
               SignUp: false,
               ScreenCabinet: false,
-              ScreenDikme: false,
+              ScreenDikeyBolme: false,
               Nesting: false,
               Price: false,
               Materials: false,
@@ -711,7 +711,7 @@ const Program = () => {
               Login: false,
               SignUp: true,
               ScreenCabinet: false,
-              ScreenDikme: false,
+              ScreenDikeyBolme: false,
               Nesting: false,
               Price: false,
               Materials: false,
@@ -730,7 +730,7 @@ const Program = () => {
               Login: false,
               SignUp: false,
               ScreenCabinet: true,
-              ScreenDikme: false,
+              ScreenDikeyBolme: false,
               Nesting: false,
               Price: false,
               Materials: false,
@@ -749,7 +749,7 @@ const Program = () => {
               Login: false,
               SignUp: false,
               ScreenCabinet: false,
-              ScreenDikme: true,
+              ScreenDikeyBolme: true,
               Nesting: false,
               Price: false,
               Materials: false,
@@ -768,7 +768,7 @@ const Program = () => {
               Login: false,
               SignUp: false,
               ScreenCabinet: false,
-              ScreenDikme: false,
+              ScreenDikeyBolme: false,
               Nesting: true,
               Price: false,
               Materials: false,
@@ -787,7 +787,7 @@ const Program = () => {
               Login: false,
               SignUp: false,
               ScreenCabinet: false,
-              ScreenDikme: false,
+              ScreenDikeyBolme: false,
               Nesting: false,
               Price: true,
               Materials: false,
@@ -806,7 +806,7 @@ const Program = () => {
               Login: false,
               SignUp: false,
               ScreenCabinet: false,
-              ScreenDikme: false,
+              ScreenDikeyBolme: false,
               Nesting: false,
               Price: false,
               Materials: true,
@@ -825,7 +825,7 @@ const Program = () => {
               Login: false,
               SignUp: false,
               ScreenCabinet: false,
-              ScreenDikme: false,
+              ScreenDikeyBolme: false,
               Nesting: false,
               Price: false,
               Materials: false,
@@ -844,7 +844,7 @@ const Program = () => {
               Login: false,
               SignUp: false,
               ScreenCabinet: false,
-              ScreenDikme: false,
+              ScreenDikeyBolme: false,
               Nesting: false,
               Price: false,
               Materials: false,
@@ -1213,8 +1213,8 @@ const Program = () => {
 
   //-----------------------------------------------
 
-  //@DikmeUpdate-----------------------------------------------------
-  const DikmeUpdate = () => {
+  //@dikey_bolmeUpdate-----------------------------------------------------
+  const DikeyBolmeUpdate = () => {
     const kalan_en = mobilya.X - mobilya.sol_yan.x - mobilya.sag_yan.x;
     const kalan_X = olculer.X - mobilya.sol_yan.x - mobilya.sag_yan.x;
 
@@ -1225,19 +1225,22 @@ const Program = () => {
     const OranX = kalan_en / kalan_X;
     const OranY = kalan_boy / kalan_Y;
     const OranZ = mobilya.Z / olculer.Z;
-    for (let index = 0; index < mobilya.dikme.length; index++) {
-      mobilya.dikme[index].dahil = true;
-      mobilya.dikme[index].tip = 3;
-      mobilya.dikme[index].name = "dikme";
-      mobilya.dikme[index].x0 = (mobilya.dikme[index].x0 / 2) * OranX;
-      mobilya.dikme[index].y0 = (mobilya.dikme[index].y0 / 2) * OranY;
-      mobilya.dikme[index].z0 = (mobilya.dikme[index].z0 / 2) * OranZ;
-      mobilya.dikme[index].x = mobilya.dikme[index].x * OranX;
-      mobilya.dikme[index].y = mobilya.dikme[index].y * OranY;
-      mobilya.dikme[index].z = mobilya.dikme[index].z * OranZ;
+    for (let index = 0; index < mobilya.dikey_bolme.length; index++) {
+      mobilya.dikey_bolme[index].dahil = true;
+      mobilya.dikey_bolme[index].tip = 3;
+      mobilya.dikey_bolme[index].name = "dikey_bolme";
+      mobilya.dikey_bolme[index].x0 =
+        (mobilya.dikey_bolme[index].x0 / 2) * OranX;
+      mobilya.dikey_bolme[index].y0 =
+        (mobilya.dikey_bolme[index].y0 / 2) * OranY;
+      mobilya.dikey_bolme[index].z0 =
+        (mobilya.dikey_bolme[index].z0 / 2) * OranZ;
+      mobilya.dikey_bolme[index].x = mobilya.dikey_bolme[index].x * OranX;
+      mobilya.dikey_bolme[index].y = mobilya.dikey_bolme[index].y * OranY;
+      mobilya.dikey_bolme[index].z = mobilya.dikey_bolme[index].z * OranZ;
     }
 
-    return mobilya.dikme;
+    return mobilya.dikey_bolme;
   };
   //---------------------------------------------
   //@YatayBolmeUpdate-----------------------------------------------------------
@@ -1292,9 +1295,9 @@ const Program = () => {
   };
 
   //-----------------------------------------------------
-  //@dikme_sil----------------------------------------------
-  const dikme_sil = () => {
-    const sonuc = DikmeSil(mobilya, secilenDikme, secilen);
+  //@dikey_bolme_sil----------------------------------------------
+  const dikey_bolme_sil = () => {
+    const sonuc = DikeyBolmeSil(mobilya, secilenDikeyBolme, secilen);
     setmobilya({ ...mobilya, ...sonuc });
     setSecilenBolge(0);
     setSecilen({
@@ -2397,20 +2400,20 @@ const Program = () => {
               // console.log('normal uğradı')
               const Bolge = BolgesUpdate();
               // console.log('Bolge=', Bolge)
-              const Dikme = DikmeUpdate(m);
+              const DikeyBolme = DikeyBolmeUpdate(m);
               const YatayBolme = YatayBolmeUpdate(m);
               m.bolge = Bolge;
-              m.dikme = Dikme;
+              m.dikey_bolme = DikeyBolme;
               m.yatay_bolme = YatayBolme;
               setmobilya({ ...mobilya, ...m });
             } else {
               console.log("elseya uğradı");
               const Bolge = BolgesUpdate();
               // console.log('Bolge=', Bolge)
-              const Dikme = DikmeUpdate();
+              const DikeyBolme = DikeyBolmeUpdate();
               const YatayBolme = YatayBolmeUpdate();
               m.bolge = Bolge;
-              m.dikme = Dikme;
+              m.dikey_bolme = DikeyBolme;
               m.yatay_bolme = YatayBolme;
               setmobilya({ ...mobilya, ...m });
               const dene = {
@@ -2429,8 +2432,8 @@ const Program = () => {
     );
   };
 
-  //@ScreenDikme------------------------------------------------
-  const ScreenDikme = () => {
+  //@ScreenDikeyBolme------------------------------------------------
+  const ScreenDikeyBolme = () => {
     let m = mobilya;
     SolYan();
     SagYan();
@@ -2479,17 +2482,17 @@ const Program = () => {
           Fit
         </button>
         <hr />
-        <h4>ScreenDikme</h4>
-        {/** //@dikme_ekle **************************/}
+        <h4>ScreenDikeyBolme</h4>
+        {/** //@dikey_bolme_ekle **************************/}
         <button
           onClick={() => {
-            m = DikmeEkle(mobilya, secilenBolge, secilen);
+            m = DikeyBolmeEkle(mobilya, secilenBolge, secilen);
             console.log("seçilenBölge=", secilenBolge);
             console.log("seçilen=", secilen);
             setmobilya({ ...mobilya, ...m });
           }}
         >
-          dikme ekle
+          dikey_bolme ekle
         </button>
         {/** //@yatay_bolme_ekle ***************************/}
         <button
@@ -2536,7 +2539,7 @@ const Program = () => {
         <button onClick={kayit_ekle_dikey}>kayit_ekle_dikey</button>
         <button onClick={kayit_ekle_yatay}>kayit_ekle_yatay</button>
         <button onClick={kayit_sil}>kayit sil</button>
-        <button onClick={dikme_sil}>dikme sil</button>
+        <button onClick={dikey_bolme_sil}>dikey_bolme sil</button>
         <button onClick={yatay_bolme_sil}>yatay_bolme_sil</button>
 
         <BolgeEnAyarla />
@@ -2680,7 +2683,7 @@ const Program = () => {
               );
             })}
 
-            {mobilya.dikme.map((item, index) => {
+            {mobilya.dikey_bolme.map((item, index) => {
               return (
                 <Rect
                   className="on"
@@ -2695,8 +2698,8 @@ const Program = () => {
                   strokeWidth="5"
                   fillOpacity="0.5"
                   onClick={() => {
-                    setSecilenDikme(index);
-                    console.log("seçilen_dikme=", secilenDikme);
+                    setsecilenDikeyBolme(index);
+                    console.log("seçilen_dikey_bolme=", secilenDikeyBolme);
                     console.warn("onPress ***");
                   }}
                 />
@@ -3054,8 +3057,8 @@ const Program = () => {
 
         <button
           onClick={() => {
-            const islem = "sag_dikme";
-            const sonuc = DikmeAyarla(
+            const islem = "sag_dikey_bolme";
+            const sonuc = DikeyBolmeAyarla(
               mobilya,
               bolge_x,
               bolge_y,
@@ -3067,12 +3070,12 @@ const Program = () => {
             bolge_x = -1;
           }}
         >
-          sag_dikme
+          sag_dikey_bolme
         </button>
         <button
           onClick={() => {
-            const islem = "sol_dikme";
-            const sonuc = DikmeAyarla(
+            const islem = "sol_dikey_bolme";
+            const sonuc = DikeyBolmeAyarla(
               mobilya,
               bolge_x,
               bolge_y,
@@ -3084,7 +3087,7 @@ const Program = () => {
             bolge_x = -1;
           }}
         >
-          sol_dikme
+          sol_dikey_bolme
         </button>
       </div>
     );
@@ -3888,14 +3891,14 @@ const Program = () => {
       });
     }
 
-    function Dikmes1() {
+    function DikeyBolmes1() {
       const [colorMap, displacementMap, normalMap, roughnessMap] = useTexture([
         "WoodQuarteredChiffon001_COL_3K.jpg",
         "WoodQuarteredChiffon001_GLOSS_3K.jpg",
         "WoodQuarteredChiffon001_NRM_3K.jpg",
         "WoodQuarteredChiffon001_REFL_3K.jpg",
       ]);
-      const a = mobilya.dikme;
+      const a = mobilya.dikey_bolme;
       return a.map((item, index) => {
         return (
           <mesh
@@ -4126,7 +4129,7 @@ const Program = () => {
             <KayitEkleDikey1 />
             <KayitEkleYatay1 />
             <CekmeceKasa1 />
-            <Dikmes1 />
+            <DikeyBolmes1 />
             <YatayBolmes1 />
             {mobilya.sol_pervaz.dahil && <SolPervaz1 />}
             {mobilya.sag_pervaz.dahil && <SagPervaz1 />}
@@ -4198,13 +4201,13 @@ const Program = () => {
         });
       }
     }
-    if (a.dikme.length > 0) {
-      for (let index = 0; index < a.dikme.length; index++) {
+    if (a.dikey_bolme.length > 0) {
+      for (let index = 0; index < a.dikey_bolme.length; index++) {
         b.push({
-          name: a.dikme[index].name,
-          boy: a.dikme[index].y,
-          kalinlik: a.dikme[index].x,
-          en: a.dikme[index].z,
+          name: a.dikey_bolme[index].name,
+          boy: a.dikey_bolme[index].y,
+          kalinlik: a.dikey_bolme[index].x,
+          en: a.dikey_bolme[index].z,
         });
       }
     }
@@ -4487,9 +4490,9 @@ const Program = () => {
           <ConstructionSettings />
         </div>
       )}
-      {menu.ScreenDikme && (
+      {menu.ScreenDikeyBolme && (
         <div>
-          <ScreenDikme mobilya={mobilya} />
+          <ScreenDikeyBolme mobilya={mobilya} />
           <ConstructionSettings />
         </div>
       )}

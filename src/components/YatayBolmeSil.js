@@ -117,7 +117,7 @@ const YatayBolmeSil = (mobilya, secilenYatayBolme) => {
       (item) => item.dahil
     );
     mobilya.yatay_bolme = newList_yatay_bolme;
-    console.log("newList_dikme=", newList_yatay_bolme);
+    console.log("newList_dikey_bolme=", newList_yatay_bolme);
 
     return mobilya;
   };

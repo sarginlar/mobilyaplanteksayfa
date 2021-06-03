@@ -1,4 +1,4 @@
-const DikmeSil = (mobilya, secilenDikme) => {
+const DikeyBolmeSil = (mobilya, secilenDikeyBolme) => {
   const bolge = [
     { x1: 0, y1: 0, x2: 0, y2: 0, x3: 0, y3: 0, x4: 0, y4: 0, x: 0, y: 0 },
   ];
@@ -7,22 +7,38 @@ const DikmeSil = (mobilya, secilenDikme) => {
   let komsu_sol_bolge_id = -1;
   let komsu_sag_bolge_id = -1;
 
-  console.log("DikmeSil çalıştı");
-  //dikmeninin silip silinemeyeceği kontrol edilecek
-  //dikme silindikten sonra bölgeler dikmenin silinmesine göre ayarlanacak
+  console.log("DikeyBolmeSil çalıştı");
+  //dikey_bolmeninin silip silinemeyeceği kontrol edilecek
+  //dikey_bolme silindikten sonra bölgeler dikey_bolmenin silinmesine göre ayarlanacak
   //bu bölgeler içindeki kapak çekmece kapağı ve kasa gibi unsurlar düzenlenecek
-  //dikmeye komşu olan bölgelerin tespiti. komşu ola bölgeleri tespit etmek için dikmenin köşe noktaları ile eşit olan bölgeler bulunacak, bu durumda 2 bölge olabilir.
+  //dikey_bolmeye komşu olan bölgelerin tespiti. komşu ola bölgeleri tespit etmek için dikey_bolmenin köşe noktaları ile eşit olan bölgeler bulunacak, bu durumda 2 bölge olabilir.
 
-  //1...seçilen dikmenin dört köşe noktasının bulunması.
-  const dikme = {
-    x1: mobilya.dikme[secilenDikme].x0 - mobilya.dikme[secilenDikme].x / 2,
-    y1: mobilya.dikme[secilenDikme].y0 + mobilya.dikme[secilenDikme].y / 2,
-    x2: mobilya.dikme[secilenDikme].x0 + mobilya.dikme[secilenDikme].x / 2,
-    y2: mobilya.dikme[secilenDikme].y0 + mobilya.dikme[secilenDikme].y / 2,
-    x3: mobilya.dikme[secilenDikme].x0 - mobilya.dikme[secilenDikme].x / 2,
-    y3: mobilya.dikme[secilenDikme].y0 - mobilya.dikme[secilenDikme].y / 2,
-    x4: mobilya.dikme[secilenDikme].x0 + mobilya.dikme[secilenDikme].x / 2,
-    y4: mobilya.dikme[secilenDikme].y0 - mobilya.dikme[secilenDikme].y / 2,
+  //1...seçilen dikey_bolmenin dört köşe noktasının bulunması.
+  const dikey_bolme = {
+    x1:
+      mobilya.dikey_bolme[secilenDikeyBolme].x0 -
+      mobilya.dikey_bolme[secilenDikeyBolme].x / 2,
+    y1:
+      mobilya.dikey_bolme[secilenDikeyBolme].y0 +
+      mobilya.dikey_bolme[secilenDikeyBolme].y / 2,
+    x2:
+      mobilya.dikey_bolme[secilenDikeyBolme].x0 +
+      mobilya.dikey_bolme[secilenDikeyBolme].x / 2,
+    y2:
+      mobilya.dikey_bolme[secilenDikeyBolme].y0 +
+      mobilya.dikey_bolme[secilenDikeyBolme].y / 2,
+    x3:
+      mobilya.dikey_bolme[secilenDikeyBolme].x0 -
+      mobilya.dikey_bolme[secilenDikeyBolme].x / 2,
+    y3:
+      mobilya.dikey_bolme[secilenDikeyBolme].y0 -
+      mobilya.dikey_bolme[secilenDikeyBolme].y / 2,
+    x4:
+      mobilya.dikey_bolme[secilenDikeyBolme].x0 +
+      mobilya.dikey_bolme[secilenDikeyBolme].x / 2,
+    y4:
+      mobilya.dikey_bolme[secilenDikeyBolme].y0 -
+      mobilya.dikey_bolme[secilenDikeyBolme].y / 2,
   };
   //2..bölgelerin köşe noktalarının bulunması
   for (let index = 0; index < mobilya.bolge.length; index++) {
@@ -40,25 +56,25 @@ const DikmeSil = (mobilya, secilenDikme) => {
     };
   }
 
-  //3..dikme üst ve alt noktalarına komşu olan bölgeleri tespit ediyoruz.
+  //3..dikey_bolme üst ve alt noktalarına komşu olan bölgeleri tespit ediyoruz.
   for (let index = 0; index < mobilya.bolge.length; index++) {
     if (
-      //dikmeye komsu sag bolge
-      dikme.x2 === bolge[index].x1 &&
-      dikme.y2 === bolge[index].y1 &&
-      dikme.x4 === bolge[index].x3 &&
-      dikme.y4 === bolge[index].y3
+      //dikey_bolmeye komsu sag bolge
+      dikey_bolme.x2 === bolge[index].x1 &&
+      dikey_bolme.y2 === bolge[index].y1 &&
+      dikey_bolme.x4 === bolge[index].x3 &&
+      dikey_bolme.y4 === bolge[index].y3
     ) {
       console.log("komsu sag bölge bulundu", index);
       komsu_sag_bolge = true;
       komsu_sag_bolge_id = index;
     }
     if (
-      //dikmeye komsu sol bolge
-      dikme.x1 === bolge[index].x2 &&
-      dikme.y1 === bolge[index].y2 &&
-      dikme.x3 === bolge[index].x4 &&
-      dikme.y3 === bolge[index].y4
+      //dikey_bolmeye komsu sol bolge
+      dikey_bolme.x1 === bolge[index].x2 &&
+      dikey_bolme.y1 === bolge[index].y2 &&
+      dikey_bolme.x3 === bolge[index].x4 &&
+      dikey_bolme.y3 === bolge[index].y4
     ) {
       console.log("komsu sol bölge bulundu", index);
       komsu_sol_bolge = true;
@@ -67,11 +83,11 @@ const DikmeSil = (mobilya, secilenDikme) => {
   }
 
   //--yardımcı alt programlar
-  const DikmeSilme = () => {
+  const DikeyBolmeSilme = () => {
     mobilya.bolge[komsu_sol_bolge_id].dahil = false;
     mobilya.bolge[komsu_sag_bolge_id].dahil = false;
     //-----------------------------
-    mobilya.dikme[secilenDikme].dahil = false;
+    mobilya.dikey_bolme[secilenDikeyBolme].dahil = false;
     //-----------------------------
     //silinen
     for (let index = 0; index < mobilya.kapak.length; index++) {
@@ -96,15 +112,17 @@ const DikmeSil = (mobilya, secilenDikme) => {
     console.log("newList_bolge=", newList);
     //-----------------------------
 
-    //seçilen dikmeyi sil
-    const newList_dikme = mobilya.dikme.filter((item) => item.dahil);
-    mobilya.dikme = newList_dikme;
-    console.log("newList_dikme=", newList_dikme);
+    //seçilen dikey_bolmeyi sil
+    const newList_dikey_bolme = mobilya.dikey_bolme.filter(
+      (item) => item.dahil
+    );
+    mobilya.dikey_bolme = newList_dikey_bolme;
+    console.log("newList_dikey_bolme=", newList_dikey_bolme);
 
     return mobilya;
   };
 
-  //-dikme silindikten sonra bölgeler birleştiriliyor.
+  //-dikey_bolme silindikten sonra bölgeler birleştiriliyor.
   const BolgeBirlestirme = () => {
     // birleşik bir bölge önceden hesaplanacak sonra diğer bölgeler silincek
     const yeniBolge = {
@@ -122,7 +140,7 @@ const DikmeSil = (mobilya, secilenDikme) => {
       x:
         mobilya.bolge[komsu_sol_bolge_id].x +
         mobilya.bolge[komsu_sag_bolge_id].x +
-        mobilya.dikme[secilenDikme].x,
+        mobilya.dikey_bolme[secilenDikeyBolme].x,
       y: mobilya.bolge[komsu_sol_bolge_id].y,
     };
     console.log("bölge birleştirmeye uğradı");
@@ -137,16 +155,16 @@ const DikmeSil = (mobilya, secilenDikme) => {
     console.log("işlem yapılabilir");
 
     BolgeBirlestirme();
-    DikmeSilme();
+    DikeyBolmeSilme();
     komsu_sol_bolge = false;
     komsu_sag_bolge = false;
   } else {
     console.log("işlem yapılamaz");
   }
 
-  //console.log("seçilen dikme=", mobilya.dikme[secilenDikme]);
+  //console.log("seçilen dikey_bolme=", mobilya.dikey_bolme[secilenDikeyBolme]);
 
   return mobilya;
 };
 
-export default DikmeSil;
+export default DikeyBolmeSil;

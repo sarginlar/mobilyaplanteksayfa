@@ -1,9 +1,9 @@
-const DikmeEkle = (mobilya, secilenBolge, secilen) => {
-  console.log("DikmeEkle çalıştı");
+const DikeyBolmeEkle = (mobilya, secilenBolge, secilen) => {
+  console.log("DikeyBolmeEkle çalıştı");
   console.log("mobilya==", mobilya, "secilenBolge=", secilenBolge);
   //---------------------------------
   if (secilen.bolge) {
-    //bölge seçilmemiş ise dikme eklemez
+    //bölge seçilmemiş ise dikey_bolme eklemez
     const a = mobilya.bolge[secilenBolge];
     const a1 = {
       dahil: true,
@@ -25,12 +25,12 @@ const DikmeEkle = (mobilya, secilenBolge, secilen) => {
     };
     mobilya.bolge[secilenBolge] = a1;
     mobilya.bolge[mobilya.bolge.length] = a2;
-    /*  dikme: [{ dahil: true, tip: 3, name: 'Dikme', material_id: 18, x0: 0, y0: 0, z0: 0, x: 18, y: 1628, z: 600, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 }],*/
+    /*  dikey_bolme: [{ dahil: true, tip: 3, name: 'DikeyBolme', material_id: 18, x0: 0, y0: 0, z0: 0, x: 18, y: 1628, z: 600, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 }],*/
 
-    mobilya.dikme[mobilya.dikme.length] = {
+    mobilya.dikey_bolme[mobilya.dikey_bolme.length] = {
       dahil: true,
       tip: 3,
-      name: "Dikme",
+      name: "DikeyBolme",
       material_id: 18,
       x0: a.cx,
       y0: a.cy,
@@ -51,4 +51,4 @@ const DikmeEkle = (mobilya, secilenBolge, secilen) => {
   return mobilya;
 };
 
-export default DikmeEkle;
+export default DikeyBolmeEkle;

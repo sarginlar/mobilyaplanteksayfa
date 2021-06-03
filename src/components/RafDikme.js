@@ -1,4 +1,4 @@
-// Filename: public/RafDikme.js
+// Filename: public/RafDikeyBolme.js
 let açıklık_gen = 0;
 let açıklık_yük = 0;
 let x_1 = 0;
@@ -12,7 +12,7 @@ let kalınlık = 1.8 / 2;
 export function basla(mod) {
   let bölge = [];
   let yatay_bolme = [];
-  let dikme = [];
+  let dikey_bolme = [];
   if (mod.üst.düz.dahil) {
     üst_kalınlık = mod.üst.düz.malzeme.kalınlık;
   } else if (mod.üst.ön_kayıt.dahil) {
@@ -66,11 +66,11 @@ export function basla(mod) {
 		yatay_bolme[i].y_1 = mod.yatay_bolme[i].y_1 - y_1
 	}
 */
-  let dik = mod.dikme;
+  let dik = mod.dikey_bolme;
   /*
-    for (var j = 0; j < mod.dikme.length; j++) {
-    	dikme[j].x_1 = mod.dikme[j].x_1 - x_1
-    	dikme[j].y_1 = mod.dikme[j].y_1 - y_1
+    for (var j = 0; j < mod.dikey_bolme.length; j++) {
+    	dikey_bolme[j].x_1 = mod.dikey_bolme[j].x_1 - x_1
+    	dikey_bolme[j].y_1 = mod.dikey_bolme[j].y_1 - y_1
     }
     */
   bölge = mod.bölge;
@@ -90,7 +90,7 @@ export function basla(mod) {
 }
 
 export function imgModul(mod, seç, x12, y12) {
-  if (mod.yatay_bolme.length > 0 || mod.dikme.length > 0) {
+  if (mod.yatay_bolme.length > 0 || mod.dikey_bolme.length > 0) {
     //---tıklandığındaki bölgeyi buluyor
     for (var i = 0; i < mod.bölge.length; i++) {
       // burada bölge seçiliyor
@@ -123,20 +123,20 @@ export function imgModul(mod, seç, x12, y12) {
         console.log("yatay_bolme seçildi=" + seç.s);
       }
     }
-    for (var k = 0; k < mod.dikme.length; k++) {
+    for (var k = 0; k < mod.dikey_bolme.length; k++) {
       // burda yatay_bolme seçiliyor
       if (
-        x12 >= mod.dikme[k].x_1 &&
-        x12 <= mod.dikme[k].x_1 + mod.dikme[k].malzeme.kalınlık &&
-        y12 >= mod.dikme[k].y_1 &&
-        y12 <= mod.dikme[k].boy + mod.dikme[k].y_1
+        x12 >= mod.dikey_bolme[k].x_1 &&
+        x12 <= mod.dikey_bolme[k].x_1 + mod.dikey_bolme[k].malzeme.kalınlık &&
+        y12 >= mod.dikey_bolme[k].y_1 &&
+        y12 <= mod.dikey_bolme[k].boy + mod.dikey_bolme[k].y_1
       ) {
         seç = {
           tip: 2,
           s: k,
         };
-        //console.log("y2=" + (dikme[k].malzeme.kalınlık + dikme[k].y_1 + y_1))
-        console.log("dikme seçildi=" + seç.s);
+        //console.log("y2=" + (dikey_bolme[k].malzeme.kalınlık + dikey_bolme[k].y_1 + y_1))
+        console.log("dikey_bolme seçildi=" + seç.s);
       }
     }
   } else {
@@ -240,7 +240,7 @@ export function btnRafEkle(mod, seç, sabit) {
   return mod;
 }
 
-export function btnDikmeEkle(mod, seç) {
+export function btnDikeyBolmeEkle(mod, seç) {
   //console.log(seç.s)
   //bölge[(seç.s)].x1 = bölge[(seç.s)].x1
   //bölge[(seç.s)].y1 = bölge[(seç.s)].y1
@@ -253,10 +253,10 @@ export function btnDikmeEkle(mod, seç) {
     yük: mod.bölge[seç.s].yük,
   });
   //-----------------
-  mod.dikme.push({
-    şekli: 0, //0: düz dikme
+  mod.dikey_bolme.push({
+    şekli: 0, //0: düz dikey_bolme
     sabit: true,
-    adı: "dikme",
+    adı: "dikey_bolme",
     tip: 2,
     x_1: mod.bölge[mod.bölge.length - 1].x1 - kalınlık * 2,
     y_1: mod.bölge[seç.s].y1,
@@ -314,13 +314,15 @@ export function btnSil(mod, seç) {
         break;
       case 2:
         if (
-          (mod.dikme[seç.s].x_1.toFixed(1) ===
+          (mod.dikey_bolme[seç.s].x_1.toFixed(1) ===
             (mod.bölge[i].gen + mod.bölge[i].x1).toFixed(1) &&
-            mod.dikme[seç.s].y_1.toFixed(1) === mod.bölge[i].y1.toFixed(1)) ||
-          ((mod.dikme[seç.s].x_1 + mod.dikme[seç.s].malzeme.kalınlık).toFixed(
-            1
-          ) === mod.bölge[i].x1.toFixed(1) &&
-            mod.dikme[seç.s].y_1.toFixed(1) === mod.bölge[i].y1.toFixed(1))
+            mod.dikey_bolme[seç.s].y_1.toFixed(1) ===
+              mod.bölge[i].y1.toFixed(1)) ||
+          ((
+            mod.dikey_bolme[seç.s].x_1 + mod.dikey_bolme[seç.s].malzeme.kalınlık
+          ).toFixed(1) === mod.bölge[i].x1.toFixed(1) &&
+            mod.dikey_bolme[seç.s].y_1.toFixed(1) ===
+              mod.bölge[i].y1.toFixed(1))
         ) {
           console.log("aynı olanlar=" + i);
           toplam.push(mod.bölge[i]);
@@ -343,7 +345,7 @@ export function btnSil(mod, seç) {
         mod.yatay_bolme.splice(seç.s, 1);
         break;
       case 2:
-        mod.dikme.splice(seç.s, 1);
+        mod.dikey_bolme.splice(seç.s, 1);
         break;
       default:
         break;
@@ -409,10 +411,10 @@ export function RafGüncelle(mod, seç, y, rdgRaf, uyari) {
   let rü_ük = []; // üst yatay_bolme üst komşu
   let ra_ak = []; // alt yatay_bolme alt komşu modüller
   let ra_ük = []; //alt yatay_bolme üst komşu modüller
-  let rü_dü = []; //üst dikme üst komşu
-  let rü_da = []; // üst dikme alt komşu
-  let ra_dü = []; //alt yatay_bolme dikme üst komşu
-  let ra_da = []; // alt yatay_bolme dikme alt komşu
+  let rü_dü = []; //üst dikey_bolme üst komşu
+  let rü_da = []; // üst dikey_bolme alt komşu
+  let ra_dü = []; //alt yatay_bolme dikey_bolme üst komşu
+  let ra_da = []; // alt yatay_bolme dikey_bolme alt komşu
   if (seç.tip === 0) {
     for (var i = 0; i < mod.yatay_bolme.length; i++) {
       // burada seçilen bölgenin üstüne komşu alan yatay_bolme bulunuyor
@@ -440,17 +442,17 @@ export function RafGüncelle(mod, seç, y, rdgRaf, uyari) {
         //console.log("seçilen_alt=" + i)
       }
     }
-    for (var i3 = 0; i3 < mod.dikme.length; i3++) {
-      // seçilen rafa komşu olan dikmeler
+    for (var i3 = 0; i3 < mod.dikey_bolme.length; i3++) {
+      // seçilen rafa komşu olan dikey_bolmeler
       if (r_üst_var) {
         if (
           Math.abs(
-            mod.dikme[i3].y_1 -
+            mod.dikey_bolme[i3].y_1 -
               (mod.yatay_bolme[r_üst].y_1 +
                 mod.yatay_bolme[r_üst].malzeme.kalınlık)
           ) <= 0.1 &&
-          mod.dikme[i3].x_1 >= mod.yatay_bolme[r_üst].x_1 &&
-          mod.dikme[i3].x_1 <=
+          mod.dikey_bolme[i3].x_1 >= mod.yatay_bolme[r_üst].x_1 &&
+          mod.dikey_bolme[i3].x_1 <=
             mod.yatay_bolme[r_üst].x_1 + mod.yatay_bolme[r_üst].boy
         ) {
           rü_da.push(i3);
@@ -458,10 +460,12 @@ export function RafGüncelle(mod, seç, y, rdgRaf, uyari) {
         }
         if (
           Math.abs(
-            mod.dikme[i3].y_1 + mod.dikme[i3].boy - mod.yatay_bolme[r_üst].y_1
+            mod.dikey_bolme[i3].y_1 +
+              mod.dikey_bolme[i3].boy -
+              mod.yatay_bolme[r_üst].y_1
           ) <= 0.1 &&
-          mod.dikme[i3].x_1 >= mod.yatay_bolme[r_üst].x_1 &&
-          mod.dikme[i3].x_1 <=
+          mod.dikey_bolme[i3].x_1 >= mod.yatay_bolme[r_üst].x_1 &&
+          mod.dikey_bolme[i3].x_1 <=
             mod.yatay_bolme[r_üst].x_1 + mod.yatay_bolme[r_üst].boy
         ) {
           rü_dü.push(i3);
@@ -471,10 +475,12 @@ export function RafGüncelle(mod, seç, y, rdgRaf, uyari) {
       if (r_alt_var) {
         if (
           Math.abs(
-            mod.dikme[i3].y_1 + mod.dikme[i3].boy - mod.yatay_bolme[r_alt].y_1
+            mod.dikey_bolme[i3].y_1 +
+              mod.dikey_bolme[i3].boy -
+              mod.yatay_bolme[r_alt].y_1
           ) <= 0.1 &&
-          mod.dikme[i3].x_1 >= mod.yatay_bolme[r_alt].x_1 &&
-          mod.dikme[i3].x_1 <=
+          mod.dikey_bolme[i3].x_1 >= mod.yatay_bolme[r_alt].x_1 &&
+          mod.dikey_bolme[i3].x_1 <=
             mod.yatay_bolme[r_alt].x_1 + mod.yatay_bolme[r_alt].boy
         ) {
           ra_dü.push(i3);
@@ -482,12 +488,12 @@ export function RafGüncelle(mod, seç, y, rdgRaf, uyari) {
         }
         if (
           Math.abs(
-            mod.dikme[i3].y_1 -
+            mod.dikey_bolme[i3].y_1 -
               (mod.yatay_bolme[r_alt].y_1 +
                 mod.yatay_bolme[r_alt].malzeme.kalınlık)
           ) <= 0.1 &&
-          mod.dikme[i3].x_1 >= mod.yatay_bolme[r_alt].x_1 &&
-          mod.dikme[i3].x_1 <=
+          mod.dikey_bolme[i3].x_1 >= mod.yatay_bolme[r_alt].x_1 &&
+          mod.dikey_bolme[i3].x_1 <=
             mod.yatay_bolme[r_alt].x_1 + mod.yatay_bolme[r_alt].boy
         ) {
           ra_da.push(i3);
@@ -591,12 +597,15 @@ export function RafGüncelle(mod, seç, y, rdgRaf, uyari) {
           mod.bölge[rü_ük[i2]].yük = mod.bölge[rü_ük[i2]].yük + yük_fark;
         }
         for (var i4 = 0; i4 < rü_da.length; i4++) {
-          mod.dikme[rü_da[i4]].y_1 = mod.dikme[rü_da[i4]].y_1 + yük_fark;
-          mod.dikme[rü_da[i4]].boy = mod.dikme[rü_da[i4]].boy - yük_fark;
+          mod.dikey_bolme[rü_da[i4]].y_1 =
+            mod.dikey_bolme[rü_da[i4]].y_1 + yük_fark;
+          mod.dikey_bolme[rü_da[i4]].boy =
+            mod.dikey_bolme[rü_da[i4]].boy - yük_fark;
         }
         for (var j1 = 0; j1 < rü_dü.length; j1++) {
-          //mod.dikme[rü_dü[j1]].y_1 = mod.dikme[rü_dü[j1]].y_1 + yük_fark
-          mod.dikme[rü_dü[j1]].boy = mod.dikme[rü_dü[j1]].boy + yük_fark;
+          //mod.dikey_bolme[rü_dü[j1]].y_1 = mod.dikey_bolme[rü_dü[j1]].y_1 + yük_fark
+          mod.dikey_bolme[rü_dü[j1]].boy =
+            mod.dikey_bolme[rü_dü[j1]].boy + yük_fark;
         }
         mod.yatay_bolme[r_üst].y_1 = mod.yatay_bolme[r_üst].y_1 + yük_fark;
         //console.log("mod.yatay_bolme[r_üst].y_1=" + mod.yatay_bolme[r_üst].y_1)
@@ -635,12 +644,15 @@ export function RafGüncelle(mod, seç, y, rdgRaf, uyari) {
           mod.bölge[ra_ük[i6]].yük = mod.bölge[ra_ük[i6]].yük - yük_fark;
         }
         for (var i7 = 0; i7 < ra_dü.length; i7++) {
-          //mod.dikme[ra_dü[i7]].y_1 = mod.dikme[ra_dü[i7]].y_1 + yük_fark
-          mod.dikme[ra_dü[i7]].boy = mod.dikme[ra_dü[i7]].boy - yük_fark;
+          //mod.dikey_bolme[ra_dü[i7]].y_1 = mod.dikey_bolme[ra_dü[i7]].y_1 + yük_fark
+          mod.dikey_bolme[ra_dü[i7]].boy =
+            mod.dikey_bolme[ra_dü[i7]].boy - yük_fark;
         }
         for (var j2 = 0; j2 < ra_da.length; j2++) {
-          mod.dikme[ra_da[j2]].y_1 = mod.dikme[ra_da[j2]].y_1 - yük_fark;
-          mod.dikme[ra_da[j2]].boy = mod.dikme[ra_da[j2]].boy + yük_fark;
+          mod.dikey_bolme[ra_da[j2]].y_1 =
+            mod.dikey_bolme[ra_da[j2]].y_1 - yük_fark;
+          mod.dikey_bolme[ra_da[j2]].boy =
+            mod.dikey_bolme[ra_da[j2]].boy + yük_fark;
         }
         mod.yatay_bolme[r_alt].y_1 = mod.yatay_bolme[r_alt].y_1 - yük_fark;
         //console.log("mod.yatay_bolme[r_alt].y_1=" + mod.yatay_bolme[r_alt].y_1)
@@ -673,57 +685,59 @@ function gen_fark_f(b, seç, k) {
 }
 
 let en_küçük_raf_aralığı = 5;
-export function DikmeGuncelle(mod, seç, gen, rdgDikme, uyari) {
+export function DikeyBolmeGuncelle(mod, seç, gen, rdgDikeyBolme, uyari) {
   let toplam = [];
-  let d_sol; // bölgeye komşu sol dikme
-  let d_sol_var = false; // bölgeye komşu sol dikme var
+  let d_sol; // bölgeye komşu sol dikey_bolme
+  let d_sol_var = false; // bölgeye komşu sol dikey_bolme var
   let d_sağ_var = false; // bölgeye komsu sağ dime var
-  let d_sağ; // bölgeye komşu sağ dikme
-  let dsol_sağk = []; // sol dikme sağ komşu bölgeler
-  let dsol_solk = []; // sol dikme sol komşu bölgeler
-  let dsağ_solk = []; // sağ dikme sol komşu bölgeler
-  let dsağ_sağk = []; //sağ dikme sağ komşu bölgeler
-  let dsol_rsol = []; //sol dikmeye komşu sol raflar
-  let dsol_rsağ = []; //sol dikmeye komşu sağ yatay_bolme
-  let dsağ_rsol = []; //sağ dikmeye komşu sol yatay_bolme
-  let dsağ_rsağ = []; // sağ dikmeye komşu sağ yatay_bolme
+  let d_sağ; // bölgeye komşu sağ dikey_bolme
+  let dsol_sağk = []; // sol dikey_bolme sağ komşu bölgeler
+  let dsol_solk = []; // sol dikey_bolme sol komşu bölgeler
+  let dsağ_solk = []; // sağ dikey_bolme sol komşu bölgeler
+  let dsağ_sağk = []; //sağ dikey_bolme sağ komşu bölgeler
+  let dsol_rsol = []; //sol dikey_bolmeye komşu sol raflar
+  let dsol_rsağ = []; //sol dikey_bolmeye komşu sağ yatay_bolme
+  let dsağ_rsol = []; //sağ dikey_bolmeye komşu sol yatay_bolme
+  let dsağ_rsağ = []; // sağ dikey_bolmeye komşu sağ yatay_bolme
   if (seç.tip === 0) {
-    for (var i = 0; i < mod.dikme.length; i++) {
-      // seçilen bölgeye komşu sol ve sağ dikmeler
+    for (var i = 0; i < mod.dikey_bolme.length; i++) {
+      // seçilen bölgeye komşu sol ve sağ dikey_bolmeler
       if (
         Math.abs(
           mod.bölge[seç.s].x1 -
-            (mod.dikme[i].x_1 + mod.dikme[i].malzeme.kalınlık)
+            (mod.dikey_bolme[i].x_1 + mod.dikey_bolme[i].malzeme.kalınlık)
         ) <= 0.1 &&
-        mod.bölge[seç.s].y1 >= mod.dikme[i].y_1 &&
-        mod.bölge[seç.s].y1 <= mod.dikme[i].y_1 + mod.dikme[i].boy
+        mod.bölge[seç.s].y1 >= mod.dikey_bolme[i].y_1 &&
+        mod.bölge[seç.s].y1 <= mod.dikey_bolme[i].y_1 + mod.dikey_bolme[i].boy
       ) {
         d_sol = i;
         d_sol_var = true;
-        //console.log("seçilen_sol_dikme=" + i)
+        //console.log("seçilen_sol_dikey_bolme=" + i)
       }
       if (
         Math.abs(
-          mod.dikme[i].x_1 - (mod.bölge[seç.s].x1 + mod.bölge[seç.s].gen)
+          mod.dikey_bolme[i].x_1 - (mod.bölge[seç.s].x1 + mod.bölge[seç.s].gen)
         ) <= 0.1 &&
-        mod.bölge[seç.s].y1 >= mod.dikme[i].y_1 &&
-        mod.bölge[seç.s].y1 <= mod.dikme[i].y_1 + mod.dikme[i].boy
+        mod.bölge[seç.s].y1 >= mod.dikey_bolme[i].y_1 &&
+        mod.bölge[seç.s].y1 <= mod.dikey_bolme[i].y_1 + mod.dikey_bolme[i].boy
       ) {
         d_sağ = i;
         d_sağ_var = true;
-        //console.log("seçilen_sağ_dikme=" + i)
+        //console.log("seçilen_sağ_dikey_bolme=" + i)
       }
     }
     for (var i3 = 0; i3 < mod.yatay_bolme.length; i3++) {
-      // seçilen dikmeye komşu olan raflar bulunacak
+      // seçilen dikey_bolmeye komşu olan raflar bulunacak
       if (d_sol_var) {
         if (
           Math.abs(
             mod.yatay_bolme[i3].x_1 -
-              (mod.dikme[d_sol].x_1 + mod.dikme[d_sol].malzeme.kalınlık)
+              (mod.dikey_bolme[d_sol].x_1 +
+                mod.dikey_bolme[d_sol].malzeme.kalınlık)
           ) <= 0.1 &&
-          mod.yatay_bolme[i3].y_1 >= mod.dikme[d_sol].y_1 &&
-          mod.yatay_bolme[i3].y_1 <= mod.dikme[d_sol].y_1 + mod.dikme[d_sol].boy
+          mod.yatay_bolme[i3].y_1 >= mod.dikey_bolme[d_sol].y_1 &&
+          mod.yatay_bolme[i3].y_1 <=
+            mod.dikey_bolme[d_sol].y_1 + mod.dikey_bolme[d_sol].boy
         ) {
           dsol_rsağ.push(i3);
           //console.log("dsol_rsağ=" + i3)
@@ -732,10 +746,11 @@ export function DikmeGuncelle(mod, seç, gen, rdgDikme, uyari) {
           Math.abs(
             mod.yatay_bolme[i3].x_1 +
               mod.yatay_bolme[i3].boy -
-              mod.dikme[d_sol].x_1
+              mod.dikey_bolme[d_sol].x_1
           ) <= 0.1 &&
-          mod.yatay_bolme[i3].y_1 >= mod.dikme[d_sol].y_1 &&
-          mod.yatay_bolme[i3].y_1 <= mod.dikme[d_sol].y_1 + mod.dikme[d_sol].boy
+          mod.yatay_bolme[i3].y_1 >= mod.dikey_bolme[d_sol].y_1 &&
+          mod.yatay_bolme[i3].y_1 <=
+            mod.dikey_bolme[d_sol].y_1 + mod.dikey_bolme[d_sol].boy
         ) {
           dsol_rsol.push(i3);
           //console.log("dsol_rsol=" + i3)
@@ -746,10 +761,11 @@ export function DikmeGuncelle(mod, seç, gen, rdgDikme, uyari) {
           Math.abs(
             mod.yatay_bolme[i3].x_1 +
               mod.yatay_bolme[i3].boy -
-              mod.dikme[d_sağ].x_1
+              mod.dikey_bolme[d_sağ].x_1
           ) <= 0.1 &&
-          mod.yatay_bolme[i3].y_1 >= mod.dikme[d_sağ].y_1 &&
-          mod.yatay_bolme[i3].y_1 <= mod.dikme[d_sağ].y_1 + mod.dikme[d_sağ].boy
+          mod.yatay_bolme[i3].y_1 >= mod.dikey_bolme[d_sağ].y_1 &&
+          mod.yatay_bolme[i3].y_1 <=
+            mod.dikey_bolme[d_sağ].y_1 + mod.dikey_bolme[d_sağ].boy
         ) {
           dsağ_rsol.push(i3);
           //console.log("dsağ_rsol=" + i3)
@@ -757,10 +773,12 @@ export function DikmeGuncelle(mod, seç, gen, rdgDikme, uyari) {
         if (
           Math.abs(
             mod.yatay_bolme[i3].x_1 -
-              (mod.dikme[d_sağ].x_1 + mod.dikme[d_sağ].malzeme.kalınlık)
+              (mod.dikey_bolme[d_sağ].x_1 +
+                mod.dikey_bolme[d_sağ].malzeme.kalınlık)
           ) <= 0.1 &&
-          mod.yatay_bolme[i3].y_1 >= mod.dikme[d_sağ].y_1 &&
-          mod.yatay_bolme[i3].y_1 <= mod.dikme[d_sağ].y_1 + mod.dikme[d_sağ].boy
+          mod.yatay_bolme[i3].y_1 >= mod.dikey_bolme[d_sağ].y_1 &&
+          mod.yatay_bolme[i3].y_1 <=
+            mod.dikey_bolme[d_sağ].y_1 + mod.dikey_bolme[d_sağ].boy
         ) {
           dsağ_rsağ.push(i3);
           //console.log("dsağ_rsağ=" + i3)
@@ -773,19 +791,23 @@ export function DikmeGuncelle(mod, seç, gen, rdgDikme, uyari) {
         if (
           Math.abs(
             mod.bölge[j].x1 -
-              (mod.dikme[d_sol].x_1 + mod.dikme[d_sol].malzeme.kalınlık)
+              (mod.dikey_bolme[d_sol].x_1 +
+                mod.dikey_bolme[d_sol].malzeme.kalınlık)
           ) <= 0.1 &&
-          mod.bölge[j].y1 >= mod.dikme[d_sol].y_1 &&
-          mod.bölge[j].y1 <= mod.dikme[d_sol].y_1 + mod.dikme[d_sol].boy
+          mod.bölge[j].y1 >= mod.dikey_bolme[d_sol].y_1 &&
+          mod.bölge[j].y1 <=
+            mod.dikey_bolme[d_sol].y_1 + mod.dikey_bolme[d_sol].boy
         ) {
           dsol_sağk.push(j);
           //console.log("dsol_sağk=" + j)
         }
         if (
-          Math.abs(mod.bölge[j].x1 + mod.bölge[j].gen - mod.dikme[d_sol].x_1) <=
-            0.1 &&
-          mod.bölge[j].y1 >= mod.dikme[d_sol].y_1 &&
-          mod.bölge[j].y1 <= mod.dikme[d_sol].y_1 + mod.dikme[d_sol].boy
+          Math.abs(
+            mod.bölge[j].x1 + mod.bölge[j].gen - mod.dikey_bolme[d_sol].x_1
+          ) <= 0.1 &&
+          mod.bölge[j].y1 >= mod.dikey_bolme[d_sol].y_1 &&
+          mod.bölge[j].y1 <=
+            mod.dikey_bolme[d_sol].y_1 + mod.dikey_bolme[d_sol].boy
         ) {
           dsol_solk.push(j);
           //console.log("dsol_solk=" + j)
@@ -795,19 +817,23 @@ export function DikmeGuncelle(mod, seç, gen, rdgDikme, uyari) {
         if (
           Math.abs(
             mod.bölge[j].x1 -
-              (mod.dikme[d_sağ].x_1 + mod.dikme[d_sağ].malzeme.kalınlık)
+              (mod.dikey_bolme[d_sağ].x_1 +
+                mod.dikey_bolme[d_sağ].malzeme.kalınlık)
           ) <= 0.1 &&
-          mod.bölge[j].y1 >= mod.dikme[d_sağ].y_1 &&
-          mod.bölge[j].y1 <= mod.dikme[d_sağ].y_1 + mod.dikme[d_sağ].boy
+          mod.bölge[j].y1 >= mod.dikey_bolme[d_sağ].y_1 &&
+          mod.bölge[j].y1 <=
+            mod.dikey_bolme[d_sağ].y_1 + mod.dikey_bolme[d_sağ].boy
         ) {
           dsağ_sağk.push(j);
           //console.log("dsağ_sağk=" + j)
         }
         if (
-          Math.abs(mod.bölge[j].x1 + mod.bölge[j].gen - mod.dikme[d_sağ].x_1) <=
-            0.1 &&
-          mod.bölge[j].y1 >= mod.dikme[d_sağ].y_1 &&
-          mod.bölge[j].y1 <= mod.dikme[d_sağ].y_1 + mod.dikme[d_sağ].boy
+          Math.abs(
+            mod.bölge[j].x1 + mod.bölge[j].gen - mod.dikey_bolme[d_sağ].x_1
+          ) <= 0.1 &&
+          mod.bölge[j].y1 >= mod.dikey_bolme[d_sağ].y_1 &&
+          mod.bölge[j].y1 <=
+            mod.dikey_bolme[d_sağ].y_1 + mod.dikey_bolme[d_sağ].boy
         ) {
           dsağ_solk.push(j);
           //console.log("dsağ_solk=" + j)
@@ -816,9 +842,9 @@ export function DikmeGuncelle(mod, seç, gen, rdgDikme, uyari) {
     }
   }
   let gen_fark = mod.bölge[seç.s].gen - gen;
-  //console.log("rdgDikme=" + rdgDikme)
+  //console.log("rdgDikeyBolme=" + rdgDikeyBolme)
 
-  switch (rdgDikme) {
+  switch (rdgDikeyBolme) {
     case 0:
       if (d_sol_var) {
         if (gen_fark < 0) {
@@ -861,10 +887,10 @@ export function DikmeGuncelle(mod, seç, gen, rdgDikme, uyari) {
           mod.yatay_bolme[dsol_rsol[j1]].boy =
             mod.yatay_bolme[dsol_rsol[j1]].boy + gen_fark;
         }
-        mod.dikme[d_sol].x_1 = mod.dikme[d_sol].x_1 + gen_fark;
-        //console.log("mod.dikme[d_sol].x_1=" + mod.dikme[d_sol].x_1)
+        mod.dikey_bolme[d_sol].x_1 = mod.dikey_bolme[d_sol].x_1 + gen_fark;
+        //console.log("mod.dikey_bolme[d_sol].x_1=" + mod.dikey_bolme[d_sol].x_1)
       } else {
-        uyari = "sol dikme yok sağ dikmeyi ayarla";
+        uyari = "sol dikey_bolme yok sağ dikey_bolmeyi ayarla";
       }
       debugger;
       break;
@@ -911,10 +937,10 @@ export function DikmeGuncelle(mod, seç, gen, rdgDikme, uyari) {
           mod.yatay_bolme[dsağ_rsağ[j2]].boy =
             mod.yatay_bolme[dsağ_rsağ[j2]].boy + gen_fark;
         }
-        mod.dikme[d_sağ].x_1 = mod.dikme[d_sağ].x_1 - gen_fark;
-        //console.log("mod.dikme[d_sağ].x_1=" + mod.dikme[d_sağ].x_1)
+        mod.dikey_bolme[d_sağ].x_1 = mod.dikey_bolme[d_sağ].x_1 - gen_fark;
+        //console.log("mod.dikey_bolme[d_sağ].x_1=" + mod.dikey_bolme[d_sağ].x_1)
       } else {
-        uyari = "sağ dikme yok soldikmeyi ayarlayın";
+        uyari = "sağ dikey_bolme yok soldikey_bolmeyi ayarlayın";
       }
 
       break;
