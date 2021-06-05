@@ -72,12 +72,18 @@ import {
 import YatayBolmeAyarla from "./components/YatayBolmeAyarla";
 import DikeyBolmeAyarla from "./components/DikeyBolmeAyarla";
 import Coordinat from "./components/Coordinat";
+import SolYan from "./components/SolYan";
+import SagYan from "./components/SagYan";
+import Ust from "./components/Ust";
+import Baza from "./components/Baza";
+import Alt from "./components/Alt";
 import Kapak from "./components/Kapak";
 import KapakSil from "./components/KapakSil";
 import DikeyBolmeSil from "./components/DikeyBolmeSil";
 import DikeyBolmeEkle from "./components/DikeyBolmeEkle";
 import YatayBolmeEkle from "./components/YatayBolmeEkle";
 import YatayBolmeSil from "./components/YatayBolmeSil";
+import RafEkle from "./components/RafEkle";
 import KapakProfil from "./components/KapakProfil";
 import CekmeceKapak from "./components/CekmeceKapak";
 import CekmeceKasa from "./components/CekmeceKasa";
@@ -155,7 +161,8 @@ const Program = () => {
   const [altId, setaltId] = useState("1");
   const [secilenBolge, setSecilenBolge] = useState(0);
   const [secilenYatayBolme, setSecilenYatayBolme] = useState(0);
-  const [secilenDikeyBolme, setsecilenDikeyBolme] = useState(0);
+  const [secilenRaf, setSecilenRaf] = useState(0);
+  const [secilenDikeyBolme, setSecilenDikeyBolme] = useState(0);
   const [secilenKapak, setSecilenKapak] = useState(0);
   const [secilenKayit, setSecilenKayit] = useState(0);
   const [secilenKayitModel, setSecilenKayitModel] = useState(0);
@@ -529,6 +536,7 @@ const Program = () => {
       cekmece_kasa: [],
       kayit_ekle_dikey: [],
       kayit_ekle_yatay: [],
+      raf: [],
       sag_pervaz: {
         dahil: false,
         tip: 3,
@@ -996,149 +1004,14 @@ const Program = () => {
 
   /***PARCALAR */
   const u = 1000;
-  //@SolYan---------------------------------------------------------------------------------
-  const SolYan = () => {
-    switch (mobilya.tip) {
-      case 1: //1 nolu kasa tipi,tutma yeri modul merkezi
-        mobilya.sol_yan.x0 =
-          mobilya.X0 -
-          mobilya.X / 2 +
-          mobilya.sol_yan.xg0 / 2 +
-          mobilya.sol_yan.material_id / 2;
-        mobilya.sol_yan.y0 =
-          mobilya.Y0 - mobilya.sol_yan.yg0 / 2 + mobilya.sol_yan.yg1 / 2;
-        mobilya.sol_yan.z0 =
-          mobilya.Z0 -
-          mobilya.sol_pervaz.material_id / 2 +
-          mobilya.sol_yan.zg0 / 2 -
-          mobilya.sol_yan.zg1 / 2;
-        mobilya.sol_yan.x = mobilya.sol_yan.material_id;
-        mobilya.sol_yan.y =
-          mobilya.Y - mobilya.sol_yan.yg0 - mobilya.sol_yan.yg1;
-        mobilya.sol_yan.z =
-          mobilya.Z -
-          mobilya.sol_pervaz.material_id -
-          mobilya.sol_yan.zg0 -
-          mobilya.sol_yan.zg1;
-        break;
-      case 2:
-        break;
-      default:
-        break;
-    }
+  const TekParcalar = () => {
+    mobilya.sol_yan = SolYan(mobilya);
+    mobilya.sag_yan = SagYan(mobilya);
+    mobilya.ust = Ust(mobilya);
+    mobilya.baza = Baza(mobilya);
+    mobilya.alt = Alt(mobilya);
   };
-  //@SagYan---------------------------------------------------------------------------------
-  const SagYan = () => {
-    switch (mobilya.tip) {
-      case 1: //1 nolu kasa tipi merkez odaklamalı
-        mobilya.sag_yan.x0 =
-          mobilya.X0 +
-          mobilya.X / 2 -
-          mobilya.sag_yan.xg0 / 2 -
-          mobilya.sag_yan.material_id / 2;
-        mobilya.sag_yan.y0 =
-          mobilya.Y0 - mobilya.sag_yan.yg0 / 2 + mobilya.sag_yan.yg1 / 2;
-        mobilya.sag_yan.z0 =
-          mobilya.Z0 -
-          mobilya.sag_pervaz.material_id / 2 +
-          mobilya.sag_yan.zg0 / 2 -
-          mobilya.sag_yan.zg1 / 2;
-        mobilya.sag_yan.x = mobilya.sag_yan.material_id;
-        mobilya.sag_yan.y =
-          mobilya.Y - mobilya.sag_yan.yg0 - mobilya.sag_yan.yg1;
-        mobilya.sag_yan.z =
-          mobilya.Z -
-          mobilya.sag_pervaz.material_id -
-          mobilya.sag_yan.zg0 -
-          mobilya.sag_yan.zg1;
-        break;
-      case 2:
-        break;
-      default:
-        break;
-    }
-  };
-  //@Ust-----------------------------------------------------------------------------
-  const Ust = () => {
-    switch (mobilya.tip) {
-      case 1: //1 nolu kasa tipi merkez odaklamalı
-        mobilya.ust.x0 =
-          mobilya.X0 +
-          mobilya.ust.xg0 / 2 -
-          mobilya.ust.xg1 / 2 +
-          mobilya.sol_yan.material_id / 2 -
-          mobilya.sag_yan.material_id / 2;
-        mobilya.ust.y0 =
-          mobilya.Y0 +
-          (mobilya.Y / 2 - mobilya.ust.material_id / 2 - mobilya.ust.yg0);
-        mobilya.ust.z0 = mobilya.Z0 + mobilya.ust.zg0 / 2 - mobilya.ust.zg1 / 2;
-        mobilya.ust.x =
-          mobilya.X -
-          mobilya.sol_yan.material_id -
-          mobilya.sag_yan.material_id -
-          mobilya.ust.xg0 -
-          mobilya.ust.xg1;
-        mobilya.ust.y = mobilya.ust.material_id;
-        mobilya.ust.z = mobilya.Z - mobilya.ust.zg0 - mobilya.ust.zg1;
-        break;
-      case 2:
-        break;
-      default:
-        break;
-    }
-  };
-  //@Baza---------------------------------------------------------------------------------
-  const Baza = () => {
-    switch (mobilya.tip) {
-      case 1: //1 nolu kasa tipi merkez odaklamalı
-        mobilya.baza.x0 = mobilya.X0;
-        mobilya.baza.y0 = -200;
-        mobilya.baza.y0 = mobilya.Y0 - (mobilya.Y / 2 - mobilya.baza.y / 2);
-        mobilya.baza.z0 =
-          mobilya.Z0 + mobilya.Z / 2 - mobilya.baza.material_id / 2 - 10;
-        mobilya.baza.x = mobilya.X - (mobilya.sol_yan.x + mobilya.sag_yan.x);
-        mobilya.baza.y = 100;
-        mobilya.baza.z = 18;
-        break;
-      case 2:
-        break;
-      default:
-        break;
-    }
-  };
-  //@Alt--------------------------------------------------------------------------
-  const Alt = () => {
-    switch (mobilya.tip) {
-      case 1: //1 nolu kasa tipi merkez odaklamalı
-        mobilya.alt.x0 =
-          mobilya.X0 +
-          mobilya.alt.xg0 / 2 -
-          mobilya.alt.xg1 / 2 +
-          mobilya.sol_yan.material_id / 2 -
-          mobilya.sag_yan.material_id / 2;
-        mobilya.alt.y0 =
-          mobilya.Y0 -
-          mobilya.Y / 2 -
-          mobilya.alt.yg0 / 2 +
-          mobilya.alt.yg1 / 2 +
-          mobilya.alt.material_id / 2 +
-          mobilya.baza.y;
-        mobilya.alt.z0 = mobilya.Z0 - mobilya.alt.zg0 / 2 + mobilya.alt.zg1 / 2;
-        mobilya.alt.x =
-          mobilya.X -
-          mobilya.sol_yan.material_id -
-          mobilya.sag_yan.material_id -
-          mobilya.alt.xg0 -
-          mobilya.alt.xg1;
-        mobilya.alt.y = mobilya.alt.material_id;
-        mobilya.alt.z = mobilya.Z - mobilya.alt.zg0 - mobilya.alt.zg1;
-        break;
-      case 2:
-        break;
-      default:
-        break;
-    }
-  };
+
   //@Bolges----------------------------------------------------------------------------------
   const renk = "yellow";
   let action = "yaz";
@@ -1177,8 +1050,6 @@ const Program = () => {
   /*********** */
   //@BolgesUpdate-----------------------------------
   const BolgesUpdate = () => {
-    //console.log('mobilya=', mobilya)
-    //console.log('mobilya=', mobilya)
     const kalan_en = mobilya.X - mobilya.sol_yan.x - mobilya.sag_yan.x;
     const kalan_X = olculer.X - mobilya.sol_yan.x - mobilya.sag_yan.x;
     const kalan_boy =
@@ -2435,11 +2306,12 @@ const Program = () => {
   //@ScreenDikeyBolme------------------------------------------------
   const ScreenDikeyBolme = () => {
     let m = mobilya;
-    SolYan();
-    SagYan();
-    Ust();
-    Alt();
-    Baza();
+    TekParcalar();
+    //SolYan();
+    //SagYan();
+    //Ust();
+    //Alt();
+    //Baza();
     //Bolges()
     const Viewer = useRef(null);
 
@@ -2494,6 +2366,7 @@ const Program = () => {
         >
           dikey_bolme ekle
         </button>
+
         {/** //@yatay_bolme_ekle ***************************/}
         <button
           onClick={() => {
@@ -2505,6 +2378,19 @@ const Program = () => {
         >
           yatay_bolme ekle
         </button>
+
+        {/** //@raf_ekle ***************************/}
+        <button
+          onClick={() => {
+            m = RafEkle(mobilya, secilenBolge, secilen);
+            console.log("seçilenBölge=", secilenBolge);
+            console.log("seçilen=", secilen);
+            setmobilya({ ...mobilya, ...m });
+          }}
+        >
+          raf ekle
+        </button>
+
         {secilen.bolge && (
           <input
             type="number"
@@ -2698,13 +2584,15 @@ const Program = () => {
                   strokeWidth="5"
                   fillOpacity="0.5"
                   onClick={() => {
-                    setsecilenDikeyBolme(index);
+                    setSecilenDikeyBolme(index);
                     console.log("seçilen_dikey_bolme=", secilenDikeyBolme);
                     console.warn("onPress ***");
                   }}
                 />
               );
             })}
+
+            {/***mobilya yatay_bolme çizimi---------------------- */}
             {mobilya.yatay_bolme.map((item, index) => {
               return (
                 <Rect
@@ -2731,6 +2619,37 @@ const Program = () => {
                 />
               );
             })}
+            {/*-------------------------------------------- */}
+
+            {/***mobilya raf çizimi---------------------- */}
+            {mobilya.raf.map((item, index) => {
+              return (
+                <Rect
+                  className="on"
+                  key={index}
+                  centerEnd={true}
+                  cx={item.x0}
+                  cy={-item.y0}
+                  height={item.y}
+                  width={item.x}
+                  fill={"red"}
+                  stroke="black"
+                  strokeWidth="5"
+                  fillOpacity="0.5"
+                  onClick={() => {
+                    setSecilenRaf(index);
+                    console.log(
+                      "seçilen_yatay_bolme=",
+                      mobilya.yatay_bolme[index]
+                    );
+
+                    console.warn("onPress ***");
+                  }}
+                />
+              );
+            })}
+            {/*-------------------------------------------- */}
+
             {/***mobilya kapak çizimi---------------------- */}
             {mobilya.kapak.map((item, index) => {
               return (
@@ -3107,11 +3026,10 @@ const Program = () => {
   const text = "@tchayen";
 
   const ScreenCabinet = () => {
-    SolYan();
-    SagYan();
-    Ust();
-    Baza();
-    Alt();
+    //TekParcalar();
+    //Ust();
+    //Baza();
+    //Alt();
 
     const SolYan1 = () => {
       const [colorMap, displacementMap, normalMap, roughnessMap, aoMap] =
@@ -3954,6 +3872,35 @@ const Program = () => {
       });
     }
 
+    function Rafs1() {
+      const a = mobilya.raf;
+
+      return a.map((item, index) => {
+        return (
+          <mesh
+            key={index}
+            visible
+            userData={{ test: "hello" }}
+            rotation={[0, 0, 0]}
+            position={[item.x0 / u, item.y0 / u, item.z0 / u]}
+            castShadow
+          >
+            <boxBufferGeometry
+              attach="geometry"
+              args={[item.x / u, item.y / u, item.z / u]}
+            />
+            <meshStandardMaterial
+              attach="material"
+              color="white"
+              transparent
+              roughness={0.1}
+              metalness={0.1}
+            />
+          </mesh>
+        );
+      });
+    }
+
     const Alt1 = () => {
       const a = mobilya.alt;
       return (
@@ -4131,6 +4078,7 @@ const Program = () => {
             <CekmeceKasa1 />
             <DikeyBolmes1 />
             <YatayBolmes1 />
+            <Rafs1 />
             {mobilya.sol_pervaz.dahil && <SolPervaz1 />}
             {mobilya.sag_pervaz.dahil && <SagPervaz1 />}
           </Suspense>

@@ -29,6 +29,7 @@ const DikeyBolmeEkle = (mobilya, secilenBolge, secilen) => {
 
     mobilya.dikey_bolme[mobilya.dikey_bolme.length] = {
       dahil: true,
+      sabit: true,
       tip: 3,
       name: "DikeyBolme",
       material_id: 18,
@@ -45,7 +46,7 @@ const DikeyBolmeEkle = (mobilya, secilenBolge, secilen) => {
       yg0: 0,
       yg1: 0,
     };
-    secilenBolge = false;
+    secilen.bolge = false;
   }
 
   return mobilya;
