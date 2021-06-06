@@ -4,9 +4,11 @@ const DikeyBolmeEkle = (mobilya, secilenBolge, secilen) => {
   //---------------------------------
   if (secilen.bolge) {
     //bölge seçilmemiş ise dikey_bolme eklemez
+
     const a = mobilya.bolge[secilenBolge];
     const a1 = {
       dahil: true,
+      aktif: false,
       tip: 3,
       name: "Bolge",
       cx: a.cx - (a.x + 18) / 4,
@@ -16,6 +18,7 @@ const DikeyBolmeEkle = (mobilya, secilenBolge, secilen) => {
     };
     const a2 = {
       dahil: true,
+      aktif: false,
       tip: 3,
       name: "Bolge",
       cx: a.cx + (a.x + 18) / 4,

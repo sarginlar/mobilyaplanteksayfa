@@ -16,7 +16,7 @@
 //@kapak_sil
 //@yatay_bolme_ekle
 //@profilkapak
-//@ScreenDikeyBolme  //@dikey_bolmeUpdate  //@YatayBolmeUpdate  //@BolgesUpdate //@kapak
+//@ScreenDikeyBolme  //@dikey_bolmeUpdate  //@YatayBolmeUpdate  //@Bolgeler //@kapak
 //@ScreenCabinet
 //@Nest
 //@Nesting
@@ -80,6 +80,7 @@ import Alt from "./components/Alt";
 import Kapak from "./components/Kapak";
 import KapakSil from "./components/KapakSil";
 import DikeyBolmeSil from "./components/DikeyBolmeSil";
+import Bolgeler from "./components/Bolgeler";
 import DikeyBolmeEkle from "./components/DikeyBolmeEkle";
 import YatayBolmeEkle from "./components/YatayBolmeEkle";
 import YatayBolmeSil from "./components/YatayBolmeSil";
@@ -174,6 +175,7 @@ const Program = () => {
     kapak: false,
     kapak_profil: false,
   });
+  // const [aktif, setAktif] = useState({ bolge: false });
 
   /*
   //REDUCER-------------------------------
@@ -1012,78 +1014,12 @@ const Program = () => {
     mobilya.alt = Alt(mobilya);
   };
 
-  //@Bolges----------------------------------------------------------------------------------
-  const renk = "yellow";
-  let action = "yaz";
-
-  /*
-  const Bolges = () => {
-    //-----
-    switch (action) {
-      case 'yaz':
-        if (mobilya.bolge.length === 0) {
-          const kalan_en = mobilya.X - mobilya.sol_yan.x - mobilya.sag_yan.x
-          const kalan_boy = mobilya.Y - mobilya.ust.y - mobilya.alt.y - mobilya.baza.y
-          const mcx = mobilya.X0
-          const mcy = mobilya.Y0 + mobilya.alt.y / 2 + mobilya.baza.y / 2 - mobilya.ust.y / 2
-          mobilya.bolge[0] = { dahil: true, tip: 3, name: 'Bolge', cx: mcx, cy: mcy, x: kalan_en, y: kalan_boy }
-        }
-
-        break
-
-      case 'ekle':
-        console.log('ekleye geldi')
-        const a = mobilya.bolge[secilenBolge]
-        const a1 = { dahil: true, tip: 3, name: 'Bolge', cx: a.cx - a.x / 4, cy: a.cy, x: a.x / 2, y: a.y }
-        const a2 = { dahil: true, tip: 3, name: 'Bolge', cx: a.cx + a.x / 4, cy: a.cy, x: a.x / 2, y: a.y }
-        mobilya.bolge[secilenBolge] = a1
-        mobilya.bolge[mobilya.bolge.length] = a2
-
-        break
-      default:
-        break
-    }
-    setmobilya(mobilya)
-  }
-  */
-  //--------------------------------------------------------------------------------
-  /*********** */
-  //@BolgesUpdate-----------------------------------
-  const BolgesUpdate = () => {
-    const kalan_en = mobilya.X - mobilya.sol_yan.x - mobilya.sag_yan.x;
-    const kalan_X = olculer.X - mobilya.sol_yan.x - mobilya.sag_yan.x;
-    const kalan_boy =
-      mobilya.Y - mobilya.ust.y - mobilya.alt.y - mobilya.baza.y;
-    const kalan_Y = olculer.Y - mobilya.ust.y - mobilya.alt.y - mobilya.baza.y;
-    const kalan_cx = mobilya.X0;
-    const kalan_x = mobilya.X0;
-    console.log("kalan_cx=", kalan_cx, "kalan_x=", kalan_x);
-    const kalan_cy =
-      mobilya.Y0 + mobilya.alt.y / 2 + mobilya.baza.y / 2 - mobilya.ust.y / 2;
-    const kalan_y =
-      mobilya.Y0 + mobilya.alt.y / 2 + mobilya.baza.y / 2 - mobilya.ust.y / 2;
-    const Oranx = (kalan_en - kalan_X) / 2;
-    const Orany = (olculer.Y - mobilya.Y) / 4;
-    console.log(Oranx, Orany);
-    const OranX = kalan_en / kalan_X;
-    const OranY = kalan_boy / kalan_Y;
-    const OranZ = mobilya.Z / olculer.Z;
-    console.log(OranX, OranY, OranZ);
-    for (let index = 0; index < mobilya.bolge.length; index++) {
-      mobilya.bolge[index].dahil = true;
-      mobilya.bolge[index].tip = 3;
-      mobilya.bolge[index].name = "Bolge";
-      mobilya.bolge[index].cx = mobilya.bolge[index].cx * OranX;
-      mobilya.bolge[index].cy = mobilya.bolge[index].cy - Orany;
-      mobilya.bolge[index].x = mobilya.bolge[index].x * OranX;
-      mobilya.bolge[index].y = mobilya.bolge[index].y * OranY;
-    }
-    //console.log('mobilya.bolge=', mobilya.bolge)
-    return mobilya.bolge;
+  //secilen bölge------
+  const aktifBolge = (index) => {
+    mobilya.bolge.map((item) => (item.aktif = false));
+    mobilya.bolge[index].aktif = true;
   };
-
-  //-----------------------------------------------
-
+  //-----------------------------
   //@dikey_bolmeUpdate-----------------------------------------------------
   const DikeyBolmeUpdate = () => {
     const kalan_en = mobilya.X - mobilya.sol_yan.x - mobilya.sag_yan.x;
@@ -2269,7 +2205,7 @@ const Program = () => {
           onClick={() => {
             if (olculer.X === m.X && olculer.Y === m.Y && olculer.Z === m.Z) {
               // console.log('normal uğradı')
-              const Bolge = BolgesUpdate();
+              const Bolge = Bolgeler(mobilya, olculer);
               // console.log('Bolge=', Bolge)
               const DikeyBolme = DikeyBolmeUpdate(m);
               const YatayBolme = YatayBolmeUpdate(m);
@@ -2279,7 +2215,7 @@ const Program = () => {
               setmobilya({ ...mobilya, ...m });
             } else {
               console.log("elseya uğradı");
-              const Bolge = BolgesUpdate();
+              const Bolge = Bolgeler(mobilya, olculer);
               // console.log('Bolge=', Bolge)
               const DikeyBolme = DikeyBolmeUpdate();
               const YatayBolme = YatayBolmeUpdate();
@@ -2323,7 +2259,8 @@ const Program = () => {
     const _zoomOnViewerCenter = () => Viewer.current.zoomOnViewerCenter(1.1);
     const _fitSelection = () => Viewer.current.fitSelection(40, 40, 500, 500);
     const _fitToViewer = () => Viewer.current.fitToViewer();
-
+    //burada ilk bolge otomatik olarak oluşturuluyor.
+    /*
     if (m.bolge.length === 0) {
       const kalan_en = m.X - m.sol_yan.x - m.sag_yan.x;
       const kalan_boy = m.Y - m.ust.y - m.alt.y - m.baza.y;
@@ -2331,6 +2268,7 @@ const Program = () => {
       const mcy = m.Y0 + m.alt.y / 2 + m.baza.y / 2 - m.ust.y / 2;
       m.bolge[0] = {
         dahil: true,
+        aktif: false,
         tip: 3,
         name: "Bolge",
         cx: mcx,
@@ -2339,6 +2277,12 @@ const Program = () => {
         y: kalan_boy,
       };
     }
+    
+    */
+    if (mobilya.bolge.length === 0) {
+      mobilya.bolge = Bolgeler(mobilya, olculer);
+    }
+
     return (
       <>
         <h1>UncontrolledReactSVGPanZoom</h1>
@@ -2550,12 +2494,13 @@ const Program = () => {
                   cy={-item.cy}
                   height={item.y}
                   width={item.x}
-                  fill={"yellow"}
+                  fill={mobilya.bolge[index].aktif ? "blue" : "green"}
                   stroke="black"
                   strokeWidth="5"
-                  fillOpacity="0.5"
+                  fillOpacity="0.2"
                   onClick={() => {
                     setSecilenBolge(index);
+                    aktifBolge(index);
                     setSecilen({
                       bolge: true,
                       kapak: false,
