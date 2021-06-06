@@ -29,7 +29,7 @@ const YatayBolmeEkle = (mobilya, secilenBolge, secilen) => {
 
     mobilya.yatay_bolme[mobilya.yatay_bolme.length] = {
       dahil: true,
-      sabit: true,
+      sabit: false,
       tip: 3,
       name: "yatay_bolme",
       material_id: 18,
