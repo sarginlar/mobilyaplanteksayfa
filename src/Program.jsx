@@ -91,7 +91,11 @@ import CekmeceKasa from "./components/CekmeceKasa";
 import KayitEkleDikey from "./components/KayitEkleDikey";
 import KayitEkleYatay from "./components/KayitEkleYatay";
 import KayitSil from "./components/KayitSil";
+import BolgelerUpdate from "./components/BolgelerUpdate";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
+import DikeyBolmeKalinlik from "./components/DikeyBolmeKalinlik";
+import YatayBolmeKalinlik from "./components/YatayBolmeKalinlik";
+import SolYanKalinlik from "./components/SolYanKalinlik";
 const initialState_menu = {
   main: false,
   Login: false,
@@ -414,7 +418,7 @@ const Program = () => {
       X0: 0,
       Y0: 0,
       Z0: 0,
-      X: 1800,
+      X: 2000,
       Y: 2000,
       Z: 600,
       description: "e ",
@@ -1046,7 +1050,7 @@ const Program = () => {
       mobilya.dikey_bolme[index].y = mobilya.dikey_bolme[index].y * OranY;
       mobilya.dikey_bolme[index].z = mobilya.dikey_bolme[index].z * OranZ;
     }
-
+    console.log("dikeyBolme=", mobilya.dikey_bolme);
     return mobilya.dikey_bolme;
   };
   //---------------------------------------------
@@ -2197,7 +2201,7 @@ const Program = () => {
   const ConstructionSettings = () => {
     let m = mobilya;
     // console.log('--mobilya=', mobilya)
-    // console.log('--olculer=', olculer)
+    console.log("--olculer=", olculer);
     return (
       <div>
         <Tab panes={panes} />
@@ -2207,6 +2211,7 @@ const Program = () => {
               // console.log('normal uğradı')
               const Bolge = Bolgeler(mobilya, olculer);
               // console.log('Bolge=', Bolge)
+              const DikeyBolme1 = BolgelerUpdate(mobilya, olculer);
               const DikeyBolme = DikeyBolmeUpdate(m);
               const YatayBolme = YatayBolmeUpdate(m);
               m.bolge = Bolge;
@@ -2217,6 +2222,7 @@ const Program = () => {
               console.log("elseya uğradı");
               const Bolge = Bolgeler(mobilya, olculer);
               // console.log('Bolge=', Bolge)
+              const DikeyBolme1 = BolgelerUpdate(mobilya, olculer);
               const DikeyBolme = DikeyBolmeUpdate();
               const YatayBolme = YatayBolmeUpdate();
               m.bolge = Bolge;
@@ -2260,29 +2266,11 @@ const Program = () => {
     const _fitSelection = () => Viewer.current.fitSelection(40, 40, 500, 500);
     const _fitToViewer = () => Viewer.current.fitToViewer();
     //burada ilk bolge otomatik olarak oluşturuluyor.
-    /*
-    if (m.bolge.length === 0) {
-      const kalan_en = m.X - m.sol_yan.x - m.sag_yan.x;
-      const kalan_boy = m.Y - m.ust.y - m.alt.y - m.baza.y;
-      const mcx = m.X0;
-      const mcy = m.Y0 + m.alt.y / 2 + m.baza.y / 2 - m.ust.y / 2;
-      m.bolge[0] = {
-        dahil: true,
-        aktif: false,
-        tip: 3,
-        name: "Bolge",
-        cx: mcx,
-        cy: mcy,
-        x: kalan_en,
-        y: kalan_boy,
-      };
-    }
-    
-    */
+
     if (mobilya.bolge.length === 0) {
       mobilya.bolge = Bolgeler(mobilya, olculer);
     }
-
+    //-----------------------------------------------
     return (
       <>
         <h1>UncontrolledReactSVGPanZoom</h1>
@@ -2918,7 +2906,6 @@ const Program = () => {
         >
           ust_yatay_bolme
         </button>
-
         <button
           onClick={() => {
             const islem = "sag_dikey_bolme";
@@ -2936,6 +2923,50 @@ const Program = () => {
         >
           sag_dikey_bolme
         </button>
+        {/*//dikey bolmenin kalınlığının ayalanması**************/}
+        <button
+          onClick={() => {
+            //const islem = "sag_dikey_bolme";
+            const kalinlik = 100;
+            const sonuc = DikeyBolmeKalinlik(
+              mobilya,
+              secilenDikeyBolme,
+              kalinlik
+            );
+            setmobilya({ ...mobilya, ...sonuc });
+          }}
+        >
+          dikey bolme kalınlık
+        </button>
+
+        {/*//yatay bolmenin kalınlığının ayalanması**************/}
+        <button
+          onClick={() => {
+            //const islem = "sag_dikey_bolme";
+            const kalinlik = 100;
+            const sonuc = YatayBolmeKalinlik(
+              mobilya,
+              secilenYatayBolme,
+              kalinlik
+            );
+            setmobilya({ ...mobilya, ...sonuc });
+          }}
+        >
+          yatay bolme kalınlık
+        </button>
+        {/*//sol_yan kalınlığının ayalanması**************/}
+        <button
+          onClick={() => {
+            //const islem = "sag_dikey_bolme";
+            const kalinlik = 100;
+            const sonuc = SolYanKalinlik(mobilya, kalinlik);
+            console.log("sonuc=", sonuc);
+            setmobilya({ ...mobilya, ...sonuc });
+          }}
+        >
+          sol_yan kalınlık
+        </button>
+        {/**sol_dikey_bolme **********************************/}
         <button
           onClick={() => {
             const islem = "sol_dikey_bolme";

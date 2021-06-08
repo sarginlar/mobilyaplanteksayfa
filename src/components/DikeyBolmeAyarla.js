@@ -51,6 +51,7 @@ const DikeyBolmeAyarla = (mobilya, bolge_x, bolge_y, secilenBolge, islem) => {
       };
     }
   }
+  //dikmenin dört köşe noktasını buluyoruz
   if (mobilya.dikey_bolme.length > 0) {
     for (let index = 0; index < mobilya.dikey_bolme.length; index++) {
       dikey_bolme[index] = {
