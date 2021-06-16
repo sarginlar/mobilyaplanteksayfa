@@ -96,6 +96,12 @@ import { TextureLoader } from "three/src/loaders/TextureLoader";
 import DikeyBolmeKalinlik from "./components/DikeyBolmeKalinlik";
 import YatayBolmeKalinlik from "./components/YatayBolmeKalinlik";
 import SolYanKalinlik from "./components/SolYanKalinlik";
+import SagYanKalinlik from "./components/SagYanKalinlik";
+import UstKalinlik from "./components/UstKalinlik";
+import AltKalinlik from "./components/AltKalinlik";
+import EnDegisimi from "./components/EnDegisimi";
+import BoyDegisimi from "./components/BoyDegisimi";
+import BazaYukseklik from "./components/BazaYukseklik";
 const initialState_menu = {
   main: false,
   Login: false,
@@ -436,8 +442,8 @@ const Program = () => {
         x0: -991,
         y0: 0,
         z0: 0,
-        x: 36,
-        y: 2100,
+        x: 18,
+        y: 2000,
         z: 600,
         xg0: 0,
         xg1: 0,
@@ -471,9 +477,9 @@ const Program = () => {
         material_id: 18,
         x0: 991,
         y0: 0,
-        z0: 300,
+        z0: 0,
         x: 18,
-        y: 2100,
+        y: 2000,
         z: 600,
         xg0: 0,
         xg1: 0,
@@ -488,10 +494,10 @@ const Program = () => {
         name: "Alt",
         material_id: 36,
         x0: 0,
-        y0: -996,
+        y0: -882,
         z0: 0,
         x: 1964,
-        y: 18,
+        y: 36,
         z: 600,
         xg0: 0,
         xg1: 0,
@@ -506,10 +512,10 @@ const Program = () => {
         name: "Üst",
         material_id: 36,
         x0: 0,
-        y0: 1041,
+        y0: 982,
         z0: 0,
         x: 1964,
-        y: 18,
+        y: 36,
         z: 600,
         xg0: 0,
         xg1: 0,
@@ -524,11 +530,11 @@ const Program = () => {
         name: "Baza",
         material_id: 18,
         x0: 0,
-        y0: -1041,
-        z0: 0,
+        y0: -950,
+        z0: 281,
         x: 1964,
         y: 100,
-        z: 600,
+        z: 18,
         xg0: 0,
         xg1: 0,
         zg0: 0,
@@ -2208,7 +2214,8 @@ const Program = () => {
         <button
           onClick={() => {
             if (olculer.X === m.X && olculer.Y === m.Y && olculer.Z === m.Z) {
-              // console.log('normal uğradı')
+              /*
+               console.log('Ölçüler değişmedi')
               const Bolge = Bolgeler(mobilya, olculer);
               // console.log('Bolge=', Bolge)
               const DikeyBolme1 = BolgelerUpdate(mobilya, olculer);
@@ -2218,8 +2225,10 @@ const Program = () => {
               m.dikey_bolme = DikeyBolme;
               m.yatay_bolme = YatayBolme;
               setmobilya({ ...mobilya, ...m });
+*/
             } else {
-              console.log("elseya uğradı");
+              console.log("Ölçüler değişti");
+              /*
               const Bolge = Bolgeler(mobilya, olculer);
               // console.log('Bolge=', Bolge)
               const DikeyBolme1 = BolgelerUpdate(mobilya, olculer);
@@ -2235,7 +2244,14 @@ const Program = () => {
                 Z: m.Z,
               };
               setOlculer(dene);
+              */
             }
+            //------------------------------------
+            //setOlculer({ X: 2000, Y: 1000, Z: 600 });
+            const olcu = { X: 2000, Y: 500, Z: 600 };
+            const YeniEnModul = BoyDegisimi(mobilya, olcu);
+            setmobilya({ ...mobilya, ...YeniEnModul });
+            //---------------------------------
           }}
         >
           Tamam
@@ -2248,7 +2264,7 @@ const Program = () => {
   //@ScreenDikeyBolme------------------------------------------------
   const ScreenDikeyBolme = () => {
     let m = mobilya;
-    TekParcalar();
+    //TekParcalar();
     //SolYan();
     //SagYan();
     //Ust();
@@ -2923,7 +2939,7 @@ const Program = () => {
         >
           sag_dikey_bolme
         </button>
-        {/*//dikey bolmenin kalınlığının ayalanması**************/}
+        {/*//dikey bolmenin kalınlığının ayarlanması**************/}
         <button
           onClick={() => {
             //const islem = "sag_dikey_bolme";
@@ -2939,7 +2955,7 @@ const Program = () => {
           dikey bolme kalınlık
         </button>
 
-        {/*//yatay bolmenin kalınlığının ayalanması**************/}
+        {/*//yatay bolmenin kalınlığının ayarlanması**************/}
         <button
           onClick={() => {
             //const islem = "sag_dikey_bolme";
@@ -2954,7 +2970,7 @@ const Program = () => {
         >
           yatay bolme kalınlık
         </button>
-        {/*//sol_yan kalınlığının ayalanması**************/}
+        {/*//sol_yan kalınlığının ayarlanması**************/}
         <button
           onClick={() => {
             //const islem = "sag_dikey_bolme";
@@ -2965,6 +2981,45 @@ const Program = () => {
           }}
         >
           sol_yan kalınlık
+        </button>
+
+        {/*//sag_yan kalınlığının ayarlanması**************/}
+        <button
+          onClick={() => {
+            //const islem = "sag_dikey_bolme";
+            const kalinlik = 100;
+            const sonuc = SagYanKalinlik(mobilya, kalinlik);
+            console.log("sonuc=", sonuc);
+            setmobilya({ ...mobilya, ...sonuc });
+          }}
+        >
+          sag_yan kalınlık
+        </button>
+
+        {/*//Ust kalınlığının ayarlanması**************/}
+        <button
+          onClick={() => {
+            //const islem = "sag_dikey_bolme";
+            const kalinlik = 100;
+            const sonuc = UstKalinlik(mobilya, kalinlik);
+            console.log("sonuc=", sonuc);
+            setmobilya({ ...mobilya, ...sonuc });
+          }}
+        >
+          Ust kalınlık
+        </button>
+
+        {/*//Alt kalınlığının ayarlanması**************/}
+        <button
+          onClick={() => {
+            //const islem = "sag_dikey_bolme";
+            const kalinlik = 100;
+            const sonuc = AltKalinlik(mobilya, kalinlik);
+            console.log("sonuc=", sonuc);
+            setmobilya({ ...mobilya, ...sonuc });
+          }}
+        >
+          Alt kalınlık
         </button>
         {/**sol_dikey_bolme **********************************/}
         <button
@@ -3181,15 +3236,7 @@ const Program = () => {
     }
     //-yeni kapak çizimleri-------
 
-    function KapakProfil() {
-      /* const [colorMap, displacementMap, normalMap, roughnessMap, aoMap] = useTexture([
-        'WoodQuarteredChiffon001_COL_3K_1.jpg',
-        'PavingStones092_1K_Displacement.jpg',
-        'n1kapak.png',
-        'PavingStones092_1K_Roughness.jpg',
-        'PavingStones092_1K_AmbientOcclusion.jpg',
-      ])
-*/
+    
       //normalMap ler------------
       const [
         sol_ust_kose,
@@ -3893,7 +3940,7 @@ const Program = () => {
           />
           <meshStandardMaterial
             attach="material"
-            color="white"
+            color="red"
             transparent
             roughness={0.1}
             metalness={0.1}
