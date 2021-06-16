@@ -1,6 +1,7 @@
 const SolYan = (mobilya) => {
   //@SolYan---------------------------------------------------------------------------------
-  console.log("mobilya.tip=", mobilya.tip);
+
+  console.log("sol_yan a uğradı");
   switch (mobilya.tip) {
     case 1: //1 nolu kasa tipi,tutma yeri modul merkezi
       mobilya.sol_yan.x0 =
@@ -15,7 +16,8 @@ const SolYan = (mobilya) => {
         mobilya.sol_pervaz.material_id / 2 +
         mobilya.sol_yan.zg0 / 2 -
         mobilya.sol_yan.zg1 / 2;
-      mobilya.sol_yan.x = mobilya.sol_yan.material_id;
+      //mobilya.sol_yan.x = mobilya.sol_yan.material_id;
+      mobilya.sol_yan.x = 18;
       mobilya.sol_yan.y = mobilya.Y - mobilya.sol_yan.yg0 - mobilya.sol_yan.yg1;
       mobilya.sol_yan.z =
         mobilya.Z -

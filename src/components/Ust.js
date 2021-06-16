@@ -1,6 +1,7 @@
 const Ust = (mobilya) => {
   switch (mobilya.tip) {
     case 1: //1 nolu kasa tipi merkez odaklamalı
+      mobilya.ust.dahil = true;
       mobilya.ust.x0 =
         mobilya.X0 +
         mobilya.ust.xg0 / 2 -

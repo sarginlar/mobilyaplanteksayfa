@@ -1,17 +1,18 @@
 //import React from 'react'
 
-const YatayBolmeKalinlik = (mobilya, secilenYatayBolme, kalinlik) => {
-  console.log("yataybolmekalınlık uğradı");
-  let secilenUstBolge_index = 0;
-  let secilenAltBolge_index = 0;
-  let secilenUstBolge = "yok";
-  let secilenAltBolge = "yok";
+const SagYanKalinlik = (mobilya, kalinlik) => {
+  console.log("solyan kalınlığa uğradı");
+  let secilenSolBolge_index = 0;
+  //let secilenSolBolge_index = 0;
+  let secilenSolBolge = "yok";
+  //let secilenSolBolge = "yok";
   let bolge = [];
   let yatay_bolme = [];
   let dikey_bolme = [];
-  //dikey bölmeye komsu olan bölgeler bulunacak
-  //dikey bölmeye komsu olan raflar bulunacak
-  //dikey bölmenin kalınlığı değiştiğinde komşularında ölçüleri değişecek.
+  let sag_yan = {};
+  //sag_yan komsu olan bölgeler bulunacak
+  //sag_yan komsu olan raflar bulunacak
+  //sag_yan kalınlığı değiştiğinde komşularında ölçüleri değişecek.
   //------------------------------------------
 
   //bolgenin dört köşe noktasını buluyoruz.
@@ -46,6 +47,7 @@ const YatayBolmeKalinlik = (mobilya, secilenYatayBolme, kalinlik) => {
       };
     }
   }
+
   //dikmenin dört köşe noktasını buluyoruz
   if (mobilya.dikey_bolme.length > 0) {
     for (let index = 0; index < mobilya.dikey_bolme.length; index++) {
@@ -61,61 +63,63 @@ const YatayBolmeKalinlik = (mobilya, secilenYatayBolme, kalinlik) => {
       };
     }
   }
-  //rafa komşu olan bölgeler.
-  const fark = kalinlik - mobilya.yatay_bolme[secilenYatayBolme].y;
-  mobilya.yatay_bolme[secilenYatayBolme].y = kalinlik;
+  //sag_yan ın köşe noktalarını buluyoruz.
+  if (mobilya.sag_yan.dahil) {
+    sag_yan = {
+      x1: mobilya.sag_yan.x0 - mobilya.sag_yan.x / 2,
+      y1: mobilya.sag_yan.y0 + mobilya.sag_yan.y / 2,
+      x2: mobilya.sag_yan.x0 + mobilya.sag_yan.x / 2,
+      y2: mobilya.sag_yan.y0 + mobilya.sag_yan.y / 2,
+      x3: mobilya.sag_yan.x0 - mobilya.sag_yan.x / 2,
+      y3: mobilya.sag_yan.y0 - mobilya.sag_yan.y / 2,
+      x4: mobilya.sag_yan.x0 + mobilya.sag_yan.x / 2,
+      y4: mobilya.sag_yan.y0 - mobilya.sag_yan.y / 2,
+    };
+  }
+  //------------------------------------------
+  const fark = kalinlik - mobilya.sag_yan.x;
+  console.log("fark=", fark);
+  mobilya.sag_yan.x = kalinlik;
+  mobilya.sag_yan.x0 = mobilya.sag_yan.x0 - fark / 2;
+  //üstün ayarlanması
+  mobilya.ust.x = mobilya.ust.x - fark;
+  mobilya.ust.x0 = mobilya.ust.x0 - fark / 2;
+  //alt ayarlanması
+  mobilya.alt.x = mobilya.alt.x - fark;
+  mobilya.alt.x0 = mobilya.alt.x0 - fark / 2;
+  //Baza ayarlanması
+  mobilya.baza.x = mobilya.baza.x - fark;
+  mobilya.baza.x0 = mobilya.baza.x0 - fark / 2;
+
+  //sag_yan a komşu olan sol bölgeler .
   for (let index = 0; index < mobilya.bolge.length; index++) {
-    //rafa komsu olan üst bölge
     if (
-      yatay_bolme[secilenYatayBolme].x1 <= bolge[index].x3 &&
-      yatay_bolme[secilenYatayBolme].x2 >= bolge[index].x4 &&
-      bolge[index].y3.toFixed(2) ===
-        yatay_bolme[secilenYatayBolme].y1.toFixed(2)
+      sag_yan.y1 >= bolge[index].y2 &&
+      sag_yan.y3 <= bolge[index].y4 &&
+      sag_yan.x1 === bolge[index].x2
     ) {
-      console.log("rafa komşu üstbölge uğradı");
-      secilenUstBolge_index = index;
-      secilenUstBolge_index = bolge[index];
-      mobilya.bolge[index].y = mobilya.bolge[index].y - fark / 2;
-      mobilya.bolge[index].cy = mobilya.bolge[index].cy + fark / 4;
-    }
-    //rafa komşu olan alt bolge
-    if (
-      yatay_bolme[secilenYatayBolme].x3 <= bolge[index].x1 &&
-      yatay_bolme[secilenYatayBolme].x4 >= bolge[index].x2 &&
-      bolge[index].y1.toFixed(2) ===
-        yatay_bolme[secilenYatayBolme].y3.toFixed(2)
-    ) {
-      mobilya.bolge[index].y = mobilya.bolge[index].y - fark / 2;
-      mobilya.bolge[index].cy = mobilya.bolge[index].cy - fark / 4;
-      secilenAltBolge_index = index;
-      secilenAltBolge = bolge[index];
+      console.log("bölgeyi buldu");
+      //secilenSagBolge_index = index;
+      //secilenSagBolge_index = bolge[index];
+      mobilya.bolge[index].x = mobilya.bolge[index].x - fark;
+      mobilya.bolge[index].cx = mobilya.bolge[index].cx - fark / 2;
     }
   }
-  //yatay bölmeye komşu olan dikey bölgeler-ve düzenlenmesi
-  for (let index = 0; index < mobilya.dikey_bolme.length; index++) {
+  //sag_yan komşu olan raflar-ve düzenlenmesi
+  for (let index = 0; index < mobilya.yatay_bolme.length; index++) {
     if (
-      yatay_bolme[secilenYatayBolme].x1 <= dikey_bolme[index].x3 &&
-      yatay_bolme[secilenYatayBolme].x2 >= dikey_bolme[index].x4 &&
-      yatay_bolme[secilenYatayBolme].y1.toFixed(2) ===
-        dikey_bolme[index].y3.toFixed(2)
+      sag_yan.y1 >= yatay_bolme[index].y2 &&
+      sag_yan.y3 <= yatay_bolme[index].y4 &&
+      sag_yan.x1 === yatay_bolme[index].x2
     ) {
-      console.log("uğradı1");
-      mobilya.dikey_bolme[index].y = mobilya.dikey_bolme[index].y - fark / 2;
-      mobilya.dikey_bolme[index].y0 = mobilya.dikey_bolme[index].y0 + fark / 4;
-    }
-    if (
-      yatay_bolme[secilenYatayBolme].x3 <= dikey_bolme[index].x1 &&
-      yatay_bolme[secilenYatayBolme].x4 >= dikey_bolme[index].x2 &&
-      yatay_bolme[secilenYatayBolme].y3.toFixed(2) ===
-        dikey_bolme[index].y1.toFixed(2)
-    ) {
-      console.log("uğradı2");
-      mobilya.dikey_bolme[index].y = mobilya.dikey_bolme[index].y - fark / 2;
-      mobilya.dikey_bolme[index].y0 = mobilya.dikey_bolme[index].y0 - fark / 4;
+      console.log("yatay bolgeye uğradı");
+      mobilya.yatay_bolme[index].x = mobilya.yatay_bolme[index].x - fark;
+      mobilya.yatay_bolme[index].x0 = mobilya.yatay_bolme[index].x0 - fark / 2;
     }
   }
+  console.log("mobilya.sag_yan=", mobilya.sag_yan);
 
   return mobilya;
 };
 
-export default YatayBolmeKalinlik;
+export default SagYanKalinlik;

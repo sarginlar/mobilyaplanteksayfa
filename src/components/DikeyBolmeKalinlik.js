@@ -93,6 +93,7 @@ const DikeyBolmeKalinlik = (mobilya, secilenDikeyBolme, kalinlik) => {
       dikey_bolme[secilenDikeyBolme].y3 <= yatay_bolme[index].y4 &&
       yatay_bolme[index].x2 === dikey_bolme[secilenDikeyBolme].x1
     ) {
+      console.log("yatay-sol");
       mobilya.yatay_bolme[index].x = mobilya.yatay_bolme[index].x - fark / 2;
       mobilya.yatay_bolme[index].x0 = mobilya.yatay_bolme[index].x0 - fark / 4;
     }
@@ -101,6 +102,7 @@ const DikeyBolmeKalinlik = (mobilya, secilenDikeyBolme, kalinlik) => {
       dikey_bolme[secilenDikeyBolme].y4 <= yatay_bolme[index].y3 &&
       yatay_bolme[index].x1 === dikey_bolme[secilenDikeyBolme].x2
     ) {
+      console.log("yatay-sag");
       mobilya.yatay_bolme[index].x = mobilya.yatay_bolme[index].x - fark / 2;
       mobilya.yatay_bolme[index].x0 = mobilya.yatay_bolme[index].x0 + fark / 4;
     }

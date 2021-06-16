@@ -101,7 +101,7 @@ import UstKalinlik from "./components/UstKalinlik";
 import AltKalinlik from "./components/AltKalinlik";
 import EnDegisimi from "./components/EnDegisimi";
 import BoyDegisimi from "./components/BoyDegisimi";
-import BazaYukseklik from "./components/BazaYukseklik";
+import BazaYukseklik from "./components/Baza";
 const initialState_menu = {
   main: false,
   Login: false,
@@ -3236,7 +3236,15 @@ const Program = () => {
     }
     //-yeni kapak çizimleri-------
 
-    
+    function KapakProfil() {
+      /* const [colorMap, displacementMap, normalMap, roughnessMap, aoMap] = useTexture([
+        'WoodQuarteredChiffon001_COL_3K_1.jpg',
+        'PavingStones092_1K_Displacement.jpg',
+        'n1kapak.png',
+        'PavingStones092_1K_Roughness.jpg',
+        'PavingStones092_1K_AmbientOcclusion.jpg',
+      ])
+*/
       //normalMap ler------------
       const [
         sol_ust_kose,
