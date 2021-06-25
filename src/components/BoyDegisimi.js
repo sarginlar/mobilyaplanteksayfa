@@ -115,9 +115,10 @@ const BoyDegisimi = (mobilya, olculer) => {
 
   //console.log("mobilya.bolge=", mobilya.bolge);
   mobilya.Y0 = -1000;
+  mobilya.Y = olculer.Y + mobilya.baza.y;
   console.log("--mobilya=", mobilya);
 
-  return mobilya.bolge;
+  return mobilya;
 };
 
 export default BoyDegisimi;

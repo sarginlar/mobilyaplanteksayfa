@@ -61,8 +61,9 @@ const EnDegisimi = (mobilya, olculer) => {
   for (let index = 0; index < mobilya.yatay_bolme.length; index++) {}
   //-------------------------
   //console.log("mobilya.bolge=", mobilya.bolge);
+  mobilya.X = olculer.X;
   console.log("--mobilya=", mobilya);
-  return mobilya.bolge;
+  return mobilya;
 };
 
 export default EnDegisimi;

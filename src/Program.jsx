@@ -102,6 +102,8 @@ import AltKalinlik from "./components/AltKalinlik";
 import EnDegisimi from "./components/EnDegisimi";
 import BoyDegisimi from "./components/BoyDegisimi";
 import BazaYukseklik from "./components/Baza";
+import DerinlikDegisim from "./components/DerinlikDegisim";
+import Data from "./components/Data";
 const initialState_menu = {
   main: false,
   Login: false,
@@ -1450,7 +1452,7 @@ const Program = () => {
                     id="name"
                     name="name"
                     onChange={(e) => {
-                      mobilya.Y = Number(e.target.value);
+                      olculer.Y = Number(e.target.value);
                     }}
                   />
                 </li>
@@ -1465,7 +1467,7 @@ const Program = () => {
                     id="name"
                     name="name"
                     onChange={(e) => {
-                      mobilya.X = Number(e.target.value);
+                      olculer.X = Number(e.target.value);
                     }}
                   />
                 </li>
@@ -1480,7 +1482,7 @@ const Program = () => {
                     id="name"
                     name="name"
                     onChange={(e) => {
-                      mobilya.Z = Number(e.target.value);
+                      olculer.Z = Number(e.target.value);
                     }}
                   />
                 </li>
@@ -2248,9 +2250,20 @@ const Program = () => {
             }
             //------------------------------------
             //setOlculer({ X: 2000, Y: 1000, Z: 600 });
-            const olcu = { X: 2000, Y: 500, Z: 600 };
-            const YeniEnModul = BoyDegisimi(mobilya, olcu);
-            setmobilya({ ...mobilya, ...YeniEnModul });
+            const olcu = { X: 2000, Y: 2500, Z: 300 };
+            let yeni;
+            if (olculer.X !== mobilya.X) {
+              yeni = EnDegisimi(mobilya, olculer);
+            }
+            if (olculer.Y !== mobilya.Y) {
+              yeni = BoyDegisimi(mobilya, olculer);
+            }
+            if (olculer.Z !== mobilya.Z) {
+              yeni = DerinlikDegisim(mobilya, olculer);
+            }
+
+            setmobilya({ ...mobilya, ...yeni });
+
             //---------------------------------
           }}
         >

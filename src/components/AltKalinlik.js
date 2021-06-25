@@ -105,7 +105,7 @@ const AltKalinlik = (mobilya, kalinlik) => {
     if (
       alt.x1 <= bolge[index].x3 &&
       alt.x2 >= bolge[index].x4 &&
-      alt.y1 === bolge[index].y3
+      alt.y1.toFixed(2) === bolge[index].y3.toFixed(2)
     ) {
       console.log("-- bolgeye uğradı");
       mobilya.bolge[index].y = mobilya.bolge[index].y - fark;
@@ -117,7 +117,7 @@ const AltKalinlik = (mobilya, kalinlik) => {
     if (
       alt.x1 <= dikey_bolme[index].x3 &&
       alt.x2 >= dikey_bolme[index].x4 &&
-      alt.y1 === dikey_bolme[index].y3
+      alt.y1.toFixed(2) === dikey_bolme[index].y3.toFixed(2)
     ) {
       console.log("dikey--- bolgeye uğradı");
       mobilya.dikey_bolme[index].y = mobilya.dikey_bolme[index].y - fark;
