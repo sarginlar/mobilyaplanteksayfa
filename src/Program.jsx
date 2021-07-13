@@ -33,6 +33,7 @@ import React, {
   useReducer,
   useRef,
   Suspense,
+  useContext,
 } from "react";
 import {
   Form,
@@ -103,7 +104,16 @@ import EnDegisimi from "./components/EnDegisimi";
 import BoyDegisimi from "./components/BoyDegisimi";
 import BazaYukseklik from "./components/Baza";
 import DerinlikDegisim from "./components/DerinlikDegisim";
-import Data from "./components/Data";
+//import { Data } from "./components/Data";
+import firebase from "firebase/app";
+import "firebase/auth";
+import db, { auth, provider } from "./firebase";
+import "firebase/firestore";
+import Login1 from "./components/Login1";
+//import { mobilyaContext } from "./Context";
+import { MobilyaContext } from "./contexts/MobilyaContext";
+import { DataSifirlama } from "./components/DataSifirlama";
+
 const initialState_menu = {
   main: false,
   Login: false,
@@ -166,6 +176,7 @@ let bolge_x = -1;
 let bolge_y = -1;
 const Program = () => {
   //useStateler
+  const [user, setUser] = useState(null);
 
   const [menu, setmenu] = useState(initialState_menu);
   const [solyanId, setsolyanId] = useState("1");
@@ -187,493 +198,20 @@ const Program = () => {
     kapak: false,
     kapak_profil: false,
   });
+  //
+  const { mobilya, setmobilya } = useContext(MobilyaContext);
+  console.log("Program_mobilya=", mobilya);
+  //
   // const [aktif, setAktif] = useState({ bolge: false });
 
   /*
-  //REDUCER-------------------------------
-  const initialState = {
-    id: 1,
-    model_no: '101',
-    image: 'images/img_1.jpg',
-    name: 'gardrop',
-    oda_tipi: 'yatak odası',
-    model_tipi: 'modern',
-    kapak_tipi: 'düz',
-    kapak_modeli: '101',
-    kapak_firması: 'dekodoor',
-    dolap_sekli: 'düz',
-    hesap_prg: 'cabinet_calculation',
-    tip: 1,
-    X0: 0,
-    Y0: 0,
-    Z0: 0,
-    X: 1800,
-    Y: 2500,
-    Z: 600,
-    description: 'e ',
-    brand: 'Apple',
-    category: 'Electronics',
-    Price: 89.99,
-    countInStock: 3,
-    rating: 0,
-    numReviews: 0,
-    sol_yan: { dahil: true, tip: 1, name: 'Sol Yan', material_id: 18, x0: -991, y0: 0, z0: 0, x: 36, y: 2100, z: 600, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 },
-    sag_yan: { dahil: true, tip: 2, name: 'Sağ Yan', material_id: 18, x0: 991, y0: 0, z0: 300, x: 18, y: 2100, z: 600, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 },
-    alt: { dahil: true, tip: 2, name: 'Alt', material_id: 36, x0: 0, y0: -996, z0: 0, x: 1964, y: 18, z: 600, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 },
-    ust: { dahil: true, tip: 3, name: 'Üst', material_id: 36, x0: 0, y0: 1041, z0: 0, x: 1964, y: 18, z: 600, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 },
-    baza: { dahil: true, tip: 3, name: 'Baza', material_id: 18, x0: 0, y0: -1041, z0: 0, x: 1964, y: 100, z: 600, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 },
-    kapak: [{ dahil: true, tip: 3, name: 'Kapak', material_id: 18, x0: 0, y0: 0, z0: 0, x: 1000, y: 100, z: 18, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 }],
-    sol_pervaz: { dahil: false, tip: 3, name: 'Sol Pervaz', material_id: 18, x0: 0, y0: 0, z0: 0, x: 100, y: 500, z: 18, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 },
-    sag_pervaz: { dahil: false, tip: 3, name: 'Sag Pervaz', material_id: 18, x0: 0, y0: 0, z0: 0, x: 100, y: 1000, z: 18, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 },
-    dikey_bolme: [{ dahil: true, tip: 3, name: 'DikeyBolme', material_id: 18, x0: 0, y0: 0, z0: 0, x: 18, y: 1628, z: 600, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 }],
-    yatay_bolme: [
-      { dahil: true, tip: 3, name: 'YatayBolme', material_id: 18, x0: -495, y0: 0, z0: 0, x: 973, y: 18, z: 600, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 },
-      { dahil: true, tip: 3, name: 'YatayBolme', material_id: 18, x0: 495, y0: 0, z0: 0, x: 973, y: 18, z: 600, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 },
-    ],
-    arkalik: [{ dahil: true, tip: 3, name: 'Arkalık', material_id: 18, x0: 0, y0: 0, z0: 0, x: 1000, y: 1000, z: 18, xg0: 0, xg1: 0, zg0: 0, zg1: 0, yg0: 0, yg1: 0 }],
-    bolge: [],
-    parca: [
-      { tip: 1, name: 'Sol Yan', material_id: 1, u1: 0, u2: 0, x0: -991, y0: 0, z0: 0, x: 18, y: 2100, z: 600 }, //sol_yan
-      { tip: 2, name: 'Alt', material_id: 1, u1: 1, u2: 1, x0: 0, y0: -1041, z0: 0, x: 1964, y: 18, z: 600 }, //alt
-      { tip: 2, name: 'Üst', material_id: 1, u1: 1, u2: 1, x0: 0, y0: 1041, z0: 0, x: 1964, y: 18, z: 600 }, //üst
-      { tip: 1, name: 'Sağ Yan', material_id: 1, u1: 0, u2: 0, x0: 991, y0: 0, z0: 0, x: 18, y: 2100, z: 600 }, //sag_yan
-      { tip: 1, name: 'DikeyBolme', material_id: 1, u1: 0, u2: 0, x0: 0, y0: 0, z0: 0, x: 18, y: 2064, z: 600 }, //DikeyBolme
-      { tip: 3, name: 'kapak', material_id: 1, u1: 0, u2: 0, x0: 0, y0: 0, z0: 291, x: 1000, y: 2064, z: 18 }, //Kapak
-    ],
-  }
-  // reducer fonksiyonu----------------------
-  const reducer = (state, action) => {
-    switch (action.type) {
-      case 'MOBILYA_UPDATE':
-        return { numGuitar: state.numBuitar + 1 }
-      default:
-        return state
-    }
-  }
-
-  const [mobilya, dispatch] = useReducer(reducer, initialState)
-*/
-  //----------------------------
+ 
+  /********* */
 
   /********* */
-  //@DataSifirlama-------------------------------------------------
-  const DataSifirlama = (props) => {
-    const b = props;
-    if (b.sol_yan.dahil) {
-    } else {
-      b.sol_yan = {
-        dahil: false,
-        tip: 1,
-        name: "Sol Yan-yok",
-        material_id: 0,
-        x0: 0,
-        y0: 0,
-        z0: 0,
-        x: 0,
-        y: 0,
-        z: 0,
-        xg0: 0,
-        xg1: 0,
-        zg0: 0,
-        zg1: 0,
-        yg0: 0,
-        yg1: 0,
-      };
-    }
-    if (b.sag_yan.dahil) {
-    } else {
-      b.sag_yan = {
-        dahil: false,
-        tip: 1,
-        name: "Sag Yan-yok",
-        material_id: 0,
-        x0: 0,
-        y0: 0,
-        z0: 0,
-        x: 0,
-        y: 0,
-        z: 0,
-        xg0: 0,
-        xg1: 0,
-        zg0: 0,
-        zg1: 0,
-        yg0: 0,
-        yg1: 0,
-      };
-    }
-    if (b.ust.dahil) {
-    } else {
-      b.ust = {
-        dahil: false,
-        tip: 1,
-        name: "Ust-yok",
-        material_id: 0,
-        x0: 0,
-        y0: 0,
-        z0: 0,
-        x: 0,
-        y: 0,
-        z: 0,
-        xg0: 0,
-        xg1: 0,
-        zg0: 0,
-        zg1: 0,
-        yg0: 0,
-        yg1: 0,
-      };
-    }
-    if (b.alt.dahil) {
-    } else {
-      b.alt = {
-        dahil: false,
-        tip: 1,
-        name: "Alt-yok",
-        material_id: 0,
-        x0: 0,
-        y0: 0,
-        z0: 0,
-        x: 0,
-        y: 0,
-        z: 0,
-        xg0: 0,
-        xg1: 0,
-        zg0: 0,
-        zg1: 0,
-        yg0: 0,
-        yg1: 0,
-      };
-    }
-    if (b.baza) {
-    } else {
-      b.baza = {
-        dahil: false,
-        tip: 1,
-        name: "Baza-yok",
-        material_id: 0,
-        x0: 0,
-        y0: 0,
-        z0: 0,
-        x: 0,
-        y: 0,
-        z: 0,
-        xg0: 0,
-        xg1: 0,
-        zg0: 0,
-        zg1: 0,
-        yg0: 0,
-        yg1: 0,
-      };
-    }
-    if (b.sol_pervaz.dahil) {
-    } else {
-      b.sol_pervaz = {
-        dahil: false,
-        tip: 1,
-        name: "Sol Pervaz-yok",
-        material_id: 0,
-        x0: 0,
-        y0: 0,
-        z0: 0,
-        x: 0,
-        y: 0,
-        z: 0,
-        xg0: 0,
-        xg1: 0,
-        zg0: 0,
-        zg1: 0,
-        yg0: 0,
-        yg1: 0,
-      };
-    }
-    if (b.sag_pervaz.dahil) {
-    } else {
-      b.sag_pervaz = {
-        dahil: false,
-        tip: 1,
-        name: "Sag Pervaz-yok",
-        material_id: 0,
-        x0: 0,
-        y0: 0,
-        z0: 0,
-        x: 0,
-        y: 0,
-        z: 0,
-        xg0: 0,
-        xg1: 0,
-        zg0: 0,
-        zg1: 0,
-        yg0: 0,
-        yg1: 0,
-      };
-    }
-    return b;
-  };
-  /********* */
-  const [mobilya, setmobilya] = useState(
-    DataSifirlama({
-      id: 1,
-      model_no: "101",
-      image: "images/img_1.jpg",
-      name: "gardrop",
-      oda_tipi: "yatak odası",
-      model_tipi: "modern",
-      kapak_tipi: "düz",
-      kapak_modeli: "101",
-      kapak_firması: "dekodoor",
-      dolap_sekli: "düz",
-      hesap_prg: "cabinet_calculation",
-      tip: 1,
-      X0: 0,
-      Y0: 0,
-      Z0: 0,
-      X: 2000,
-      Y: 2000,
-      Z: 600,
-      description: "e ",
-      brand: "Apple",
-      category: "Electronics",
-      Price: 89.99,
-      countInStock: 3,
-      rating: 0,
-      numReviews: 0,
-      sol_yan: {
-        dahil: true,
-        tip: 1,
-        name: "Sol Yan",
-        material_id: 18,
-        x0: -991,
-        y0: 0,
-        z0: 0,
-        x: 18,
-        y: 2000,
-        z: 600,
-        xg0: 0,
-        xg1: 0,
-        zg0: 0,
-        zg1: 0,
-        yg0: 0,
-        yg1: 0,
-      },
-      sol_pervaz: {
-        dahil: false,
-        tip: 3,
-        name: "Sol Pervaz",
-        material_id: 18,
-        x0: 0,
-        y0: 0,
-        z0: 0,
-        x: 100,
-        y: 500,
-        z: 18,
-        xg0: 0,
-        xg1: 0,
-        zg0: 0,
-        zg1: 0,
-        yg0: 0,
-        yg1: 0,
-      },
-      sag_yan: {
-        dahil: true,
-        tip: 2,
-        name: "Sağ Yan",
-        material_id: 18,
-        x0: 991,
-        y0: 0,
-        z0: 0,
-        x: 18,
-        y: 2000,
-        z: 600,
-        xg0: 0,
-        xg1: 0,
-        zg0: 0,
-        zg1: 0,
-        yg0: 0,
-        yg1: 0,
-      },
-      alt: {
-        dahil: true,
-        tip: 2,
-        name: "Alt",
-        material_id: 36,
-        x0: 0,
-        y0: -882,
-        z0: 0,
-        x: 1964,
-        y: 36,
-        z: 600,
-        xg0: 0,
-        xg1: 0,
-        zg0: 0,
-        zg1: 0,
-        yg0: 0,
-        yg1: 0,
-      },
-      ust: {
-        dahil: true,
-        tip: 3,
-        name: "Üst",
-        material_id: 36,
-        x0: 0,
-        y0: 982,
-        z0: 0,
-        x: 1964,
-        y: 36,
-        z: 600,
-        xg0: 0,
-        xg1: 0,
-        zg0: 0,
-        zg1: 0,
-        yg0: 0,
-        yg1: 0,
-      },
-      baza: {
-        dahil: true,
-        tip: 3,
-        name: "Baza",
-        material_id: 18,
-        x0: 0,
-        y0: -950,
-        z0: 281,
-        x: 1964,
-        y: 100,
-        z: 18,
-        xg0: 0,
-        xg1: 0,
-        zg0: 0,
-        zg1: 0,
-        yg0: 0,
-        yg1: 0,
-      },
-      kapak: [],
-      kapak_profil: [],
-      cekmece_kapak: [],
-      cekmece_kasa: [],
-      kayit_ekle_dikey: [],
-      kayit_ekle_yatay: [],
-      raf: [],
-      sag_pervaz: {
-        dahil: false,
-        tip: 3,
-        name: "Sag Pervaz",
-        material_id: 18,
-        x0: 0,
-        y0: 0,
-        z0: 0,
-        x: 100,
-        y: 1000,
-        z: 18,
-        xg0: 0,
-        xg1: 0,
-        zg0: 0,
-        zg1: 0,
-        yg0: 0,
-        yg1: 0,
-      },
-      dikey_bolme: [],
-      yatay_bolme: [],
-      arkalik: [
-        {
-          dahil: true,
-          tip: 3,
-          name: "Arkalık",
-          material_id: 18,
-          x0: 0,
-          y0: 0,
-          z0: 0,
-          x: 1000,
-          y: 1000,
-          z: 18,
-          xg0: 0,
-          xg1: 0,
-          zg0: 0,
-          zg1: 0,
-          yg0: 0,
-          yg1: 0,
-        },
-      ],
-      bolge: [],
-      parca: [
-        {
-          tip: 1,
-          name: "Sol Yan",
-          material_id: 1,
-          u1: 0,
-          u2: 0,
-          x0: -991,
-          y0: 0,
-          z0: 0,
-          x: 18,
-          y: 2100,
-          z: 600,
-        }, //sol_yan
-        {
-          tip: 2,
-          name: "Alt",
-          material_id: 1,
-          u1: 1,
-          u2: 1,
-          x0: 0,
-          y0: -1041,
-          z0: 0,
-          x: 1964,
-          y: 18,
-          z: 600,
-        }, //alt
-        {
-          tip: 2,
-          name: "Üst",
-          material_id: 1,
-          u1: 1,
-          u2: 1,
-          x0: 0,
-          y0: 1041,
-          z0: 0,
-          x: 1964,
-          y: 18,
-          z: 600,
-        }, //üst
-        {
-          tip: 1,
-          name: "Sağ Yan",
-          material_id: 1,
-          u1: 0,
-          u2: 0,
-          x0: 991,
-          y0: 0,
-          z0: 0,
-          x: 18,
-          y: 2100,
-          z: 600,
-        }, //sag_yan
-        {
-          tip: 1,
-          name: "DikeyBolme",
-          material_id: 1,
-          u1: 0,
-          u2: 0,
-          x0: 0,
-          y0: 0,
-          z0: 0,
-          x: 18,
-          y: 2064,
-          z: 600,
-        }, //DikeyBolme
-        {
-          tip: 3,
-          name: "kapak",
-          material_id: 1,
-          u1: 0,
-          u2: 0,
-          x0: 0,
-          y0: 0,
-          z0: 291,
-          x: 1000,
-          y: 2064,
-          z: 18,
-        }, //Kapak
-      ],
-    })
-  );
+  useEffect(() => {
+    setmobilya(DataSifirlama(mobilya));
+  }, []);
 
   const initialState_olculer = {
     X: mobilya.X,
@@ -882,6 +420,51 @@ const Program = () => {
   };
   /*******REGISTER******* */
   //@Login-----------------------------------------------------------------
+  //Login1----------------
+  const Login1 = () => {
+    const login = () => {
+      auth.signInWithPopup(provider).catch((error) => alert(error.message));
+    };
+    useEffect(() => {
+      auth.onAuthStateChanged((authUser) => {
+        console.log("authUser=", authUser);
+        if (authUser) {
+          setUser(authUser);
+        } else {
+          setUser(null);
+        }
+      });
+    }, []);
+    return (
+      <div>
+        <Button onClick={login} color="blue" fluid size="large">
+          Google ile giriş yap
+        </Button>
+
+        <h2>user {user} </h2>
+      </div>
+    );
+  };
+  //--------------------
+  const User = () => {
+    const add = () => {
+      db.collection("mobilya").add(mobilya);
+    };
+    return (
+      <div>
+        <h2>Kullanıcı= {user ? user.email : user} </h2>
+        <h2>Girildi</h2>
+        <Button onClick={() => auth.signOut()} color="blue" fluid size="large">
+          çık
+        </Button>
+        <Button onClick={add} color="blue" fluid size="large">
+          Ekle
+        </Button>
+      </div>
+    );
+  };
+  //--------------------
+
   const Login = () => {
     const { register, errors, handleSubmit, setValue } = useForm();
     useEffect(() => {
@@ -889,7 +472,9 @@ const Program = () => {
       register({ name: "password" }, { required: true, minLength: 6 });
     }, []);
     const onSubmit = (data, e) => {};
+    //------------------
 
+    //---------------------
     return (
       <Grid textAlign="center" verticalAlign="middle" className="container">
         <Grid.Column style={{ maxWidth: 450 }}>
@@ -2431,8 +2016,8 @@ const Program = () => {
         {/** -----------------------------------*/}
         <UncontrolledReactSVGPanZoom
           ref={Viewer}
-          width={600}
-          height={600}
+          width={400}
+          height={400}
           //onZoom={(e) => console.log('zoom')}
           //onPan={(e) => console.log('pan')}
           //onClick={(event) => console.log('click', event.x, event.y, event.originalEvent)}
@@ -3058,6 +2643,7 @@ const Program = () => {
 
   //-------------------------------------------------------------------
   //@ScreenCabinet-----------------------------------------------------
+  // burada iki seçenek sunalım birtanesi texture lu diğeri mtexture suz.
 
   const ucBoyut = true;
 
@@ -3096,13 +2682,17 @@ const Program = () => {
             attach="geometry"
             args={[a.x / u, a.y / u, a.z / u]}
           />
-          <meshStandardMaterial
-            displacementScale={0.001}
-            map={colorMap}
-            displacementMap={displacementMap}
-            normalMap={normalMap}
-            roughnessMap={roughnessMap}
-          />
+          {true ? (
+            <meshStandardMaterial attach="material" color="brown" />
+          ) : (
+            <meshStandardMaterial
+              displacementScale={0.001}
+              map={colorMap}
+              displacementMap={displacementMap}
+              normalMap={normalMap}
+              roughnessMap={roughnessMap}
+            />
+          )}
         </mesh>
       );
     };
@@ -3127,13 +2717,17 @@ const Program = () => {
             attach="geometry"
             args={[a.x / u, a.y / u, a.z / u]}
           />
-          <meshStandardMaterial
-            displacementScale={0.001}
-            map={colorMap}
-            displacementMap={displacementMap}
-            normalMap={normalMap}
-            roughnessMap={roughnessMap}
-          />
+          {true ? (
+            <meshStandardMaterial attach="material" color="brown" />
+          ) : (
+            <meshStandardMaterial
+              displacementScale={0.001}
+              map={colorMap}
+              displacementMap={displacementMap}
+              normalMap={normalMap}
+              roughnessMap={roughnessMap}
+            />
+          )}
         </mesh>
       );
     };
@@ -3161,7 +2755,11 @@ const Program = () => {
             attach="geometry"
             args={[a.x / u, a.y / u, a.z / u]}
           />
-          <meshStandardMaterial displacementScale={0.001} map={colorMap} />
+          {true ? (
+            <meshStandardMaterial attach="material" color="brown" />
+          ) : (
+            <meshStandardMaterial displacementScale={0.001} map={colorMap} />
+          )}
         </mesh>
       );
     };
@@ -4474,6 +4072,7 @@ const Program = () => {
   return (
     <div className="App">
       <Header menu={menu} />
+      {user ? <User /> : <Login1 />}
       {menu.Login && <Login />}
       {menu.SignUp && <SignUp />}
       {menu.ScreenCabinet && (
