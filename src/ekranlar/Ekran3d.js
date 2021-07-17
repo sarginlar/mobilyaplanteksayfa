@@ -2,20 +2,15 @@
 // burada iki seçenek sunalım birtanesi texture lu diğeri mtexture suz.
 import { useContext, Suspense } from "react";
 import * as THREE from "three";
-import { Canvas, extend, useLoader } from "react-three-fiber";
+import { Canvas } from "react-three-fiber";
 import { OrbitControls, useTexture } from "@react-three/drei";
 import { MobilyaContext } from "../contexts/MobilyaContext";
 
 const u = 1000;
-const ucBoyut = true;
 
 const shape = new THREE.Shape();
 shape.lineTo(0 / u, 3000 / u);
 shape.lineTo(3000 / u, 0 / u);
-
-extend({ Text });
-
-const text = "@tchayen";
 
 const Ekran3d = () => {
   const { mobilya, setmobilya } = useContext(MobilyaContext);

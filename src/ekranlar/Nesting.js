@@ -1,21 +1,5 @@
 //@Nesting---------------------------------------------------------------------------------------
-import {
-  Form,
-  Segment,
-  Button,
-  Grid,
-  Message,
-  Menu,
-  Table,
-  Divider,
-  Card,
-  Tab,
-  Container,
-  Input,
-  Image,
-  Checkbox,
-  Dropdown,
-} from "semantic-ui-react";
+import { Table } from "semantic-ui-react";
 import Nest from "../components/Nest";
 
 const Nesting = ({ mobilya }) => {

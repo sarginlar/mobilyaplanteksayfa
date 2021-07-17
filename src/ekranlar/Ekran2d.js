@@ -1,4 +1,4 @@
-import { useContext, Suspense, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { MobilyaContext } from "../contexts/MobilyaContext";
 import Path, { Rect } from "react-svg-path";
 import Bolgeler from "../components/Bolgeler";

@@ -18,7 +18,6 @@ function App() {
     <MobilyaContextProvider>
       <div className="App">
         <Program />
-        <BolgeEnAyarla />
       </div>
     </MobilyaContextProvider>
   );

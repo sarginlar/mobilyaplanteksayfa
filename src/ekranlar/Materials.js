@@ -1,14 +1,11 @@
-//@Price---------------------------------------------------------------------------------
-import Nest from "../components/Nest";
+//@Materials------------------------------------------------------------------------------
 import { Table } from "semantic-ui-react";
+import { DataMaterials } from "../components/DataMaterials";
 
-const Price = ({ mobilya }) => {
-  const a = Nest(mobilya);
-  // console.log('--a=', a)
-
+const Materials = () => {
+  //console.log('DataMaterials=', DataMaterials)
   return (
-    <div className="Price">
-      <h1>Malzeme kesim listesi</h1>
+    <div>
       <Table celled>
         <Table.Header>
           <Table.Row>
@@ -20,13 +17,15 @@ const Price = ({ mobilya }) => {
             <Table.HeaderCell>Fiyat</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
-        {a.map((p, index) => (
+        {DataMaterials.map((p, index) => (
           <Table.Body key={index}>
             <Table.Row>
               <Table.Cell>{p.name}</Table.Cell>
-              <Table.Cell>{p.en}</Table.Cell>
-              <Table.Cell>{p.boy}</Table.Cell>
-              <Table.Cell>{p.kalinlik}</Table.Cell>
+              <Table.Cell>{p.width}</Table.Cell>
+              <Table.Cell>{p.length}</Table.Cell>
+              <Table.Cell>{p.thickness}</Table.Cell>
+              <Table.Cell>{p.stock_type}</Table.Cell>
+              <Table.Cell>{p.cost_per_sheet}</Table.Cell>
             </Table.Row>
           </Table.Body>
         ))}
@@ -34,4 +33,4 @@ const Price = ({ mobilya }) => {
     </div>
   );
 };
-export default Price;
+export default Materials;

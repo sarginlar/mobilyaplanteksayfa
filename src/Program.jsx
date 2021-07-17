@@ -27,14 +27,7 @@
 //@RETURN
 //@ConstructionSettings   //@SolyanTip   //@SagyanTip  //@UstTip  //@UstAyarlar
 //@GenelAyarlar
-import React, {
-  useState,
-  useEffect,
-  useReducer,
-  useRef,
-  Suspense,
-  useContext,
-} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Form,
   Segment,
@@ -42,64 +35,19 @@ import {
   Grid,
   Message,
   Menu,
-  Table,
-  Divider,
-  Card,
   Tab,
-  Container,
-  Input,
-  Image,
-  Checkbox,
-  Dropdown,
 } from "semantic-ui-react";
-import Path, { Rect } from "react-svg-path";
-import {
-  UncontrolledReactSVGPanZoom,
-  ControlledReactSVGPanZoom,
-} from "react-svg-pan-zoom";
+
 import { useForm } from "react-hook-form";
-import * as THREE from "three";
-import { Canvas, extend, useLoader } from "react-three-fiber";
-import { OrbitControls, useTexture } from "@react-three/drei";
-import { Text } from "troika-three-text";
-import {
-  INITIAL_VALUE,
-  ReactSVGPanZoom,
-  TOOL_NONE,
-  fitSelection,
-  zoomOnViewerCenter,
-  fitToViewer,
-} from "react-svg-pan-zoom";
-import YatayBolmeAyarla from "./components/YatayBolmeAyarla";
-import DikeyBolmeAyarla from "./components/DikeyBolmeAyarla";
-import Coordinat from "./components/Coordinat";
+
 import SolYan from "./components/SolYan";
 import SagYan from "./components/SagYan";
 import Ust from "./components/Ust";
 import Baza from "./components/Baza";
 import Alt from "./components/Alt";
-import Kapak from "./components/Kapak";
-import KapakSil from "./components/KapakSil";
-import DikeyBolmeSil from "./components/DikeyBolmeSil";
-import Bolgeler from "./components/Bolgeler";
-import DikeyBolmeEkle from "./components/DikeyBolmeEkle";
-import YatayBolmeEkle from "./components/YatayBolmeEkle";
-import YatayBolmeSil from "./components/YatayBolmeSil";
-import RafEkle from "./components/RafEkle";
-import KapakProfil from "./components/KapakProfil";
-import CekmeceKapak from "./components/CekmeceKapak";
-import CekmeceKasa from "./components/CekmeceKasa";
-import KayitEkleDikey from "./components/KayitEkleDikey";
-import KayitEkleYatay from "./components/KayitEkleYatay";
+
 import KayitSil from "./components/KayitSil";
-import BolgelerUpdate from "./components/BolgelerUpdate";
-import { TextureLoader } from "three/src/loaders/TextureLoader";
-import DikeyBolmeKalinlik from "./components/DikeyBolmeKalinlik";
-import YatayBolmeKalinlik from "./components/YatayBolmeKalinlik";
-import SolYanKalinlik from "./components/SolYanKalinlik";
-import SagYanKalinlik from "./components/SagYanKalinlik";
-import UstKalinlik from "./components/UstKalinlik";
-import AltKalinlik from "./components/AltKalinlik";
+
 import EnDegisimi from "./components/EnDegisimi";
 import BoyDegisimi from "./components/BoyDegisimi";
 import BazaYukseklik from "./components/Baza";
@@ -122,6 +70,8 @@ import Nesting from "./ekranlar/Nesting";
 import Nest from "./components/Nest";
 import Hardwares from "./ekranlar/Hardwares";
 import Price from "./ekranlar/Price";
+import Materials from "./ekranlar/Materials";
+import { DataMaterials } from "./components/DataMaterials";
 
 const initialState_menu = {
   main: false,
@@ -136,36 +86,6 @@ const initialState_menu = {
   ScreenProducts: false,
 };
 
-//@DataMaterials-----------------------------------------------------------
-const DataMaterials = [
-  {
-    id: 1,
-    stock_type: "Sheet Stock", // "Board stock","Banding Stock","Sheet stock"
-    company: "starwood",
-    name: "Kiraz",
-    length: 3660,
-    width: 1830,
-    thickness: 18,
-    cost_per_sheet: 200,
-    image: "",
-    grain: true,
-    single_side: false,
-  },
-  {
-    id: 1,
-    stock_type: "Sheet Stock", // "Board stock","Banding Stock","Sheet stock"
-    company: "starwood",
-    name: "Armut",
-    length: 3660,
-    width: 1830,
-    thickness: 18,
-    cost_per_sheet: 200,
-    image: "",
-    grain: true,
-    single_side: false,
-  },
-];
-
 //@Program----------------------------------------------------------
 let bolge_x = -1;
 let bolge_y = -1;
@@ -179,15 +99,10 @@ const Program = () => {
   const [ustId, setustId] = useState("1");
   const [altId, setaltId] = useState("1");
   const [secilenBolge, setSecilenBolge] = useState(0);
-  const [secilenYatayBolme, setSecilenYatayBolme] = useState(0);
-  const [secilenRaf, setSecilenRaf] = useState(0);
-  const [secilenDikeyBolme, setSecilenDikeyBolme] = useState(0);
-  const [secilenKapak, setSecilenKapak] = useState(0);
+
   const [secilenKayit, setSecilenKayit] = useState(0);
   const [secilenKayitModel, setSecilenKayitModel] = useState(0);
-  const [secilenKapakModel, setSecilenKapakModel] = useState(0);
-  const [secilenCekmeceKapak, setSecilenCekmeceKapak] = useState(0);
-  const [secilenCekmeceKasa, setSecilenCekmeceKasa] = useState(0);
+
   const [secilen, setSecilen] = useState({
     bolge: false,
     kapak: false,
@@ -667,62 +582,7 @@ const Program = () => {
     }
     return mobilya.yatay_bolme;
   };
-  //------------------------------------------------------
-  //@kapak----------------------------------------------
-  const kapak = () => {
-    const sonuc = Kapak(mobilya, secilenBolge, secilen);
-    setmobilya({ ...mobilya, ...sonuc });
-    setSecilen({
-      bolge: false,
-      kapak: false,
-      kapak_profil: false,
-    });
-    return <div>{/*<button>kapak</button>*/}</div>;
-  };
 
-  //-----------------------------------------------------
-  //@kapak_sil----------------------------------------------
-  const kapak_sil = () => {
-    const sonuc = KapakSil(mobilya, secilenKapak, secilenKapakModel);
-    setmobilya({ ...mobilya, ...sonuc });
-    setSecilen({
-      bolge: false,
-      kapak: false,
-      kapak_profil: false,
-    });
-    return <div>{/*<button>kapak</button>*/}</div>;
-  };
-
-  //-----------------------------------------------------
-  //@dikey_bolme_sil----------------------------------------------
-  const dikey_bolme_sil = () => {
-    const sonuc = DikeyBolmeSil(mobilya, secilenDikeyBolme, secilen);
-    setmobilya({ ...mobilya, ...sonuc });
-    setSecilenBolge(0);
-    setSecilen({
-      bolge: false,
-      kapak: false,
-      kapak_profil: false,
-    });
-
-    return <div>{/*<button>kapak</button>*/}</div>;
-  };
-
-  //@yatay_bolme_sil----------------------------------------------
-  const yatay_bolme_sil = () => {
-    const sonuc = YatayBolmeSil(mobilya, secilenYatayBolme, secilen);
-    setmobilya({ ...mobilya, ...sonuc });
-    setSecilenBolge(0);
-    setSecilen({
-      bolge: false,
-      kapak: false,
-      kapak_profil: false,
-    });
-
-    return <div>{/*<button>kapak</button>*/}</div>;
-  };
-
-  //-----------------------------------------------------
   //@kayit_sil----------------------------------------------
   const kayit_sil = () => {
     const sonuc = KayitSil(mobilya, secilenKayit, secilenKayitModel);
@@ -737,71 +597,6 @@ const Program = () => {
     return <div>{/*<button>kapak</button>*/}</div>;
   };
 
-  //-----------------------------------------------------
-
-  //@profilkapak----------------------------------------------
-  const profilKapak = () => {
-    const sonuc = KapakProfil(mobilya, secilenBolge, secilen);
-    setmobilya({ ...mobilya, ...sonuc });
-    setSecilen({
-      bolge: false,
-      kapak: false,
-      kapak_profil: false,
-    });
-    return <div>{/*<button>kapak_profil</button>*/}</div>;
-  };
-
-  //-----------------------------------------------------
-
-  //@cekmece_kapak----------------------------------------------
-  const cekmece_kapak = () => {
-    const sonuc = CekmeceKapak(mobilya, secilenBolge);
-    setmobilya({ ...mobilya, ...sonuc });
-    return (
-      <div>
-        <button>CekmeceKapak</button>
-      </div>
-    );
-  };
-
-  //-----------------------------------------------------
-
-  //@cekmece_kasa----------------------------------------------
-  const cekmece_kasa = () => {
-    const sonuc = CekmeceKasa(mobilya, secilenBolge);
-    setmobilya({ ...mobilya, ...sonuc });
-    return (
-      <div>
-        <button>CekmeceKasa</button>
-      </div>
-    );
-  };
-
-  //-----------------------------------------------------
-
-  //@kayit_ekle_dikey----------------------------------------------
-  const kayit_ekle_dikey = () => {
-    const sonuc = KayitEkleDikey(mobilya, secilenBolge);
-    setmobilya({ ...mobilya, ...sonuc });
-    return (
-      <div>
-        <button>KayıtEkleDikey</button>
-      </div>
-    );
-  };
-  //-----------------------------------------------------
-
-  //@kayit_ekle_yatay----------------------------------------------
-  const kayit_ekle_yatay = () => {
-    const sonuc = KayitEkleYatay(mobilya, secilenBolge);
-    setmobilya({ ...mobilya, ...sonuc });
-    return (
-      <div>
-        <button>KayıtEkleYatay</button>
-      </div>
-    );
-  };
-  //-----------------------------------------------------
   //@EKRANLAR -----------------------
 
   //@SolyanTip----------------------------------
@@ -1855,39 +1650,6 @@ const Program = () => {
   };
 
   //-------------------------------------------------------------------
-
-  //@Materials------------------------------------------------------------------------------
-  const Materials = () => {
-    //console.log('DataMaterials=', DataMaterials)
-    return (
-      <div>
-        <Table celled>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell className="adı">Adı</Table.HeaderCell>
-              <Table.HeaderCell className="en">En</Table.HeaderCell>
-              <Table.HeaderCell className="boy">Boy</Table.HeaderCell>
-              <Table.HeaderCell className="kalinlik">Kalınlık</Table.HeaderCell>
-              <Table.HeaderCell>Malzeme</Table.HeaderCell>
-              <Table.HeaderCell>Fiyat</Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-          {DataMaterials.map((p, index) => (
-            <Table.Body key={index}>
-              <Table.Row>
-                <Table.Cell>{p.name}</Table.Cell>
-                <Table.Cell>{p.width}</Table.Cell>
-                <Table.Cell>{p.length}</Table.Cell>
-                <Table.Cell>{p.thickness}</Table.Cell>
-                <Table.Cell>{p.stock_type}</Table.Cell>
-                <Table.Cell>{p.cost_per_sheet}</Table.Cell>
-              </Table.Row>
-            </Table.Body>
-          ))}
-        </Table>
-      </div>
-    );
-  };
 
   //@ScreenProducts-----------------------------------------------------------------------------------
 

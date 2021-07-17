@@ -1,22 +1,6 @@
 //@Hardwares---------------------------------------------------------------------------------
 import { useState } from "react";
-import {
-  Form,
-  Segment,
-  Button,
-  Grid,
-  Message,
-  Menu,
-  Table,
-  Divider,
-  Card,
-  Tab,
-  Container,
-  Input,
-  Image,
-  Checkbox,
-  Dropdown,
-} from "semantic-ui-react";
+import { Button, Table, Divider } from "semantic-ui-react";
 import { DataHardware } from "../components/DataHardware";
 
 const Hardwares = () => {
