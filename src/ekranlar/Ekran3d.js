@@ -5,6 +5,8 @@ import * as THREE from "three";
 import { Canvas } from "react-three-fiber";
 import { OrbitControls, useTexture } from "@react-three/drei";
 import { MobilyaContext } from "../contexts/MobilyaContext";
+import SolYanGirinti from "../components/SolYanGirinti";
+import SagYanGirinti from "../components/SagYanGirinti";
 
 const u = 1000;
 
@@ -18,7 +20,7 @@ const Ekran3d = () => {
   //Ust();
   //Baza();
   //Alt();
-
+  //mobilya_sol_yan çizim
   const SolYan1 = () => {
     const [colorMap, displacementMap, normalMap, roughnessMap, aoMap] =
       useTexture([
@@ -28,7 +30,8 @@ const Ekran3d = () => {
         "WoodQuarteredChiffon001_REFL_3K.jpg",
       ]);
 
-    const a = mobilya.sol_yan;
+    //const a = mobilya.sol_yan;
+    const a = SolYanGirinti(mobilya);
     return (
       <mesh
         visible
@@ -62,7 +65,7 @@ const Ekran3d = () => {
       "WoodQuarteredChiffon001_NRM_3K.jpg",
       "WoodQuarteredChiffon001_REFL_3K.jpg",
     ]);
-    const a = mobilya.sag_yan;
+    const a = SagYanGirinti(mobilya);
     return (
       <mesh
         visible
@@ -1049,7 +1052,7 @@ const Ekran3d = () => {
           far: 100000 / u,
         }}
       >
-        <Suspense fallback={null}>
+        <Suspense fallback={() => <h1>Loading....</h1>}>
           <ambientLight intensity={0.2} />
           <directionalLight />
           <KeyLight brightness={5.6} color={"#ffbdf4"} />

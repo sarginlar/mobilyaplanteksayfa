@@ -29,7 +29,7 @@ export const Data = [
       dahil: true,
       tip: 1,
       name: "Sol Yan",
-      material_id: 18,
+      material_id: 0,
       x0: -991,
       y0: 0,
       z0: 0,

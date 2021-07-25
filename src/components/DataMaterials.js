@@ -1,7 +1,7 @@
 //@DataMaterials-----------------------------------------------------------
 export const DataMaterials = [
   {
-    id: 1,
+    id: 0,
     stock_type: "Sheet Stock", // "Board stock","Banding Stock","Sheet stock"
     company: "starwood",
     name: "Kiraz",

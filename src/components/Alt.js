@@ -6,7 +6,7 @@ const Alt = (mobilya) => {
         mobilya.X0 +
         mobilya.alt.xg0 / 2 -
         mobilya.alt.xg1 / 2 +
-        mobilya.sol_yan.material_id / 2 -
+        mobilya.sol_yan.x / 2 -
         mobilya.sag_yan.material_id / 2;
       mobilya.alt.y0 =
         mobilya.Y0 -
@@ -18,7 +18,7 @@ const Alt = (mobilya) => {
       mobilya.alt.z0 = mobilya.Z0 - mobilya.alt.zg0 / 2 + mobilya.alt.zg1 / 2;
       mobilya.alt.x =
         mobilya.X -
-        mobilya.sol_yan.material_id -
+        mobilya.sol_yan.x -
         mobilya.sag_yan.material_id -
         mobilya.alt.xg0 -
         mobilya.alt.xg1;
