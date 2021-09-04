@@ -18,11 +18,11 @@ const AltAyarlar = (props) => {
               <input
                 type="number"
                 className="girinti"
-                placeholder={mobilya.alt.yg0}
+                placeholder={mobilya.alt.girinti_ust}
                 id="name"
                 name="name"
                 onChange={(e) => {
-                  mobilya.alt.yg0 = e.target.value;
+                  mobilya.alt.girinti_ust = e.target.value;
                 }}
               />
             </li>
@@ -33,11 +33,11 @@ const AltAyarlar = (props) => {
               <input
                 type="number"
                 className="girinti"
-                placeholder={mobilya.alt.zg0}
+                placeholder={mobilya.alt.girinti_on}
                 id="name"
                 name="name"
                 onChange={(e) => {
-                  mobilya.alt.zg0 = e.target.value;
+                  mobilya.alt.girinti_on = e.target.value;
                 }}
               />
             </li>
@@ -48,11 +48,11 @@ const AltAyarlar = (props) => {
               <input
                 type="number"
                 className="girinti"
-                placeholder={mobilya.alt.zg1}
+                placeholder={mobilya.alt.girinti_arka}
                 id="name"
                 name="name"
                 onChange={(e) => {
-                  mobilya.alt.zg1 = e.target.value;
+                  mobilya.alt.girinti_arka = e.target.value;
                 }}
               />
             </li>
@@ -63,11 +63,11 @@ const AltAyarlar = (props) => {
               <input
                 type="number"
                 className="girinti"
-                placeholder={mobilya.alt.xg0}
+                placeholder={mobilya.alt.girinti_sol}
                 id="name"
                 name="name"
                 onChange={(e) => {
-                  mobilya.alt.xg0 = e.target.value;
+                  mobilya.alt.girinti_sol = e.target.value;
                 }}
               />
             </li>
@@ -78,11 +78,11 @@ const AltAyarlar = (props) => {
               <input
                 type="number"
                 className="girinti"
-                placeholder={mobilya.alt.xg1}
+                placeholder={mobilya.alt.girinti_sag}
                 id="name"
                 name="name"
                 onChange={(e) => {
-                  mobilya.alt.xg1 = e.target.value;
+                  mobilya.alt.girinti_sag = e.target.value;
                 }}
               />
             </li>
@@ -99,11 +99,11 @@ const AltAyarlar = (props) => {
               <input
                 type="number"
                 className="girinti"
-                placeholder={mobilya.ust.zg1}
+                placeholder={mobilya.ust.girinti_arka}
                 id="name"
                 name="name"
                 onChange={(e) => {
-                  mobilya.ust.zg1 = e.target.value;
+                  mobilya.ust.girinti_arka = e.target.value;
                 }}
               />
             </li>
@@ -114,11 +114,11 @@ const AltAyarlar = (props) => {
               <input
                 type="number"
                 className="girinti"
-                placeholder={mobilya.ust.zg0}
+                placeholder={mobilya.ust.girinti_on}
                 id="name"
                 name="name"
                 onChange={(e) => {
-                  mobilya.ust.zg0 = e.target.value;
+                  mobilya.ust.girinti_on = e.target.value;
                 }}
               />
             </li>
@@ -129,11 +129,11 @@ const AltAyarlar = (props) => {
               <input
                 type="number"
                 className="girinti"
-                placeholder={mobilya.ust.xg0}
+                placeholder={mobilya.ust.girinti_sol}
                 id="name"
                 name="name"
                 onChange={(e) => {
-                  mobilya.ust.xg0 = e.target.value;
+                  mobilya.ust.girinti_sol = e.target.value;
                 }}
               />
             </li>
@@ -144,11 +144,11 @@ const AltAyarlar = (props) => {
               <input
                 type="number"
                 className="girinti"
-                placeholder={mobilya.ust.xg1}
+                placeholder={mobilya.ust.girinti_sag}
                 id="name"
                 name="name"
                 onChange={(e) => {
-                  mobilya.ust.xg1 = e.target.value;
+                  mobilya.ust.girinti_sag = e.target.value;
                 }}
               />
             </li>

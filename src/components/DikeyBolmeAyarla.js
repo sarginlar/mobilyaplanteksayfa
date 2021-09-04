@@ -7,6 +7,7 @@ const yatay_bolme = [
 const dikey_bolme = [
   { x1: 0, y1: 0, x2: 0, y2: 0, x3: 0, y3: 0, x4: 0, y4: 0 },
 ];
+// buraya BolgeEnAyarla dan geliyor.
 
 const DikeyBolmeAyarla = (mobilya, bolge_x, bolge_y, secilenBolge, islem) => {
   console.log("islem=", islem);
@@ -36,7 +37,7 @@ const DikeyBolmeAyarla = (mobilya, bolge_x, bolge_y, secilenBolge, islem) => {
       };
     }
   }
-  // rafın dört köşe noktasını buluyoruz.
+  // yatay bölmenin dört köşe noktasını buluyoruz.
   if (mobilya.yatay_bolme.length > 0) {
     for (let index = 0; index < mobilya.yatay_bolme.length; index++) {
       yatay_bolme[index] = {
@@ -187,7 +188,7 @@ const DikeyBolmeAyarla = (mobilya, bolge_x, bolge_y, secilenBolge, islem) => {
         mobilya.yatay_bolme[komsuSolRaf[index]].x =
           mobilya.yatay_bolme[komsuSolRaf[index]].x - sonuc;
       }
-      //rafın ayarlanması
+      //dikey bölmenin  ayarlanması
       mobilya.dikey_bolme[secilenSagDikeyBolme_index].x0 =
         mobilya.dikey_bolme[secilenSagDikeyBolme_index].x0 - sonuc;
     }

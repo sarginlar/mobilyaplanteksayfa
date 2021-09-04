@@ -43,6 +43,7 @@ import SagyanAyarlar from "./tab/SagyanAyarlar";
 import UstAyarlar from "./tab/UstAyarlar";
 import AltAyarlar from "./tab/AltAyarlar";
 import KayitliDolapListesi from "./ekranlar/KayitliDolapListesi";
+import SolYanPopupMenu from "./popupmenu/SolYanPopupMenu";
 
 //@Program----------------------------------------------------------
 let bolge_x = -1;
@@ -265,11 +266,11 @@ const Program = () => {
   /***PARCALAR */
   const u = 1000;
   const TekParcalar = () => {
-    mobilya.sol_yan = SolYan(mobilya);
-    mobilya.sag_yan = SagYan(mobilya);
-    mobilya.ust = Ust(mobilya);
-    mobilya.baza = Baza(mobilya);
-    mobilya.alt = Alt(mobilya);
+    //mobilya.sol_yan = SolYan(mobilya);
+    //mobilya.sag_yan = SagYan(mobilya);
+    // mobilya.ust = Ust(mobilya);
+    //  mobilya.baza = Baza(mobilya);
+    // mobilya.alt = Alt(mobilya);
   };
 
   //secilen bölge------
@@ -397,7 +398,7 @@ const Program = () => {
             }
             //------------------------------------
             //setOlculer({ X: 2000, Y: 1000, Z: 600 });
-            const olcu = { X: 2000, Y: 2500, Z: 300 };
+            const olcu = { X: 2000, Y: 2000, Z: 300 };
             let yeni;
             if (olculer.X !== mobilya.X) {
               yeni = EnDegisimi(mobilya, olculer);

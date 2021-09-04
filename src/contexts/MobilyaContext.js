@@ -5,7 +5,7 @@ export const MobilyaContext = createContext();
 
 const MobilyaContextProvider = (props) => {
   const [mobilya, setmobilya] = useState(Data[0]);
-  console.log("mooobilya=", mobilya);
+  console.log("mooobilya=", mobilya, Data);
   return (
     <MobilyaContext.Provider value={{ mobilya, setmobilya }}>
       {props.children}

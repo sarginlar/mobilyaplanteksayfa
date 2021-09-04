@@ -22,11 +22,11 @@ const SolyanAyarlar = () => {
               <input
                 type="number"
                 className="girinti"
-                placeholder={mobilya.sol_yan.zg1}
+                placeholder={mobilya.sol_yan.girinti_on}
                 id="name"
                 name="name"
                 onChange={(e) => {
-                  yeniMobilya.sol_yan.zg1 = Number(e.target.value);
+                  yeniMobilya.sol_yan.girinti_on = Number(e.target.value);
                 }}
               />
             </li>
@@ -37,11 +37,11 @@ const SolyanAyarlar = () => {
               <input
                 type="number"
                 className="girinti"
-                placeholder={mobilya.sol_yan.zg0}
+                placeholder={mobilya.sol_yan.girinti_arka}
                 id="name"
                 name="name"
                 onChange={(e) => {
-                  yeniMobilya.sol_yan.zg0 = Number(e.target.value);
+                  yeniMobilya.sol_yan.girinti_arka = Number(e.target.value);
                 }}
               />
             </li>
@@ -52,11 +52,11 @@ const SolyanAyarlar = () => {
               <input
                 type="number"
                 className="girinti"
-                placeholder={mobilya.sol_yan.yg0}
+                placeholder={mobilya.sol_yan.girinti_ust}
                 id="name"
                 name="name"
                 onChange={(e) => {
-                  yeniMobilya.sol_yan.yg0 = Number(e.target.value);
+                  yeniMobilya.sol_yan.girinti_ust = Number(e.target.value);
                 }}
               />
             </li>
@@ -67,11 +67,11 @@ const SolyanAyarlar = () => {
               <input
                 type="number"
                 className="girinti"
-                placeholder={mobilya.sol_yan.yg1}
+                placeholder={mobilya.sol_yan.girinti_alt}
                 id="name"
                 name="name"
                 onChange={(e) => {
-                  yeniMobilya.sol_yan.yg1 = Number(e.target.value);
+                  yeniMobilya.sol_yan.girinti_alt = Number(e.target.value);
                 }}
               />
             </li>

@@ -4,24 +4,35 @@ import React from "react";
 //burdan Ekran3D ye data gönderiyoruz.
 const SolYanGirinti = (mobilya) => {
   console.log("SolYanGrinti ye uğradı");
-  switch (mobilya.tip) {
+  const donustur = JSON.stringify(mobilya);
+  const state = JSON.parse(donustur);
+
+  switch (state.tip) {
     case 1: //1 nolu kasa tipi merkez odaklamalı
-      mobilya.sol_yan.x0 =
-        mobilya.sol_yan.x0 + mobilya.sol_yan.xg0 / 2 - mobilya.sol_yan.xg1 / 2;
-      mobilya.sol_yan.y0 =
-        mobilya.Y0 - mobilya.sol_yan.yg0 / 2 + mobilya.sol_yan.yg1 / 2;
-      mobilya.sol_yan.z0 =
-        mobilya.Z0 + mobilya.sol_yan.zg0 / 2 - mobilya.sol_yan.zg1 / 2;
-      mobilya.sol_yan.x = mobilya.sol_yan.x;
-      mobilya.sol_yan.y = mobilya.Y - mobilya.sol_yan.yg0 - mobilya.sol_yan.yg1;
-      mobilya.sol_yan.z = mobilya.Z - mobilya.sol_yan.zg0 - mobilya.sol_yan.zg1;
+      state.sol_yan.x0 =
+        state.sol_yan.x0 +
+        state.sol_yan.girinti_sol / 2 +
+        state.sol_yan.girinti_sag / 2;
+      state.sol_yan.y0 =
+        state.sol_yan.y0 -
+        state.sol_yan.girinti_ust / 2 +
+        state.sol_yan.girinti_alt / 2;
+      state.sol_yan.z0 =
+        state.sol_yan.z0 -
+        state.sol_yan.girinti_on / 2 +
+        state.sol_yan.girinti_arka / 2;
+      state.sol_yan.x = state.sol_yan.x;
+      state.sol_yan.y =
+        state.sol_yan.y - state.sol_yan.girinti_ust - state.sol_yan.girinti_alt;
+      state.sol_yan.z =
+        state.sol_yan.z - state.sol_yan.girinti_on - state.sol_yan.girinti_arka;
       break;
     case 2:
       break;
     default:
       break;
   }
-  return mobilya.sol_yan;
+  return state.sol_yan;
 };
 
 export default SolYanGirinti;

@@ -79,12 +79,13 @@ const UstKalinlik = (mobilya, kalinlik) => {
   //------------------------------------------
   const fark = kalinlik - mobilya.ust.y;
   console.log("fark=", fark);
-  mobilya.ust.y = kalinlik;
-  mobilya.ust.y0 = mobilya.ust.y0 - fark / 2;
 
   //sol_yan ve sağ yan kasa modeline göre ayarlanmalı bunun için kasa modeli seçilmeli
   switch (mobilya.tip) {
     case 1: //standart kasa tipi
+      console.log("standart kasa");
+      mobilya.ust.y = kalinlik;
+      mobilya.ust.y0 = mobilya.ust.y0 - fark / 2;
       break;
     case 2: //ust sol ve sağ yanın üstüne biniyor.
       //sol_yan ayarlanması

@@ -20,7 +20,8 @@ const BolgeEnAyarla = () => {
   const [secilenBolge, setSecilenBolge] = useState(0);
   const [secilenDikeyBolme, setSecilenDikeyBolme] = useState(0);
   const [secilenYatayBolme, setSecilenYatayBolme] = useState(0);
-
+  const aranan_bolge = mobilya.bolge.find((item) => item.aktif === true);
+  console.log("aranan_bolge=", aranan_bolge);
   return (
     <div>
       <button

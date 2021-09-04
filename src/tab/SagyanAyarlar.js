@@ -21,11 +21,11 @@ const SagyanAyarlar = () => {
               <input
                 type="number"
                 className="girinti"
-                placeholder={mobilya.sag_yan.zg1}
+                placeholder={mobilya.sag_yan.girinti_arka}
                 id="name"
                 name="name"
                 onChange={(e) => {
-                  mobilya.sag_yan.zg1 = e.target.value;
+                  mobilya.sag_yan.girinti_arka = e.target.value;
                 }}
               />
             </li>
@@ -36,11 +36,11 @@ const SagyanAyarlar = () => {
               <input
                 type="number"
                 className="girinti"
-                placeholder={mobilya.sag_yan.zg0}
+                placeholder={mobilya.sag_yan.girinti_on}
                 id="name"
                 name="name"
                 onChange={(e) => {
-                  mobilya.sag_yan.zg0 = e.target.value;
+                  mobilya.sag_yan.girinti_on = e.target.value;
                 }}
               />
             </li>
@@ -51,11 +51,11 @@ const SagyanAyarlar = () => {
               <input
                 type="number"
                 className="girinti"
-                placeholder={mobilya.sag_yan.yg0}
+                placeholder={mobilya.sag_yan.girinti_ust}
                 id="name"
                 name="name"
                 onChange={(e) => {
-                  mobilya.sag_yan.yg0 = e.target.value;
+                  mobilya.sag_yan.girinti_ust = e.target.value;
                 }}
               />
             </li>
@@ -66,11 +66,11 @@ const SagyanAyarlar = () => {
               <input
                 type="number"
                 className="girinti"
-                placeholder={mobilya.sag_yan.yg1}
+                placeholder={mobilya.sag_yan.girinti_alt}
                 id="name"
                 name="name"
                 onChange={(e) => {
-                  mobilya.sag_yan.yg1 = e.target.value;
+                  mobilya.sag_yan.girinti_alt = e.target.value;
                 }}
               />
             </li>
@@ -96,11 +96,11 @@ const SagyanAyarlar = () => {
               <input
                 type="number"
                 className="girinti"
-                placeholder={mobilya.sag_yan.zg1}
+                placeholder={mobilya.sag_yan.girinti_arka}
                 id="name"
                 name="name"
                 onChange={(e) => {
-                  mobilya.sag_yan.zg1 = e.target.value;
+                  mobilya.sag_yan.girinti_arka = e.target.value;
                 }}
               />
             </li>
@@ -111,11 +111,11 @@ const SagyanAyarlar = () => {
               <input
                 type="number"
                 className="girinti"
-                placeholder={mobilya.sag_yan.zg0}
+                placeholder={mobilya.sag_yan.girinti_on}
                 id="name"
                 name="name"
                 onChange={(e) => {
-                  mobilya.sag_yan.zg0 = e.target.value;
+                  mobilya.sag_yan.girinti_on = e.target.value;
                 }}
               />
             </li>
@@ -126,11 +126,11 @@ const SagyanAyarlar = () => {
               <input
                 type="number"
                 className="girinti"
-                placeholder={mobilya.sag_yan.yg0}
+                placeholder={mobilya.sag_yan.girinti_ust}
                 id="name"
                 name="name"
                 onChange={(e) => {
-                  mobilya.sag_yan.yg0 = e.target.value;
+                  mobilya.sag_yan.girinti_ust = e.target.value;
                 }}
               />
             </li>
@@ -141,11 +141,11 @@ const SagyanAyarlar = () => {
               <input
                 type="number"
                 className="girinti"
-                placeholder={mobilya.sag_yan.yg1}
+                placeholder={mobilya.sag_yan.girinti_alt}
                 id="name"
                 name="name"
                 onChange={(e) => {
-                  mobilya.sag_yan.yg1 = e.target.value;
+                  mobilya.sag_yan.girinti_alt = e.target.value;
                 }}
               />
             </li>

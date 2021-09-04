@@ -1,6 +1,7 @@
 import UstKalinlik from "./UstKalinlik";
 import AltKalinlik from "./AltKalinlik";
 import YatayBolmeKalinlik from "./YatayBolmeKalinlik";
+import DikeyBolmeKalinlik from "./DikeyBolmeKalinlik";
 import BazaYukseklik from "./BazaYukseklik";
 import KapakProfil from "./KapakProfil";
 import KapakSil from "./KapakSil";
@@ -13,16 +14,18 @@ const BoyDegisimi = (mobilya, olculer) => {
 
   //baza var ise bazasız hali oluşturulacak
   if (mobilya.baza.dahil) {
+    console.log("iffff uğradı");
     mobilya.sol_yan.y = mobilya.sol_yan.y - mobilya.baza.y;
     mobilya.sol_yan.y0 = mobilya.sol_yan.y0 + mobilya.baza.y / 2;
     mobilya.sag_yan.y = mobilya.sag_yan.y - mobilya.baza.y;
     mobilya.sag_yan.y0 = mobilya.sag_yan.y0 + mobilya.baza.y / 2;
     mobilya.Y = mobilya.Y - mobilya.baza.y;
+    //mobilya.Y0 = mobilya.Y0 - mobilya.baza.y / 2;
     olculer.Y = olculer.Y - mobilya.baza.y;
   }
 
   //-----------------
-  //Bölgelerin yeni en e göre ayarlanması.
+  //Bölgelerin yeni boy'a e göre ayarlanması.
   const OranY = olculer.Y / mobilya.Y;
   console.log("OranY=", OranY);
   for (let index = 0; index < mobilya.bolge.length; index++) {
@@ -57,10 +60,14 @@ const BoyDegisimi = (mobilya, olculer) => {
     }
   }
   //-------------------------------------------------------
-  //en e göre parçaların ayarlanması---------------
+  //boy'a göre parçaların ayarlanması---------------
   const kalinlik = 18;
-  //sol_yan ın yeni en e göre ayarlanması
+  //sol_yan ın yeni boy e göre ayarlanması
   console.log("olculer.X=", olculer.X);
+
+  //mobilya.Y0 = mobilya.Y0 * OranY;
+
+  mobilya.Y = mobilya.Y * OranY;
   mobilya.sol_yan.y0 = mobilya.sol_yan.y0 * OranY;
   mobilya.sol_yan.y = mobilya.sol_yan.y * OranY;
   //sag_yan ın yeni en e göre ayarlanması
@@ -76,6 +83,7 @@ const BoyDegisimi = (mobilya, olculer) => {
 
   //baza tekrar eklenecek hali oluşturulacak
   if (mobilya.baza.dahil) {
+    //mobilya.Y0 = (mobilya.Y0 * OranY) / 2;
     mobilya.sol_yan.y = mobilya.sol_yan.y + mobilya.baza.y;
     mobilya.sol_yan.y0 = mobilya.sol_yan.y0 - mobilya.baza.y / 2;
     mobilya.sag_yan.y = mobilya.sag_yan.y + mobilya.baza.y;
@@ -100,13 +108,16 @@ const BoyDegisimi = (mobilya, olculer) => {
 
   //orantılı olarak küçültüldükten sonra malzeme kalınlıklarının ayarlanması
 
-  mobilya = AltKalinlik(mobilya, kalinlik);
-  mobilya = UstKalinlik(mobilya, kalinlik);
+  mobilya = AltKalinlik(mobilya, mobilya.alt.y / OranY);
+  console.log("*-*mobilya.ust.y=", mobilya.ust.y);
+  mobilya = UstKalinlik(mobilya, mobilya.ust.y / OranY);
+  //mobilya = SolYanKalinik(mobilya, kalinlik);
   //mobilya = BazaYukseklik(mobilya, 100);
   for (let index = 0; index < mobilya.dikey_bolme.length; index++) {
-    //mobilya = DikeyBolmeKalinlik(mobilya, index, kalinlik);
+    mobilya = DikeyBolmeKalinlik(mobilya, index, kalinlik);
   }
   // yatay bolme
+
   for (let index = 0; index < mobilya.yatay_bolme.length; index++) {
     mobilya = YatayBolmeKalinlik(mobilya, index, kalinlik);
   }
@@ -114,9 +125,9 @@ const BoyDegisimi = (mobilya, olculer) => {
   //-------------------------
 
   //console.log("mobilya.bolge=", mobilya.bolge);
-  mobilya.Y0 = -1000;
+  //mobilya.Y0 = -1000;
   mobilya.Y = olculer.Y + mobilya.baza.y;
-  console.log("--mobilya=", mobilya);
+  //console.log("--mobilya=", mobilya);
 
   return mobilya;
 };

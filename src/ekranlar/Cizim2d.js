@@ -1,43 +1,14 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import React, { useRef, useEffect, useContext, useState } from "react";
 import { MobilyaContext } from "../contexts/MobilyaContext";
 import Path, { Rect } from "react-svg-path";
-import Bolgeler from "../components/Bolgeler";
-import DikeyBolmeEkle from "../components/DikeyBolmeEkle";
-import YatayBolmeEkle from "../components/YatayBolmeEkle";
-import RafEkle from "../components/RafEkle";
-
-import Kapak from "../components/Kapak";
-import KapakSil from "../components/KapakSil";
-import DikeyBolmeSil from "../components/DikeyBolmeSil";
-import YatayBolmeSil from "../components/YatayBolmeSil";
-import KayitSil from "../components/KayitSil";
-import KapakProfil from "../components/KapakProfil";
-import CekmeceKapak from "../components/CekmeceKapak";
-import CekmeceKasa from "../components/CekmeceKasa";
-import KayitEkleDikey from "../components/KayitEkleDikey";
-import KayitEkleYatay from "../components/KayitEkleYatay";
-import BolgeEnAyarla from "../components/BolgeEnAyarla";
-import Cizim2d from "./Cizim2d";
-//-------------------
 import {
   UncontrolledReactSVGPanZoom,
   ControlledReactSVGPanZoom,
 } from "react-svg-pan-zoom";
 
-let bolge_x = -1;
-let bolge_y = -1;
-
-//@Ekran2d------------------------------------------------
-const Ekran2d = () => {
+const Cizim2d = () => {
   const { mobilya, setmobilya } = useContext(MobilyaContext);
-
-  let m = mobilya;
-  const initialState_olculer = {
-    X: mobilya.X,
-    Y: mobilya.Y,
-    Z: mobilya.Z,
-  };
-  const [olculer, setOlculer] = useState(initialState_olculer);
+  const Viewer = useRef(null);
 
   const [secilenBolge, setSecilenBolge] = useState(0);
   const [secilenYatayBolme, setSecilenYatayBolme] = useState(0);
@@ -47,7 +18,6 @@ const Ekran2d = () => {
   const [secilenKayit, setSecilenKayit] = useState(0);
   const [secilenKayitModel, setSecilenKayitModel] = useState(0);
   const [secilenKapakModel, setSecilenKapakModel] = useState(0);
-
   const [secilen, setSecilen] = useState({
     bolge: false,
     kapak: false,
@@ -56,156 +26,6 @@ const Ekran2d = () => {
 
   const [secilenCekmeceKapak, setSecilenCekmeceKapak] = useState(0);
   const [secilenCekmeceKasa, setSecilenCekmeceKasa] = useState(0);
-
-  //TekParcalar();
-  //SolYan();
-  //SagYan();
-  //Ust();
-  //Alt();
-  //Baza();
-  //Bolges()
-
-  //secilen bölge------
-  const aktifBolge = (index) => {
-    mobilya.bolge.map((item) => (item.aktif = false));
-    mobilya.bolge[index].aktif = true;
-  };
-
-  //@kapak----------------------------------------------
-  const kapak = () => {
-    const sonuc = Kapak(mobilya, secilenBolge, secilen);
-    setmobilya({ ...mobilya, ...sonuc });
-    setSecilen({
-      bolge: false,
-      kapak: false,
-      kapak_profil: false,
-    });
-    return <div>{/*<button>kapak</button>*/}</div>;
-  };
-
-  //@kapak_sil----------------------------------------------
-  const kapak_sil = () => {
-    const sonuc = KapakSil(mobilya, secilenKapak, secilenKapakModel);
-    setmobilya({ ...mobilya, ...sonuc });
-    setSecilen({
-      bolge: false,
-      kapak: false,
-      kapak_profil: false,
-    });
-    return <div>{/*<button>kapak</button>*/}</div>;
-  };
-
-  //-----------------------------------------------------
-  //@dikey_bolme_sil----------------------------------------------
-  const dikey_bolme_sil = () => {
-    const sonuc = DikeyBolmeSil(mobilya, secilenDikeyBolme, secilen);
-    setmobilya({ ...mobilya, ...sonuc });
-    setSecilenBolge(0);
-    setSecilen({
-      bolge: false,
-      kapak: false,
-      kapak_profil: false,
-    });
-
-    return <div>{/*<button>kapak</button>*/}</div>;
-  };
-
-  //@yatay_bolme_sil----------------------------------------------
-  const yatay_bolme_sil = () => {
-    const sonuc = YatayBolmeSil(mobilya, secilenYatayBolme, secilen);
-    setmobilya({ ...mobilya, ...sonuc });
-    setSecilenBolge(0);
-    setSecilen({
-      bolge: false,
-      kapak: false,
-      kapak_profil: false,
-    });
-
-    return <div>{/*<button>kapak</button>*/}</div>;
-  };
-
-  //-----------------------------------------------------
-  //@kayit_sil----------------------------------------------
-  const kayit_sil = () => {
-    const sonuc = KayitSil(mobilya, secilenKayit, secilenKayitModel);
-    setmobilya({ ...mobilya, ...sonuc });
-    setSecilenBolge(0);
-    setSecilen({
-      bolge: false,
-      kapak: false,
-      kapak_profil: false,
-    });
-
-    return <div>{/*<button>kapak</button>*/}</div>;
-  };
-
-  //-----------------------------------------------------
-
-  //@profilkapak----------------------------------------------
-  const profilKapak = () => {
-    const sonuc = KapakProfil(mobilya, secilenBolge, secilen);
-    setmobilya({ ...mobilya, ...sonuc });
-    setSecilen({
-      bolge: false,
-      kapak: false,
-      kapak_profil: false,
-    });
-    return <div>{/*<button>kapak_profil</button>*/}</div>;
-  };
-
-  //-----------------------------------------------------
-
-  //@cekmece_kapak----------------------------------------------
-  const cekmece_kapak = () => {
-    const sonuc = CekmeceKapak(mobilya, secilenBolge);
-    setmobilya({ ...mobilya, ...sonuc });
-    return (
-      <div>
-        <button>CekmeceKapak</button>
-      </div>
-    );
-  };
-
-  //-----------------------------------------------------
-
-  //@cekmece_kasa----------------------------------------------
-  const cekmece_kasa = () => {
-    const sonuc = CekmeceKasa(mobilya, secilenBolge);
-    setmobilya({ ...mobilya, ...sonuc });
-    return (
-      <div>
-        <button>CekmeceKasa</button>
-      </div>
-    );
-  };
-
-  //-----------------------------------------------------
-
-  //@kayit_ekle_dikey----------------------------------------------
-  const kayit_ekle_dikey = () => {
-    const sonuc = KayitEkleDikey(mobilya, secilenBolge);
-    setmobilya({ ...mobilya, ...sonuc });
-    return (
-      <div>
-        <button>KayıtEkleDikey</button>
-      </div>
-    );
-  };
-  //-----------------------------------------------------
-
-  //@kayit_ekle_yatay----------------------------------------------
-  const kayit_ekle_yatay = () => {
-    const sonuc = KayitEkleYatay(mobilya, secilenBolge);
-    setmobilya({ ...mobilya, ...sonuc });
-    return (
-      <div>
-        <button>KayıtEkleYatay</button>
-      </div>
-    );
-  };
-  //-----------------------------------------------------
-
-  const Viewer = useRef(null);
 
   useEffect(() => {
     Viewer.current.fitToViewer();
@@ -217,12 +37,13 @@ const Ekran2d = () => {
   const _fitToViewer = () => Viewer.current.fitToViewer();
   //burada ilk bolge otomatik olarak oluşturuluyor.
 
-  if (mobilya.bolge.length === 0) {
-    mobilya.bolge = Bolgeler(mobilya, olculer);
-  }
-  //-----------------------------------------------
+  //secilen bölge------
+  const aktifBolge = (index) => {
+    mobilya.bolge.map((item) => (item.aktif = false));
+    mobilya.bolge[index].aktif = true;
+  };
   return (
-    <>
+    <div>
       <h1>UncontrolledReactSVGPanZoom</h1>
       <hr />
 
@@ -236,122 +57,6 @@ const Ekran2d = () => {
         Fit
       </button>
       <hr />
-      <h4>Ekran2d</h4>
-      {/** //@dikey_bolme_ekle **************************/}
-      <button
-        onClick={() => {
-          m = DikeyBolmeEkle(mobilya, secilenBolge, secilen);
-          console.log("seçilenBölge=", secilenBolge);
-          console.log("seçilen=", secilen);
-          setmobilya({ ...mobilya, ...m });
-        }}
-      >
-        dikey_bolme ekle
-      </button>
-
-      {/** //@yatay_bolme_ekle ***************************/}
-      <button
-        onClick={() => {
-          m = YatayBolmeEkle(mobilya, secilenBolge, secilen);
-          console.log("seçilenBölge=", secilenBolge);
-          console.log("seçilen=", secilen);
-          setmobilya({ ...mobilya, ...m });
-        }}
-      >
-        yatay_bolme ekle
-      </button>
-
-      {/** //@raf_ekle ***************************/}
-      <button
-        onClick={() => {
-          m = RafEkle(mobilya, secilenBolge, secilen);
-          console.log("seçilenBölge=", secilenBolge);
-          console.log("seçilen=", secilen);
-          setmobilya({ ...mobilya, ...m });
-        }}
-      >
-        raf ekle
-      </button>
-
-      {secilen.bolge && (
-        <input
-          type="number"
-          className="girinti"
-          placeholder={mobilya.bolge[secilenBolge].x}
-          id="name"
-          name="name"
-          onChange={(e) => {
-            bolge_x = Number(e.target.value);
-          }}
-        />
-      )}
-
-      {secilen.bolge && (
-        <input
-          type="number"
-          className="girinti"
-          placeholder={mobilya.bolge[secilenBolge].y}
-          id="name"
-          name="name"
-          onChange={(e) => {
-            bolge_y = Number(e.target.value);
-          }}
-        />
-      )}
-      <button onClick={kapak}>kapak ekle</button>
-      <button onClick={profilKapak}>profil kapak ekle</button>
-      <button onClick={kapak_sil}>kapak sil</button>
-
-      <button onClick={cekmece_kapak}>cekmece_kapak_ekle</button>
-      <button onClick={cekmece_kasa}>cekmece_kasa_ekle</button>
-      <button onClick={kayit_ekle_dikey}>kayit_ekle_dikey</button>
-      <button onClick={kayit_ekle_yatay}>kayit_ekle_yatay</button>
-      <button onClick={kayit_sil}>kayit sil</button>
-      <button onClick={dikey_bolme_sil}>dikey_bolme sil</button>
-      <button onClick={yatay_bolme_sil}>yatay_bolme_sil</button>
-      <div>
-        <h1>----------------------</h1>
-        <BolgeEnAyarla />
-      </div>
-
-      <button>yukseklik</button>
-      <div></div>
-      <div> KayıtEkle</div>
-      {/*kayit_ekle 2d çizimi---------*/}
-      {mobilya.kayit_ekle_dikey.length > 0 && (
-        <svg
-          width={300}
-          height={300}
-          viewBox={`${-10} ${-10} ${mobilya.bolge[secilenBolge].x + 100} ${
-            mobilya.bolge[secilenBolge].y + 100
-          } `}
-        >
-          <rect
-            x={0}
-            y={0}
-            height={mobilya.bolge[secilenBolge].y}
-            width={mobilya.Z}
-            fill="none"
-            stroke="black"
-            strokeWidth="2"
-          />
-          {mobilya.kayit_ekle_dikey
-            .filter((o) => o.bolge === secilenBolge)
-            .map((o, index) => {
-              return (
-                <rect
-                  x={mobilya.kayit_ekle_dikey[index].xg1}
-                  y={mobilya.kayit_ekle_dikey[index].yg1}
-                  height={mobilya.kayit_ekle_dikey[index].y}
-                  width={18}
-                  fill="lightblue"
-                  stroke="black"
-                  strokeWidth="1"
-                />
-              );
-            })}
-        </svg>
-      )}
       {/** -----------------------------------*/}
       <UncontrolledReactSVGPanZoom
         ref={Viewer}
@@ -816,8 +521,8 @@ const Ekran2d = () => {
           })}
         </svg>
       </UncontrolledReactSVGPanZoom>
-    </>
+    </div>
   );
 };
 
-export default Ekran2d;
+export default Cizim2d;
