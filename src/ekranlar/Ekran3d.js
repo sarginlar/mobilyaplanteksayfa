@@ -25,6 +25,7 @@ import SagPervazCizim from "../parts/SagPervazCizim";
 import KayitEkleDikeyCizim from "../parts/KayitEkleDikeyCizim";
 import KayitEkleYatayCizim from "../parts/KayitEkleYatayCizim";
 import { Button } from "semantic-ui-react";
+import SolYanPopupMenu from "../popupmenu/SolYanPopupMenu";
 
 //import { a, config } from "@react-spring/three";
 
@@ -44,7 +45,11 @@ const Ekran3d = () => {
   //Alt();
   //mobilya_sol_yan çizim
   const GROUP = "Extra";
-  console.log("menu.SolYanMenu=", menu.SolYanMenu);
+
+  // const yenimenu = menu;
+  // yenimenu.SolYanMenu = true;
+  // setmenu(yenimenu);
+  // console.log("menu.SolYanMenu=", menu.SolYanMenu);
 
   function CekmeceKasa1() {
     const a = mobilya.cekmece_kasa;
@@ -417,6 +422,7 @@ const Ekran3d = () => {
                 mobilya={mobilya}
                 setmobilya={setmobilya}
                 menu={menu}
+                setmenu={setmenu}
               />
             )}
             {mobilya.sag_yan.dahil && (

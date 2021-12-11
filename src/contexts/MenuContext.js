@@ -13,6 +13,7 @@ const initialState_menu = {
   Materials: false,
   Hardwares: false,
   ScreenProducts: false,
+  SolYanMenu: false,
 };
 
 const MenuContextProvider = (props) => {

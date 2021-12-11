@@ -4,7 +4,7 @@ import { Button } from "semantic-ui-react";
 const SolYanPopupMenu = () => {
   return (
     <div>
-      <Button>Kapak</Button>
+      <h1>popup</h1>
     </div>
   );
 };

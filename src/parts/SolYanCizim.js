@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import SolYanGirinti from "../components/SolYanGirinti";
 import { Controls, useControl, withControls } from "react-three-gui";
 import { OrbitControls, useTexture } from "@react-three/drei";
+import SolYanPopupMenu from "../popupmenu/SolYanPopupMenu";
+import { SegmentGroup } from "semantic-ui-react";
 
 const u = 1000;
-const SolYanCizim = ({ mobilya, setmobilya, menu }) => {
+const SolYanCizim = ({ mobilya, setmobilya, menu, setmenu }) => {
   const [colorMap, displacementMap, normalMap, roughnessMap, aoMap] =
     useTexture([
       "WoodQuarteredChiffon001_COL_3K_1.jpg",
@@ -17,13 +19,13 @@ const SolYanCizim = ({ mobilya, setmobilya, menu }) => {
   const a = SolYanGirinti(mobilya);
   console.log("SolYanGirinti=", a);
   console.log("a=", a);
-  /*
-  if (active) {
-    menu.SolYanMenu = true;
-  } else {
-    menu.SolYanMenu = false;
-  }
-*/
+
+  // if (active) {
+  //   menu.SolYanMenu = true;
+  // } else {
+  //   menu.SolYanMenu = false;
+  // }
+
   return (
     <>
       <mesh
