@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.8.1",
+    "@emotion/styled": "^11.8.1",
+    "@mui/icons-material": "^5.4.4",
+    "@mui/material": "^5.4.4",
     "@react-spring/three": "^9.2.4",
     "@react-three/drei": "^3.9.0",
     "@testing-library/jest-dom": "^5.11.4",

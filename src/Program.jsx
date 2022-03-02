@@ -3,12 +3,6 @@ import { Form, Segment, Button, Grid, Message, Tab } from "semantic-ui-react";
 
 import { useForm } from "react-hook-form";
 
-//import SolYan from "./components/SolYan";
-//import SagYan from "./components/SagYan";
-//import Ust from "./components/Ust";
-//import Baza from "./components/Baza";
-//import Alt from "./components/Alt";
-
 import KayitSil from "./components/KayitSil";
 
 import EnDegisimi from "./components/EnDegisimi";
